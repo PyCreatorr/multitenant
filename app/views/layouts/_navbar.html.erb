@@ -38,6 +38,9 @@
                 <%= link_to 'Dashboard', dashboard_path, class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
               </div>
               <div class ="<%= 'rounded-md bg-gray-900' if request.path == "/scans" %>">
+                <%= link_to 'Workspaces', tenants_path, class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
+              </div>
+              <div class ="<%= 'rounded-md bg-gray-900' if request.path == "/scans" %>">
                 <%= link_to 'Scans', 'scans_path', class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
               </div>
               <div class ="<%= 'rounded-md bg-gray-900' if request.path == 'blog_posts_path' %>">
@@ -82,6 +85,7 @@
             <li class="flex items-center space-x-3 text-sm font-medium">
               <%= link_to current_user.email, edit_user_registration_path, class: "fa-regular fa-solid fa-circle-user" %>
             </li>
+            
           </ul>
           <%# if current_user.stripe_customer_id.present? %>
               <div class="flex flex-shrink-0 items-center px-3 py-2">
