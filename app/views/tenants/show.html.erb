@@ -11,5 +11,11 @@
       <%= button_to "Destroy this tenant", tenant_path(@tenant), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
     <%= link_to "Back to tenants", tenants_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  
   </div>
+
+  <%= link_to "Members", tenant_members_path(@tenant) %>
+
+
+
 </div>
