@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :tenants do
     resources :members
+      collection do 
+        post :invite # Invite a member to the current tenant
+      end
   end
   devise_for :users
   root 'static_pages#landing_page'
