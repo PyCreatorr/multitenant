@@ -1,13 +1,16 @@
 class TenantsController < ApplicationController
   before_action :set_tenant, only: %i[ show edit update destroy ]
+  before_action :authorize_member, only: [:show, :edit, :update, :destroy]
 
   # GET /tenants or /tenants.json
   def index
-    @tenants = Tenant.all
+    # @tenants = Tenant.all
+    @tenants = current_user.tenants
   end
 
   # GET /tenants/1 or /tenants/1.json
   def show
+    #require_member
   end
 
   # GET /tenants/new
@@ -22,9 +25,11 @@ class TenantsController < ApplicationController
   # POST /tenants or /tenants.json
   def create
     @tenant = Tenant.new(tenant_params)
-
+    
     respond_to do |format|
       if @tenant.save
+        @tenant.members.create(user_id: current_user.id, roles: {admin: true})
+
         format.html { redirect_to tenant_url(@tenant), notice: "Tenant was successfully created." }
         format.json { render :show, status: :created, location: @tenant }
       else
@@ -66,5 +71,12 @@ class TenantsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def tenant_params
       params.require(:tenant).permit(:name)
+    end
+
+    def authorize_member
+      unless @tenant.users.include?(current_user)
+        flash[:danger] = "You are not a member"
+        return redirect_to root_path
+      end
     end
 end
