@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  tennant: one
+  roles: MyString
+  jsonb: MyString
+
+two:
+  user: two
+  tennant: two
+  roles: MyString
+  jsonb: MyString
