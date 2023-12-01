@@ -15,9 +15,21 @@ Rails.application.configure do
   # Mailer settings (SENDGRID)
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { :host => 'multitenant.herokuapp.com', :protocol => 'https' }
-  config.action_mailer.default_options = {:from => "support@devekma.fun"}
+  # config.action_mailer.default_options = {:from => "support@devekma.fun"}
+  config.action_mailer.default_options = {:from => ENV["SMTP_GMAIL_NAME"]}
 
   # ADD SMTP FROM GMAIL
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'multitenant.herokuapp.com', 
+    user_name: ENV["SMTP_GMAIL_NAME"], 
+    password: ENV["SMTP_GMAIL_PASSWORD"], 
+    authentication: 'plain',
+    enable_starttls_auto: true,
+    open_timeout: 5,
+    read_timeout: 5
+   }
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
