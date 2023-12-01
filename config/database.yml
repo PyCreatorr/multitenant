@@ -89,6 +89,8 @@ test:
 #
 production:
   <<: *default
-  database: multitenant_production
-  username: multitenant
-  password: <%= ENV["MULTITENANT_DATABASE_PASSWORD"] %>
+  database: <%= ENV["MULTITENANT_DATABASE"] %>
+  username: <%= ENV["MULTITENANT_USERNAME"] %>
+  password: <%= ENV["MULTITENANT_PASSWORD"] %>
+  host: <%= ENV["MULTITENANT_HOST"] %>
+  port: <%= ENV["MULTITENANT_PORT"] %>
