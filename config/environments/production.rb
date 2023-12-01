@@ -14,7 +14,7 @@ Rails.application.configure do
 
   # Mailer settings (SENDGRID)
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'https://multitenant-359589024f01.herokuapp.com', :protocol => 'https' }
+  config.action_mailer.default_url_options = { :host => 'multitenant-359589024f01.herokuapp.com', :protocol => 'https' }
   # config.action_mailer.default_options = {:from => "support@devekma.fun"}
   config.action_mailer.default_options = {:from => ENV["SMTP_GMAIL_NAME"]}
 
@@ -22,7 +22,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
-    domain: 'https://multitenant-359589024f01.herokuapp.com', 
+    domain: 'multitenant-359589024f01.herokuapp.com', 
     user_name: ENV["SMTP_GMAIL_NAME"], 
     password: ENV["SMTP_GMAIL_PASSWORD"], 
     authentication: 'plain',
