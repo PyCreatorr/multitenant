@@ -1,0 +1,7 @@
+<h1>Congratulations!<br>
+The member <%= @current_user.email %> has added the new member <%= @user.email %> to the workspace "<%= @tenant.name %>"!</h1>
+
+<%= @user.email %> has accepted the invitation link and would be added to the workspace <%= @tenant.name %>.
+He has the role "<%= @role %>"!<br>
+
+<%= image_tag attachments['referral_app_icon.jpg'].url, alt: 'Logo', width: 60 %><br>
