@@ -13,6 +13,12 @@ class MembersController < AuthorizedController
             flash[:danger] = "No email is provided!"
             return redirect_to tenant_members_path(@current_tenant)
         end
+        # IF USER IS ALREADY EXIST & HAVE NO MEMBERSHIP 
+        user_mail = User.find_by(email: email)
+        if user_mail.present? && !(User.find_by(email: email).tenants.include?(@current_tenant))
+            UserMailer.with(user: user_mail, invited_user: current_user, tenant: @current_tenant, role: "editor").invitation_accepted.deliver_later 
+        end
+
         user = User.find_by(email: email) || User.invite!({email: email}, current_user,  tenant: @current_tenant)
 
         unless user.valid?  
