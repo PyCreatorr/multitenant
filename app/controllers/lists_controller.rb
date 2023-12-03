@@ -3,7 +3,37 @@ class ListsController < ApplicationController
 
   # GET /lists or /lists.json
   def index
-    @lists = List.all
+    # @lists = List.all
+    @lists = List.rank(:row_order)
+  end
+
+  def sort
+    @list = List.find(params[:id])
+    # @list.update(row_order_position: params[:row_order_position])
+    
+    # respond_to do |format|
+    #   format.html {
+    #   headers["www-Authenticate"] = root_url
+    #   # head :unauthorized
+    #   head :no_content
+    # }
+    
+    #   format.turbo_stream{ }
+    # end
+
+    respond_to do |format|
+      if @list.update(row_order: params[:row_order_position])
+
+        format.html {
+          headers["www-Authenticate"] = root_url
+          # head :unauthorized
+          head :no_content
+        }
+        format.turbo_stream{ head :no_content }
+        # debugger
+
+      end
+    end
   end
 
   # GET /lists/1 or /lists/1.json

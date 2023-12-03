@@ -177,9 +177,13 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.1.0)
+    ranked-model (0.4.9)
+      activerecord (>= 5.2)
     regexp_parser (2.8.2)
     reline (0.4.0)
       io-console (~> 0.5)
+    requestjs-rails (0.0.11)
+      railties (>= 6.1.0)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -240,6 +244,8 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8)
+  ranked-model
+  requestjs-rails
   selenium-webdriver
   sprockets-rails
   stimulus-rails

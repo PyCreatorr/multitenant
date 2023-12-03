@@ -79,3 +79,7 @@ gem "devise", "~> 4.9"
 gem 'devise_invitable', '~> 2.0.0'
 
 gem 'devise-tailwinded'
+
+gem 'ranked-model'
+
+gem 'requestjs-rails'
