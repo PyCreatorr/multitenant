@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :tasks
+  resources :lists
+
+
   resources :tenants do
     resources :members do
       collection do 
@@ -6,6 +10,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  
   # devise_for :users
   devise_for :users, :controllers => { :invitations => 'invitations' }
 
