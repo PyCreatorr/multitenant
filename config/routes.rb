@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :tasks
+  resources :tasks do
+    member do # sort_task PUT /tasks/:id/sort(.:format) tasks#sort
+      put :sort
+    end
+  end
+
+
   resources :lists do
     member do # sort_list PUT /lists/:id/sort(.:format) lists#sort
       put :sort

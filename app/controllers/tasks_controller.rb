@@ -6,6 +6,23 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def sort
+    @task = Task.find(params[:id])
+    # debugger
+    respond_to do |format|
+      if @task.update(row_order: params[:row_order_position], list_id: params[:list_id])
+
+        format.html {
+          # headers["www-Authenticate"] = root_url
+          # head :unauthorized
+          head :no_content
+        }
+        format.turbo_stream{ head :no_content }       
+
+      end
+    end
+  end
+
   # GET /tasks/1 or /tasks/1.json
   def show
   end
