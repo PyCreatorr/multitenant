@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
+  include ActionView::RecordIdentifier # include dom_id method identifier
+
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all
@@ -10,14 +12,21 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     # debugger
     respond_to do |format|
-      if @task.update(row_order: params[:row_order_position], list_id: params[:list_id])
+      if @task.update(row_order_position: params[:row_order_position], list_id: params[:list_id])
 
         format.html {
           # headers["www-Authenticate"] = root_url
           # head :unauthorized
           head :no_content
         }
-        format.turbo_stream{ head :no_content }       
+        format.turbo_stream{ head :no_content }    
+        
+        @update_task = dom_id(@task, :sortable)
+        # debugger
+        #format.turbo_stream { render turbo_stream: turbo_stream.update(dom_id(@list, :sortable))}
+        format.turbo_stream { render "update_task", 
+          locals: { task: @task, update_task: @update_task  }
+        }
 
       end
     end

@@ -6,19 +6,17 @@
   </p>
 
 
-    <ul class="list-decimal px-4" data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id="<%= list.id %>">
+    <div data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id="<%= list.id %>" class="list-decimal px-4">
       <% list.tasks.rank(:row_order).each do |task| %>
-        <li data-sortable-update-url="<%= sort_task_path(task) %>">
+        <div data-sortable-update-url="<%= sort_task_path(task) %>" id="sortable_task_<%= task %>" >
             <%= render task %>
-        </li>
+        </div>
       <% end %>
-    </ul>
+    </div>
 
-
-
-  <%# if action_name != "show" %>
+  <% if action_name != "show" %>
     <%#= link_to "Show this list", list, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%#= link_to "Edit this list", edit_list_path(list), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this list", edit_list_path(list), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <!-- <hr class="mt-6"> -->
-  <%# end %>
+  <% end %>
 </div>

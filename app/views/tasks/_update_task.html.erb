@@ -1,0 +1,7 @@
+      <%# <% @lists.each do |list| %>
+        <!-- <li data-sortable-id="<%= list.id %>"> -->
+        <div data-sortable-update-url="<%= sort_task_path(task) %>" id="sortable_task_<%= task.id%>" style="min-width:300px">
+          <%= render task %>
+          
+        </div>
+      <%# <% end %> 

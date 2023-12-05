@@ -3,22 +3,22 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <!-- <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Lists</h1>
     <%= link_to "New list", new_list_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div> -->
+  </div> 
 
   <!-- /lists/${event.item.dataset.sortableId}/sort?id=${event.item.dataset.sortableId}&row_oder_position=${event.newIndex} -->
 
-  <div id="lists" class="min-w-full">
-    <ul class="list-disc" data-controller="sortable">
+  <div id="lists" class="min-w-full flex">
+    <div class="list-disc" data-controller="sortable" style="display: flex">
       <% @lists.each do |list| %>
         <!-- <li data-sortable-id="<%= list.id %>"> -->
-        <li data-sortable-update-url="<%= sort_list_path(list.id) %>">
+        <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" style="min-width:300px">
           <%= render list %>
-        </li>
+        </div>
       <% end %>
-    </ul>
+    </div>
 
 
     <%#= render @lists %>

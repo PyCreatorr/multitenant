@@ -16,6 +16,7 @@ export default class extends Controller {
       onEnd: this.onEnd.bind(this),
       //group: 'shared',
       group: this.groupValue,
+      animation: 200
     });
     
   }
@@ -37,10 +38,10 @@ export default class extends Controller {
     console.log("row_oder_position =", event.newDraggableIndex);
 
 
-    put( `${sortableUpdateUrl}?row_oder_position=${event.newDraggableIndex}`,{
+    put( `${sortableUpdateUrl}?row_order_position=${event.newDraggableIndex}`,{
       body: JSON.stringify({
         list_id: sortableListId,
-        row_oder_position: event.newDraggableIndex      
+        row_order_position: event.newDraggableIndex      
       }),
       responseKind: "turbo-stream",
       contentType: "application/json"

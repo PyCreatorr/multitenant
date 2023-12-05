@@ -1,0 +1,7 @@
+<!-- we can target with the div id="posts" on the index page --> 
+<%= turbo_stream.update update_list do %>
+    <%= render partial: "update_list", locals: { list: @list } %>
+<% end %>
+<!-- we replace the new.html.erb  --> 
+<%#= turbo_stream.replace "new_post", partial: "form", locals: { post: Post.new} %>
+

@@ -1,24 +1,38 @@
 class ListsController < ApplicationController
   before_action :set_list, only: %i[ show edit update destroy ]
 
+  include ActionView::RecordIdentifier # include dom_id method identifier
+
   # GET /lists or /lists.json
   def index
     # @lists = List.all
-    @lists = List.rank(:row_order)
+    @lists = List.rank(:row_order).all
+    # @lists = List.all
+    # @lists = List.sorted
   end
 
   def sort
     @list = List.find(params[:id])
     respond_to do |format|
-      if @list.update(row_order: params[:row_order_position])
+      if @list.update(row_order_position: params[:row_order_position])
+        # debugger
 
         format.html {
           headers["www-Authenticate"] = root_url
           # head :unauthorized
           head :no_content
         }
-        format.turbo_stream{ head :no_content }
+        # format.turbo_stream{ head :no_content }
+        # format.turbo_stream { render "users/new_friend", 
+        #   locals: { friend: "", allowed: false,  flash_notice: "The friend #{params[:full_name]} #{params[:email]} is already trackt!" }
+        # }
+        @update_list = dom_id(@list, :sortable)
         # debugger
+        #format.turbo_stream { render turbo_stream: turbo_stream.update(dom_id(@list, :sortable))}
+        format.turbo_stream { render "update_list", 
+          locals: { list: @list, update_list: @update_list  }
+        }
+        # format.turbo_stream { render turbo_stream: turbo_stream.remove(dom_id(@scan, :uploaded_image))}
 
       end
     end
