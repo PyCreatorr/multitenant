@@ -6,7 +6,7 @@ class ListsController < ApplicationController
   # GET /lists or /lists.json
   def index
     # @lists = List.all
-    @lists = List.rank(:row_order).all
+    @lists = List.where(board_id: params[:board_id]).rank(:row_order)
     # @lists = List.all
     # @lists = List.sorted
   end
@@ -53,11 +53,12 @@ class ListsController < ApplicationController
 
   # POST /lists or /lists.json
   def create
-    @list = List.new(list_params)
+    # debugger
+    @list = List.new(name: params[:name], board_id: params[:board_id])
 
     respond_to do |format|
       if @list.save
-        format.html { redirect_to list_url(@list), notice: "List was successfully created." }
+        format.html { redirect_to "/boards/#{@list.board_id}", notice: "List was successfully created." }
         format.json { render :show, status: :created, location: @list }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -93,6 +94,9 @@ class ListsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_list
       @list = List.find(params[:id])
+      rescue ActiveRecord::RecordNotFound        
+        redirect_to tenants_path
+        flash[:danger] = "This List with id = #{params[:id]} doesnt exsists!"
     end
 
     # Only allow a list of trusted parameters through.

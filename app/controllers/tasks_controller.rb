@@ -19,7 +19,7 @@ class TasksController < ApplicationController
           # head :unauthorized
           head :no_content
         }
-        format.turbo_stream{ head :no_content }    
+        # format.turbo_stream{ head :no_content }    
         
         @update_task = dom_id(@task, :sortable)
         # debugger
@@ -47,11 +47,12 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(name: params[:name], list_id: params[:list_id])
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to task_url(@task), notice: "Task was successfully created." }
+        board = List.find(params[:list_id]).board_id
+        format.html { redirect_to "/boards/#{board}", notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }

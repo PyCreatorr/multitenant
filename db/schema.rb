@@ -10,15 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_03_094907) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_06_174042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "boards", force: :cascade do |t|
+    t.string "name"
+    t.bigint "member_id", null: false
+    t.bigint "tenant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_boards_on_member_id"
+    t.index ["tenant_id"], name: "index_boards_on_tenant_id"
+  end
 
   create_table "lists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "row_order"
+    t.bigint "board_id", null: false
+    t.index ["board_id"], name: "index_lists_on_board_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -73,6 +85,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_03_094907) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "boards", "members"
+  add_foreign_key "boards", "tenants"
+  add_foreign_key "lists", "boards"
   add_foreign_key "members", "tenants"
   add_foreign_key "members", "users"
   add_foreign_key "tasks", "lists"

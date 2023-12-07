@@ -12,9 +12,25 @@
     </div>
     <%= link_to "Back to tenants", tenants_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   
+    <div>
+      <%#= @tenant %>
+      <br>
+      <h1>BOARDS:</h1>
+      <% @tenant.boards.each do |board| %>
+        <%#= board.name%><br>
+        
+        <%= render partial: "boards/board", locals: { board: board} %>
+      <% end %>    
+    </div>
+  
+  
   </div>
 
+  
+<div class="inline-block ml-2">
   <%= link_to "Members", tenant_members_path(@tenant) %>
+  <%#= link_to "Boards", tenant_boards_path(@tenant) %>
+  </div>
 
 
 

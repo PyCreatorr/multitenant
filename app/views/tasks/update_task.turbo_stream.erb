@@ -1,6 +1,9 @@
 <!-- we can target with the div id="posts" on the index page --> 
+
 <%= turbo_stream.update update_task do %>
-    <%= render partial: "update_task", locals: { task: @task } %>
+<%#= update_task %>
+<%= render task %>  
+    <%#= render partial: "update_task", locals: { task: @task } %>
 <% end %>
 <!-- we replace the new.html.erb  --> 
 <%#= turbo_stream.replace "new_post", partial: "form", locals: { post: Post.new} %>
