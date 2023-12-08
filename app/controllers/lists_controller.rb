@@ -58,6 +58,11 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
+
+        # format.turbo_stream do
+        #   render turbo_stream: turbo_stream.update("lists", partial: "lists/list", locals: {list: @list})
+        # end
+
         format.html { redirect_to "/boards/#{@list.board_id}", notice: "List was successfully created." }
         format.json { render :show, status: :created, location: @list }
       else
@@ -71,7 +76,13 @@ class ListsController < ApplicationController
   def update
     respond_to do |format|
       if @list.update(list_params)
-        format.html { redirect_to list_url(@list), notice: "List was successfully updated." }
+
+        @update_list = dom_id(@list, :sortable)
+        format.turbo_stream { render "update_list", 
+          locals: { list: @list, update_list: @update_list  }
+        }
+
+        format.html { redirect_to "/boards/#{@list.board_id}", notice: "List was successfully updated." }
         format.json { render :show, status: :ok, location: @list }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -12,17 +12,29 @@
   </head>
 
   <body>
-    <div class="min-h-full">
-      <%= render 'layouts/navbar' %>
-      <%#= render 'layouts/header', header: request.path == '/users/edit' ? 'Profile' : "Dashboard"  %>
-      <main class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-      <%= render "layouts/flash"%>
 
-        <%= yield %>
+        <%= turbo_frame_tag :modal %>
 
-      </main>
-      <br><br><br>
-      <%= render partial: "layouts/footer" %>
+        <!-- <div data-controller="turbomodal" data-turbomodal-target="blurable" ></div> -->
+      <div class="min-h-full">
+        <%= render 'layouts/navbar' %>
+        <%#= render 'layouts/header', header: request.path == '/users/edit' ? 'Profile' : "Dashboard"  %>
+        <main class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+
+        <!-- For modal window -->
+
+        <%#= turbo_frame_tag "modal" %>
+
+        
+
+        <%= render "layouts/flash"%>
+
+          <%= yield %>
+
+        </main>
+        <br><br><br>
+        <%= render partial: "layouts/footer" %>
+
     </div>
   </body>
 </html>
