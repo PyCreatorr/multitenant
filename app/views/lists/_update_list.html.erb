@@ -1,7 +1,7 @@
       <%# <% @lists.each do |list| %>
         <!-- <li data-sortable-id="<%= list.id %>"> -->
         
-        <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" style="min-width:300px">
+        <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" style="min-width:300px" class="px-4 pl-0 ">
           <%= render list %>
           
         </div>

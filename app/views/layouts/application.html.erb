@@ -13,28 +13,45 @@
 
   <body>
 
-        <%= turbo_frame_tag :modal %>
-
-        <!-- <div data-controller="turbomodal" data-turbomodal-target="blurable" ></div> -->
-      <div class="min-h-full">
-        <%= render 'layouts/navbar' %>
-        <%#= render 'layouts/header', header: request.path == '/users/edit' ? 'Profile' : "Dashboard"  %>
-        <main class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-
         <!-- For modal window -->
+      
+    <%= turbo_frame_tag :modal %>
+    
+        <!-- <div data-controller="turbomodal" data-turbomodal-target="blurable" ></div> -->
+      <%# <div class="min-h-full"> %>
+    <% if request.path.include?("/boards/") %>
+      <div class="bg-gradient-to-r from-gray-50 to-gray-100 h-[calc(100vh)]">
+          <div class="sticky top-0 z-10" style="height:65px">
+              <%= render partial: "layouts/navbar" %>
+          </div>             
+          <main class="w-full flex flex-row">              
+                                  
+                  <%= yield %>
+          </main> 
+      </div>
+    <% else %>
+      <div class="h-[calc(100vh)]">
+          <div class="sticky top-0 z-10">
 
-        <%#= turbo_frame_tag "modal" %>
+              <%= render partial: "layouts/navbar" %>
 
-        
+          </div>
 
-        <%= render "layouts/flash"%>
+            <div class="flex">
+              
+              <div class="<%= 'py-6 sm:px-6 lg:px-8 mx-auto' if !request.path.include?("/boards/") %> <%= 'w-full flex flex-row ' if request.path.include?("/boards/") %>">
 
-          <%= yield %>
+              
+                  <%= render "layouts/flash"%>
+                
+                  <%= yield %>
+              </div>
+              </main> 
+                <%= render partial: "layouts/footer" %>
+            </div>
+        </div>
 
-        </main>
-        <br><br><br>
-        <%= render partial: "layouts/footer" %>
+    <% end %>
 
-    </div>
   </body>
 </html>

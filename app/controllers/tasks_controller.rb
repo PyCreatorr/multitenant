@@ -8,6 +8,48 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def search
+    #binding.break
+    #render json: params[:friend]
+    #binding.break 
+    #debugger   
+
+    if !params[:friend].empty?
+
+      # @stock = Stock.new_lookup(params[:stock])
+      # strip! - removes empty signs
+      @friends = User.find_friends(params[:friend])      
+      
+      if @friends
+          # exclude current user from the friends list
+          @friends = current_user.except_current_user(@friends)
+
+              respond_to do |format|
+                  format.turbo_stream { render "users/create_friends"}
+              end
+             
+          
+      else 
+              flash.now[:danger] = "Please enter a valid symbol to search"
+              # redirect_to my_data_path
+              respond_to do |format|
+                  format.turbo_stream { render "users/create_friends"}
+              end
+              #binding.break
+              # render json: @stock
+      end
+          
+
+    else 
+              flash.now[:alert] = "You need to place a symbol!"
+              respond_to do |format|
+                  format.turbo_stream { render "users/create_friends"}
+              end
+    end
+              # redirect_to my_data_path
+
+  end
+
   def sort
     @task = Task.find(params[:id])
     # debugger
@@ -52,6 +94,13 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         board = List.find(params[:list_id]).board_id
+
+        tasks_add_new = "tasks_add_new_#{params[:list_id]}"
+
+        format.turbo_stream { render "prepend_task", 
+          locals: { tasks_add_new: tasks_add_new, task: @task }
+        }
+
         format.html { redirect_to "/boards/#{board}", notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else

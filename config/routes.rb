@@ -34,7 +34,8 @@ Rails.application.routes.draw do
     end
   end
 
-
+# SEARCH TASKS
+# get 'search_friend', to: 'users#search'
 
 
 

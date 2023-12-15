@@ -1,35 +1,69 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+                  
+          <nav data-controller="sidebar-board" data-sidebar-board-target="sidebar" class="bg-gray-200 bg-opacity-100 w-1/6 hidden md:flex flex-col text-center p-4 justify-between sticky transition-all duration-500 transform" >
+            <div>
+            <div role="button" data-action="click->sidebar-board#toggle"><i id="sidebar_buttom_slide"  class="fa-solid fa-angle-left" style="color: #111d32;"></i></div>
+            <%#= render "layouts/flash_board"%>  
+              <%# if notice.present? %>
+              <!-- <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p> -->
+              <%# end %>
+              <%= render @board %>
+            </div>
 
-    <%= render @board %>
+            <div>Sidebar top</div>
+            <div>Sidebar bottom</div>
+          </nav>
 
-    <%#= link_to "Edit this board", edit_board_path(@board), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%#= button_to "Destroy this board", board_path(@board), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%#= link_to "Back to boards", boards_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+          <div class="w-5/6 flex-grow">
+            <div class="sticky top-2 z-12">
 
-</div>
+              <nav class="bg-gray-200 p-4 flex justify-between items-center"> 
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Lists</h1>
-    <%= link_to "New list", "/boards/#{@board.id}/lists/new", class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div> 
+                <div class="font-bold text-2xl"><%= @board.name%></div>
+                <div class="flex space-x-1">
+                  <div class="md:hidden" role="button" data-action="click->navbar#toggle" >
+                    &#9776;
+                  </div>
+                  <div class="space-x-2 mx-10">
+                    <%= render partial: "form_search", locals: {} %>
+                  </div>
+                  <div class="space-x-2">
+                    <%= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+                  </div>
+                </div>
+              </nav>
+            </div>            
 
-  <div id="lists" class="min-w-full flex">
-    <div class="list-disc" data-controller="sortable" style="display: flex">
-      <% @board.lists.rank(:row_order).each do |list| %>
-        <!-- <li data-sortable-id="<%= list.id %>"> -->
-        <%#= list.board_id %>
-        <%#=  @board.id %>
-        <%# if list.board_id == @board.id%>
-          <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" style="min-width:300px">
-            <%= render list %>
+          
+            <div class="flex flex-row h-[calc(100vh-150px)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-146px)] p-2">                      
+
+              <div id="lists" class="min-w-full flex flex flex-col md:flex-row overflow-y-auto" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: auto;">
+                <div id="lists-sortable" class="list-disc" data-controller="sortable" style="display: flex">
+                  <% @board.lists.rank(:row_order).each do |list| %>
+                    <!-- <li data-sortable-id="<%= list.id %>"> -->
+                    <%#= list.board_id %>
+                    <%#=  @board.id %>
+                    <%# if list.board_id == @board.id%>
+
+                      <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" style="min-width:300px" class="p-2" >
+                        <%= render list %>
+                      </div>
+                    <%# end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
           </div>
-        <%# end %>
-      <% end %>
-  </div>
+          
+                <%# if notice.present? %>
+                  <!-- <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p> -->
+                <%# end %>
+  
+                <%#= link_to "Edit this board", edit_board_path(@board), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+                <%# <div class="inline-block ml-2"> %>
+                  <%#= button_to "Destroy this board", board_path(@board), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+                <%# </div> %>
+                <%#= link_to "Back to boards", boards_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+              
+
+
+

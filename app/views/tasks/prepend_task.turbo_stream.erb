@@ -1,0 +1,17 @@
+<!-- we can target with the div id="posts" on the index page --> 
+<%#= update_list%>
+<!--  sortable_list_12 -->
+
+<%= turbo_stream.prepend tasks_add_new do %>
+<%#= update_task %>
+<%= render task %>  
+    <%#= render partial: "update_task", locals: { task: @task } %>
+<% end %>
+
+
+<%#= turbo_stream.prepend "lists-sortable" do %>
+    <%#= render partial: "update_list", locals: { list: @list } %>    
+<%# end %>
+<!-- we replace the new.html.erb  --> 
+<%#= turbo_stream.replace "new_post", partial: "form", locals: { post: Post.new} %>
+

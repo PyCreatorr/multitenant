@@ -58,10 +58,10 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
-
-        # format.turbo_stream do
-        #   render turbo_stream: turbo_stream.update("lists", partial: "lists/list", locals: {list: @list})
-        # end
+        
+        format.turbo_stream { render "prepend_list", 
+          locals: { list: @list }
+        }
 
         format.html { redirect_to "/boards/#{@list.board_id}", notice: "List was successfully created." }
         format.json { render :show, status: :created, location: @list }
@@ -94,8 +94,10 @@ class ListsController < ApplicationController
   # DELETE /lists/1 or /lists/1.json
   def destroy
     @list.destroy
+    @update_list = dom_id(@list, :sortable)
 
     respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@update_list) }
       format.html { redirect_to lists_url, notice: "List was successfully destroyed." }
       format.json { head :no_content }
     end

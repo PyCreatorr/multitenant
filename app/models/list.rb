@@ -1,6 +1,7 @@
 class List < ApplicationRecord
     validates :name, presence: true
-    has_many :tasks
+    
+    has_many :tasks, dependent: :destroy
     belongs_to :board
 
     # scope :sorted, -> { order(Arel.sql("created_at DESC NULLS FIRST")).order(updated_at: :desc) }

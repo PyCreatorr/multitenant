@@ -12,7 +12,6 @@ export default class extends Controller {
   }
   connect() {
     var sortable = new Sortable(this.element, {
-
       onEnd: this.onEnd.bind(this),
       //group: 'shared',
       group: this.groupValue,

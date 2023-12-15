@@ -67,14 +67,50 @@
   background: #000;
   opacity: 0.7;
   filter: alpha(opacity = 80); /* required for opacity to work in IE */
+  z-index: 50;
 }
 
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+/* BOARD MOBILE*/
+@media only screen and (max-width: 750px){
+  #board {
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
   }
 }
 
-*/
+@media only screen and (max-width: 600px), only screen and (max-width: 750px){
+  .u-fancy-scrollbar {
+      -webkit-overflow-scrolling: initial;
+  }
+}
+
+/* SCROLLBARS*/
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: rgb(255, 255, 255, 0); /* or add it to the track */
+  overflow-y: auto !important;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* SIDEBAR SLIDE*/
+
+.slide_sidebar{
+  width:10px;
+}
