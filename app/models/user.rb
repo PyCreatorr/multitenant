@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   has_many :members, dependent: :destroy
   has_many :tenants, through: :members, dependent: :destroy
+  has_one :preference
 
   def email_invited_by
     # binding.break

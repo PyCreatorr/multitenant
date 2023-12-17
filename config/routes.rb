@@ -64,8 +64,15 @@ Rails.application.routes.draw do
   # post "products/add_to_cart/:id", to: "products#add_to_cart", as: "add_to_cart"
 
   # devise_for :users
-  devise_for :users, :controllers => { :invitations => 'invitations' }
+  # devise_for :users, :controllers => { :invitations => 'invitations' }
 
+
+    devise_for :users, controllers: {
+      registrations: "users/registrations"
+    }
+
+  put 'boards/users/sidebar_position', to: "preferences#sidebar_position"
+  # get 'boards/users/sidebar_position', to: "preferences#get"
   root 'static_pages#landing_page'
   get 'dashboard', to: 'static_pages#dashboard'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

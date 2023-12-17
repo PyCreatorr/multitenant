@@ -114,6 +114,16 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+
+        #board = List.find(params[:list_id]).board_id
+
+        @update_task = dom_id(@task, :sortable)
+
+        format.turbo_stream { render "update_task", 
+          locals: { task: @task, update_task: @update_task  }
+        }
+
+
         format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
         format.json { render :show, status: :ok, location: @task }
       else

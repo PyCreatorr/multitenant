@@ -1,6 +1,6 @@
 <div id="<%= dom_id task %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Task: <%= task.id %> <%= task.name %> <%= task.row_order %></strong>
+    <strong class="block font-medium mb-1">Task: <%= task.id %> <%= link_to task.name, "/tasks/#{task.id}/edit", data: {turbo_frame: "modal"} %> <%= task.row_order %></strong>
     
   </p>
 

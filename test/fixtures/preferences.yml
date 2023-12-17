@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sidebar_position: MyString
+  user: one
+
+two:
+  sidebar_position: MyString
+  user: two
