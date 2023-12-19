@@ -12,9 +12,11 @@
           <%= render "form_edit", task: @task %>
 
           <%= link_to "Show this task", @task, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          <%= button_to "Destroy", task_path(@task), method: :delete,  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
           <%#= link_to "Back to tasks", tasks_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
         </div>
       </div>
 
   </div>
+  <div class="blur-overlay"></div>
 <% end %>

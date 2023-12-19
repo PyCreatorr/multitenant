@@ -31,7 +31,7 @@ class ListsController < ApplicationController
         #format.turbo_stream { render turbo_stream: turbo_stream.update(dom_id(@list, :sortable))}
         format.turbo_stream { render "update_list", 
           locals: { list: @list, update_list: @update_list  }
-        }
+        }        
         # format.turbo_stream { render turbo_stream: turbo_stream.remove(dom_id(@scan, :uploaded_image))}
 
       end
@@ -83,7 +83,8 @@ class ListsController < ApplicationController
         }
 
         format.html { redirect_to "/boards/#{@list.board_id}", notice: "List was successfully updated." }
-        format.json { render :show, status: :ok, location: @list }
+        # format.json { render :show, status: :ok, location: @list }
+        format.json { render json: { status: 'ok', name: @list.name } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @list.errors, status: :unprocessable_entity }

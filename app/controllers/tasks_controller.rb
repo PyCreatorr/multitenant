@@ -125,7 +125,8 @@ class TasksController < ApplicationController
 
 
         format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
-        format.json { render :show, status: :ok, location: @task }
+        # format.json { render :show, status: :ok, location: @task }
+        format.json { render json: { status: 'ok', name: @task.name } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -135,9 +136,14 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
+    
+    @update_task = dom_id(@task, :sortable)
     @task.destroy
 
+    # render turbo_stream: turbo_stream.remove(dom_id(@scan, :uploaded_image))
+    
     respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@update_task) }
       format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
       format.json { head :no_content }
     end

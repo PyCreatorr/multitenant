@@ -10,4 +10,4 @@ pin "@fortawesome/fontawesome-free", to: "https://ga.jspm.io/npm:@fortawesome/fo
 pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.1/modular/sortable.esm.js"
 pin "stimulus-use", to: "https://ga.jspm.io/npm:stimulus-use@0.52.1/dist/index.js"
 
-pin "flowbite", to: "https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.turbo.min.js"
+# pin "flowbite", to: "https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.turbo.min.js"

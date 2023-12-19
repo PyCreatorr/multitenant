@@ -40,7 +40,7 @@
           
             <div class="flex flex-row h-[calc(100vh-150px)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-146px)] p-2">                      
 
-              <div id="lists" class="min-w-full flex flex flex-col md:flex-row overflow-y-auto" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: auto;">
+              <div id="lists" class="min-w-full flex flex flex-col md:flex-row overflow-y-hidden overflow-x-auto" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: hidden; overflow-x: auto;">
                 <div id="lists-sortable" class="list-disc" data-controller="sortable" style="display: flex">
                   <% @board.lists.rank(:row_order).each do |list| %>
                     <!-- <li data-sortable-id="<%= list.id %>"> -->
