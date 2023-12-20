@@ -11,12 +11,34 @@ export default class extends Controller {
     group: String
   }
   connect() {
-    var sortable = new Sortable(this.element, {
-      onEnd: this.onEnd.bind(this),
-      //group: 'shared',
-      group: this.groupValue,
-      animation: 200
-    });
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      console.log("mobile");
+      //alert("mobile");
+
+      //document.write("mobile");
+    }else{
+
+      console.log("not mobile");
+      //document.write("not mobile");
+      //alert("not mobile");
+
+      var sortable = new Sortable(this.element, {
+        onEnd: this.onEnd.bind(this),
+        //group: 'shared',
+        group: this.groupValue,
+        animation: 200
+      });
+    }
+
+
+
+    // var sortable = new Sortable(this.element, {
+    //   onEnd: this.onEnd.bind(this),
+    //   //group: 'shared',
+    //   group: this.groupValue,
+    //   animation: 200
+    // });
     
   }
 
