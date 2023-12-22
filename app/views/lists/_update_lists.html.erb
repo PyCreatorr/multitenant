@@ -1,0 +1,12 @@
+            <%# p = <%= position%> 
+
+              <div data-controller="turboload" data-list-updated ="<%= list_updated.id %>" data-scrolling="<%= position%>" data-turboload-target="turboload" id="lists" class="min-w-full flex flex flex-col md:flex-row overflow-y-hidden overflow-x-auto" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: hidden; overflow-x: auto;">
+                <div id="lists-sortable" class="list-disc" data-controller="sortable" style="display: flex;">
+                  <% board.lists.rank(:row_order).each do |list| %>
+                      <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" style="min-width:300px" class="p-2" >
+                        <%= render list %>
+                      </div>
+
+                  <% end %>
+                </div>
+              </div>

@@ -49,6 +49,15 @@ class ListsController < ApplicationController
 
   # GET /lists/1/edit
   def edit
+    positions = []
+    i = 0
+    List.where(board_id: @list.board_id).rank(:row_order).each do |list|
+      positions[i]=[list.row_order, i+1]
+      i=i+1      
+    end
+    @positions = positions
+
+    #debugger
   end
 
   # POST /lists or /lists.json
@@ -74,13 +83,40 @@ class ListsController < ApplicationController
 
   # PATCH/PUT /lists/1 or /lists/1.json
   def update
+
+    positions = []
+    i = 0
+    List.where(board_id: @list.board_id).rank(:row_order).each do |list|
+      positions[i]=[list.row_order, i+1]
+      i=i+1      
+    end
+    @positions = positions
+    
+    pos = 0;
+    # debugger
+    
+    if @positions.find { |el| el[0].to_s == params[:list][:row_order]}[1]
+      pos = @positions.find { |el| el[0].to_s == params[:list][:row_order]}[1]
+    elsif pos == nil
+      pos = 0 
+    end 
+
+    # debugger
+    # @positions
+
     respond_to do |format|
       if @list.update(list_params)
 
         @update_list = dom_id(@list, :sortable)
-        format.turbo_stream { render "update_list", 
-          locals: { list: @list, update_list: @update_list  }
+        @board = Board.find(@list.board_id)
+
+        format.turbo_stream { render "update_lists", 
+          locals: { board: @board, list: @list, position: pos }
         }
+
+        # format.turbo_stream { render "update_list", 
+        #   locals: { list: @list, update_list: @update_list  }
+        # }
 
         format.html { redirect_to "/boards/#{@list.board_id}", notice: "List was successfully updated." }
         # format.json { render :show, status: :ok, location: @list }
@@ -115,6 +151,6 @@ class ListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def list_params
-      params.require(:list).permit(:name)
+      params.require(:list).permit(:name, :row_order, :positions)
     end
 end

@@ -13,6 +13,11 @@ export default class extends Controller {
     console.log("hello from sidebar");
   }
 
+  onload() {
+    // Your code to be executed after the page has fully loaded
+    console.log('Page has finished loading!');
+  };
+
   toggle(e){
     // Prevent default action -> refresh the page
     e.preventDefault();

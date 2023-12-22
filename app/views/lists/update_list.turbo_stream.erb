@@ -1,7 +1,8 @@
 <!-- we can target with the div id="posts" on the index page --> 
 <%#= update_list%>
-<%= turbo_stream.update update_list do %>
-    <%= render partial: "update_list", locals: { list: @list } %>
+<%= turbo_stream.update "lists_sortable" do %>
+updated<br>
+    <%= render partial: "update_lists", locals: { board: @board} %>
     <%#= render @list %>  
 <% end %>
 <!-- we replace the new.html.erb  --> 

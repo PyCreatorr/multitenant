@@ -1,3 +1,5 @@
+<%= @positions %>
+<br>
 <%= form_with(model: list, class: "contents") do |form| %>
   <% if list.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -11,10 +13,25 @@
     </div>
   <% end %>
 
+
+
+
   <div class="my-5">
     <%= form.label :name %>
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+
+  <div class="my-5">
+    <%#= form.label :positions %>
+    
+    <%= form.select :row_order, @positions.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => list.row_order} %>
+  </div>
+
+      <%# <div data-controller="language"> %>
+      <%#= select_tag(:language_scan, options_for_select([['eng', 1],'deu', 2],'fra', 3]], 1), data: {action: "change->language#change"}, class:'form-select') %>
+      <%#= form.select :voice_language, ["eng", "deu", "fra", "ita", "swe", "ita", "ukr", "spa"], {prompt: "Select a language", :selected => post.voice_language}, {class:'form-select', data: {action: "change->language#change"} } %>
+      <%#= form.select :positions, voice_langs, {prompt: "Select a language", :selected => post.voice_language}, {class:'form-select', data: {action: "change->voice-input#change"}} %>
+    <%# </div> %>
 
   <div class="my-5">
     <%#= form.label :board_id %>
@@ -25,3 +42,5 @@
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
+
+

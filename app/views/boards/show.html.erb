@@ -40,14 +40,13 @@
           
             <div class="flex flex-row h-[calc(100vh-150px)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-146px)] p-2">                      
 
-              <div id="lists" class="min-w-full flex flex flex-col md:flex-row overflow-y-hidden overflow-x-auto" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: hidden; overflow-x: auto;">
-                <div id="lists-sortable" class="list-disc" data-controller="sortable" style="display: flex">
+              <div data-controller="turboload" data-turboload-target="turboload" id="lists" class="min-w-full flex flex flex-col md:flex-row overflow-y-hidden overflow-x-auto" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: hidden; overflow-x: auto;">
+                <div id="lists-sortable" class="list-disc" data-controller="sortable" style="display: flex;">
                   <% @board.lists.rank(:row_order).each do |list| %>
                     <!-- <li data-sortable-id="<%= list.id %>"> -->
                     <%#= list.board_id %>
                     <%#=  @board.id %>
                     <%# if list.board_id == @board.id%>
-
                       <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" style="min-width:300px" class="p-2" >
                         <%= render list %>
                       </div>

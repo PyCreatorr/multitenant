@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() {
 
-    //console.log("hello from turbomodal");
+   //console.log("hello from turbomodal");
   }
 
   static targets = [ "blurable" ];
