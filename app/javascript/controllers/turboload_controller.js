@@ -63,7 +63,7 @@ export default class extends Controller {
    if (el) {
       let rect = el.getBoundingClientRect();
       console.log('scroll2Position =', rect.left);
-      div2Scroll.scrollLeft = div2Scroll.scrollLeft + rect.left-25; 
+      div2Scroll.scrollLeft = div2Scroll.scrollLeft + rect.left-30; 
       console.log('div2Scroll.scrollLeft =', div2Scroll.scrollLeft);
     }
 
