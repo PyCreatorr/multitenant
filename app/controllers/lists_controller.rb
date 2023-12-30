@@ -115,11 +115,11 @@ class ListsController < ApplicationController
     # debugger
     
     if pos_new > pos_current
-      params[:list][:row_order] = (r_order_new + 0.0000001).to_s
+      params[:list][:row_order] = (r_order_new + 1).to_s
       # params[:list][:row_order] = r_order_new.to_s
-    elsif pos_new < pos_current
+    else
       # params[:list][:row_order] = r_order_new.to_s
-      params[:list][:row_order] = (r_order_new - 0.0000001).to_s
+      params[:list][:row_order] = (r_order_new - 1).to_s
     end
 
     respond_to do |format|
