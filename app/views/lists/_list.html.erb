@@ -14,7 +14,7 @@
   </p>
   <%#= link_to "New task", new_list_task_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
 
-      <div id="tasks_add_new_<%= list.id %>" data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id="<%= list.id %>" class="list-decimal px-2">
+      <div id="tasks_add_new_<%= list.id %>" data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id="<%= list.id %>" class="list-decimal px-0">
       <% list.tasks.rank(:row_order).each do |task| %>
         <div data-sortable-update-url="<%= sort_task_path(task) %>" id="sortable_task_<%= task.id %>" >
             <%= render task %>

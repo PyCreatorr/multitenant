@@ -1,20 +1,20 @@
                   
           <nav data-controller="sidebar-board" data-sidebar-board-target="sidebar" class="bg-gray-200 bg-opacity-100 w-5/6 md:w-2/6 lg:w-1/6  md:flex flex-col text-center p-4 justify-between sticky transition-all duration-500 transform
-          <%= "slide_sidebar" if current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed" %>" >
-            <div>
-              <div role="button" data-action="click->sidebar-board#toggle"><i id="sidebar_buttom_slide"  class="fa-solid fa-angle-<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? "right" : "left" %>" style="color: #111d32;"></i></div>
-              <%#= render "layouts/flash_board"%>  
-                <%# if notice.present? %>
-                <!-- <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p> -->
-                <%# end %>
-                <div id="board_sidebar_information" style="<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? 'opacity: 0; transition: visibility 0ms linear 100ms, opacity 200ms; ': 'opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;'%>">
-                  preference: <%= (current_user.preference && current_user.preference[:sidebar_position]) ? current_user.preference[:sidebar_position] : "no preferences" %>
-                  <%= render @board %>
-                
-                </div>
-            </div>
+            <%= "slide_sidebar" if current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed" %>" >
+              <div>
+                <div role="button" data-action="click->sidebar-board#toggle"><i id="sidebar_buttom_slide"  class="fa-solid fa-angle-<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? "right" : "left" %>" style="color: #111d32;"></i></div>
+                <%#= render "layouts/flash_board"%>  
+                  <%# if notice.present? %>
+                  <!-- <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p> -->
+                  <%# end %>
+                  <div id="board_sidebar_information" style="<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? 'opacity: 0; transition: visibility 0ms linear 100ms, opacity 200ms; ': 'opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;'%>">
+                    preference: <%= (current_user.preference && current_user.preference[:sidebar_position]) ? current_user.preference[:sidebar_position] : "no preferences" %>
+                    <%= render @board %>
+                  
+                  </div>
+              </div>
 
-            <div></div>
+              <div></div>
           </nav>
 
           <div class="w-1/6 md:w-4/6 lg:w-5/6 flex-grow">
@@ -27,7 +27,7 @@
                   <%# <div class="md:hidden" role="button" data-action="click->navbar#toggle" >
                     &#9776;
                   </div> %>
-                  <div class="space-x-2 mx-10">
+                  <div class="space-x-2 mx-10 hidden md:flex">
                     <%= render partial: "form_search", locals: {} %>
                   </div>
                   <div class="space-x-2">
@@ -47,7 +47,7 @@
                     <%#= list.board_id %>
                     <%#=  @board.id %>
                     <%# if list.board_id == @board.id%>
-                      <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" style="min-width:300px" class="p-2" >
+                      <div data-sortable-update-url="<%= sort_list_path(list.id) %>" id="sortable_list_<%= list.id%>" class="p-2 list_width" >
                         <%= render list %>
                       </div>
                     <%# end %>

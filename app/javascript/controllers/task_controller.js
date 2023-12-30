@@ -69,7 +69,7 @@ export default class extends Controller {
     // inputField.type="text";
     //inputField.minRows="2";
     inputField.value = value;
-    inputField.style.width="244px"; 
+    //inputField.style.width="244px"; 
     // inputField.style.zIndex="100000"; 
     inputField.style.position="absolute"; 
     inputField.style.height = 'auto';

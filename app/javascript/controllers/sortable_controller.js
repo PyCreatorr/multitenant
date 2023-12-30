@@ -17,12 +17,16 @@ export default class extends Controller {
 
       // FOR TEST
       console.log("not mobile");
-      /*var sortable = new Sortable(this.element, {
+     
+
+      var sortable = new Sortable(this.element, {
         onEnd: this.onEnd.bind(this),
         //group: 'shared',
         group: this.groupValue,
         animation: 200
-      }); */
+      }); 
+
+      sortable.option("disabled", true);
       
       //
 

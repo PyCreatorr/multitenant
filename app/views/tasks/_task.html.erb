@@ -3,9 +3,11 @@
     <%# <strong class="block font-medium mb-1">Task:  %>
     <%#= task.id %>
     <%# </strong> %>
-    <div data-controller="task" data-task-id="<%= task.id %>" class="group hover:bg-slate-100" style="min-height:42px; margin:0px; position: relative">
+    <%# hover:bg-slate-100  %>
+    <div data-controller="task" data-task-id="<%= task.id %>" 
+    class="group hover:hover:bg-slate-100 group hover: rounded-lg" style="min-height:42px; width:242px; margin:0px; position: relative">
       <div data-task-target="tname" class="p-2 border-2 border-gray-200 rounded-lg task_style">
-        <%= link_to task.name, "/tasks/#{task.id}/edit", data: {turbo_frame: "modal"}, class:"break-normal md:break-all" %>
+        <%= link_to task.name, "/tasks/#{task.id}/edit", data: {turbo_frame: "modal"}, class:"break-all" %>
       </div>
       <div id="icon_edit" data-action="click->task#handleTaskClick" class="cursor-pointer invisible group-hover:visible edit_task_hover">
         <i class="fa-solid fa-pen fa-xs" style="color: #000000;"></i>

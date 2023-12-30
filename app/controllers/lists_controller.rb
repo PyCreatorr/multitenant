@@ -93,25 +93,62 @@ class ListsController < ApplicationController
     @positions = positions
     
     pos = 0;
+    pos_current = 0;
+    new_pos = 0;
+    r_order_new ='';
+    r_order_current = '';
     # debugger
     
-    if @positions.find { |el| el[0].to_s == params[:list][:row_order]}[1]
-      pos = @positions.find { |el| el[0].to_s == params[:list][:row_order]}[1]
-    elsif pos == nil
-      pos = 0 
-    end 
+    if @positions.find { |el| el[0].to_s == params[:list][:row_order] }[1]      
+      pos_new = @positions.find { |el| el[0].to_s == params[:list][:row_order] }[1]
 
-    # debugger
+      r_order_new = @positions.find { |el| el[0].to_s == params[:list][:row_order] }[0]
+      
+    end 
+    
+    pos_current = @positions.find { |el| el[0].to_s == @list.row_order.to_s }[1] if @list 
+    r_order_current = @positions.find { |el| el[0].to_s == @list.row_order.to_s }[0] if @list 
+    
+    pos = 0 if pos == nil
+    pos_current = 0 if pos_current == nil
+
+    puts list_params[:row_order]
+
+    l = 0;
+    
+    if pos_new > pos_current       
+      params[:list][:row_order] = (params[:list][:row_order].to_i + 1.01).to_s
+    elsif pos_new < pos_current
+      params[:list][:row_order] = (params[:list][:row_order].to_i - 1.01).to_s
+    end
+
+    l = params[:list][:row_order]
+
+    puts list_params[:row_order]
+    # list_params[:row_order] = list_params[:row_order].to_s
+
+    # list_params[:row_order].to_i = params[:list][:row_order].to_i + 1 if (pos_current < pos && list_params[:row_order].to_i >= 0)
+    # list_params[:row_order].to_i - 1 if (pos_current < pos && list_params[:row_order].to_i < 0)
+    # new_pos = pos if pos_current > pos 
+
+    # list_params[:row_order].to_i + 1 
+
+    # if new_pos > @positions.length    
+    # debugger    
     # @positions
 
     respond_to do |format|
+      # debugger
+
       if @list.update(list_params)
+
+        # debugger
 
         @update_list = dom_id(@list, :sortable)
         @board = Board.find(@list.board_id)
 
         format.turbo_stream { render "update_lists", 
-          locals: { board: @board, list: @list, position: pos }
+          locals: { board: @board, list: @list, position: new_pos }
         }
 
         # format.turbo_stream { render "update_list", 

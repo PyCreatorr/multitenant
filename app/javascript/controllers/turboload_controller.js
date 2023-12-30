@@ -14,33 +14,6 @@ export default class extends Controller {
       div2Scroll.addEventListener('load', this.handleDOMContentLoaded());
     }
 
-    //document.addEventListener('DOMContentLoaded', this.handleDOMContentLoaded);
-
-    // window.addEventListener('load',  (event) => {
-    //   console.log("turboload_loaded!!!!!"); 
-
-    //   // let div2Scroll = document.getElementById('lists');
-    //   // console.log('div2Scroll = ', div2Scroll);
-    //   // let scroll2Position = div2Scroll.dataset.scrolling;
-    //   // console.log('scroll2Position =', scroll2Position);
-  
-    //   // div2Scroll.scrollLeft = scroll2Position;
-    //   //this.onload();
-    // });
-      
-
-
-    // document.addEventListener("DOMContentLoaded", (event) => {
-    //   // Your code to be executed after the page has fully loaded
-    //   console.log('Page has fully loaded.');
-
-    //   //this.onload();
-  
-    //   // Add your event listeners or other code here
-    //   // document.addEventListener('click', function(event) {
-    //   //   console.log('Document clicked:', event);
-    //   // });
-    // });
     console.log("turboload_connected!");  
   }
 
@@ -63,12 +36,11 @@ export default class extends Controller {
    if (el) {
       let rect = el.getBoundingClientRect();
       console.log('scroll2Position =', rect.left);
-      div2Scroll.scrollLeft = div2Scroll.scrollLeft + rect.left-40; 
+      div2Scroll.scrollLeft = div2Scroll.scrollLeft + rect.left-24; 
       console.log('div2Scroll.scrollLeft =', div2Scroll.scrollLeft);
     }
 
   }
-
 
   onload() {
     // Your code to be executed after the page has fully loaded
