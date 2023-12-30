@@ -111,33 +111,16 @@ class ListsController < ApplicationController
     
     pos = 0 if pos == nil
     pos_current = 0 if pos_current == nil
-
-    puts list_params[:row_order]
-
-    l = 0;
-
+ 
     # debugger
     
-    if pos_new > pos_current       
-      params[:list][:row_order] = (r_order_new.to_i + 0.0000001).to_s
+    if pos_new > pos_current
+      params[:list][:row_order] = (r_order_new + 0.0000001).to_s
+      # params[:list][:row_order] = r_order_new.to_s
     elsif pos_new < pos_current
-      params[:list][:row_order] = (r_order_new.to_i - 0.0000001).to_s
+      # params[:list][:row_order] = r_order_new.to_s
+      params[:list][:row_order] = (r_order_new - 0.0000001).to_s
     end
-
-    l = params[:list][:row_order]
-
-    puts list_params[:row_order]
-    # list_params[:row_order] = list_params[:row_order].to_s
-
-    # list_params[:row_order].to_i = params[:list][:row_order].to_i + 1 if (pos_current < pos && list_params[:row_order].to_i >= 0)
-    # list_params[:row_order].to_i - 1 if (pos_current < pos && list_params[:row_order].to_i < 0)
-    # new_pos = pos if pos_current > pos 
-
-    # list_params[:row_order].to_i + 1 
-
-    # if new_pos > @positions.length    
-    # debugger    
-    # @positions
 
     respond_to do |format|
       # debugger
