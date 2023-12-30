@@ -117,9 +117,9 @@ class ListsController < ApplicationController
     l = 0;
     
     if pos_new > pos_current       
-      params[:list][:row_order] = (params[:list][:row_order].to_i + 1.01).to_s
+      params[:list][:row_order] = (params[:list][:row_order].to_i + 0.01).to_s
     elsif pos_new < pos_current
-      params[:list][:row_order] = (params[:list][:row_order].to_i - 1.01).to_s
+      params[:list][:row_order] = (params[:list][:row_order].to_i - 0.01).to_s
     end
 
     l = params[:list][:row_order]
