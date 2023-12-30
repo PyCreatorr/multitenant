@@ -112,14 +112,20 @@ class ListsController < ApplicationController
       pos_new_more = pos_new + 1 
       r_order_new_more = @positions.find { |el| el[1] == pos_new_more }[0] 
 
-      params[:list][:row_order] = (rand(r_order_new..r_order_new_more)).to_s 
+      min_l = r_order_new + 1
+      max_l = r_order_new_more - 1
+
+      params[:list][:row_order] = (rand(min_l..max_l)).to_s 
 
     # If the new position is greater then the old position and the last position
     elsif (pos_new > pos_current) && (pos_new == @positions.length)
       
       r_order_new_more = r_order_new + 1
 
-      params[:list][:row_order] = (rand(r_order_new..r_order_new_more)).to_s 
+      min_l = r_order_new + 1
+      max_l = r_order_new_more - 1
+
+      params[:list][:row_order] = (rand(min_l..max_l)).to_s 
     end
 
     
