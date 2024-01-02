@@ -74,6 +74,32 @@ class TasksController < ApplicationController
     end
   end
 
+  def selected_board
+    @selected_board = Board.find(params[:selected_board])
+    selected_board_lists = []
+    i = 0
+
+    List.where(board_id: params[:selected_board]).rank(:row_order).each do |list|
+      selected_board_lists[i]=[list.name, list.id]
+      i=i+1      
+    end
+
+    @selected_board_lists = selected_board_lists
+    @target = params[:target]
+    
+    respond_to do |format|
+
+      format.turbo_stream 
+      # format.turbo_stream { render "update_task", 
+      #   locals: { task: @task, update_task: @update_task  }
+      # }
+      # format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
+      # format.json { head :no_content }
+    end
+
+
+  end
+
   # GET /tasks/1 or /tasks/1.json
   def show
   end
@@ -85,20 +111,29 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-  # GET BOARDS_LIST
-    list_positions = []
+  # GET the lists, to which belongs the current task
+    selected_board_lists = []
+    list_boards = []
     i = 0
     @cur_list = List.find(@task.list_id)
-    @cur_board = @cur_list.board_id
+    @cur_board_id = @cur_list.board_id
+    @cur_tenant_id = Board.find(@cur_board_id).tenant_id
 
-    List.where(board_id: @cur_board).rank(:row_order).each do |list|
-      list_positions[i]=[list.id, list.name]
+    List.where(board_id: @cur_board_id).rank(:row_order).each do |list|
+      selected_board_lists[i]=[list.id, list.name]
       i=i+1      
     end
 
-    @list_positions = list_positions
+    @selected_board_lists = selected_board_lists
 
-    # debugger
+    # Get the boards, which are belogs to the current tenant
+    i = 0    
+    Board.where(tenant_id: @cur_tenant_id).each do |board|
+      list_boards[i]=[board.id, board.name]
+      i=i+1      
+    end
+
+    @list_boards = list_boards
 
   end
 
@@ -186,6 +221,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:name, :list_id, :list_positions)
+      params.require(:task).permit(:name, :list_id, :list_boards, :selected_board_lists)
     end
 end

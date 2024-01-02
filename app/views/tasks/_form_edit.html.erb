@@ -1,5 +1,5 @@
 
-<%= @list_positions %>
+<%#= @list_boards %>
 <br>
 <%= form_with(model: task, class: "contents") do |form| %>
   <% if task.errors.any? %>
@@ -19,15 +19,16 @@
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :list_id %>
-    <%= form.text_field :list_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <div data-controller="task">
+    <div class="my-5" >
+      <%= form.label :board_id %>
+      <%= form.select :board_id, @list_boards.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @cur_board_id}, {class:'form-select', data: {action: "change->task#changeBoard"} } %>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :list_id %>
-    
-    <%= form.select :list_id, @list_positions.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.list_id} %>
+    <div class="my-5" >
+      <%= form.label :list_id %>    
+      <%= form.select :list_id, @selected_board_lists.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.list_id}, {class:'form-select', data: { task_target: "listsSelect"} } %>
+    </div>
   </div>
 
   <div class="inline">

@@ -75,6 +75,8 @@ Rails.application.routes.draw do
   # get 'boards/users/sidebar_position', to: "preferences#get"
   root 'static_pages#landing_page'
   get 'dashboard', to: 'static_pages#dashboard'
+
+  get 'selected_board', to: 'tasks#selected_board'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

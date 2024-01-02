@@ -2,11 +2,13 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="listtask"
 
+import { get, post, put, patch, destroy } from '@rails/request.js';
+
 
 
 export default class extends Controller {
 
-  static targets = ["tname"];
+  static targets = ["tname", "listsSelect"];
 
   connect() {
 
@@ -155,6 +157,28 @@ export default class extends Controller {
       //Handle catch errors
        console.error("Error:", error);
     });  
+  }
+
+  changeBoard(event){
+    console.log("selected board!");
+
+    let selected_board = event.target.selectedOptions[0].value;
+    let target = this.listsSelectTarget.id;
+    console.log("target = ", target);
+
+    console.log("selected_board = ", selected_board);
+
+    get( `/selected_board?selected_board=${selected_board}&target=${target}`,{
+      // body: JSON.stringify({
+      //   list_id: sortableListId,
+      //   row_order_position: event.newDraggableIndex      
+      // }),
+      responseKind: "turbo-stream",
+      contentType: "application/json"
+      //responseKind: "html"
+    });
+
+
   }
   
   // <meta name="csrf-token" content="W3sp3zCCIcb8Uzgndi8l1PG1qoj0QqC64ezlYhhdkMviZ_LZZ-rkNUyKk7pSn3sc6DoKRkfg4zjgQNbA1AIciA">
