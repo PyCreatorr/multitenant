@@ -13,7 +13,12 @@ class BoardsController < ApplicationController
   # GET /boards/new
   def new
     @board = Board.new
+    @tenant = params[:tenant_id]
+    # @member = params[:member_id]
     #@tenant = Tenant.new
+
+    # debugger
+
   end
 
   # GET /boards/1/edit
@@ -23,7 +28,7 @@ class BoardsController < ApplicationController
   # POST /boards or /boards.json
   def create
     #debugger
-    @board = Board.new(name: params[:name], tenant_id: params[:tenant_id], member_id: params[:member_id])
+    @board = Board.new(name: params[:name], tenant_id: params[:tenant_id], member_id: current_user.id)
 
     respond_to do |format|
       if @board.save
@@ -52,11 +57,12 @@ class BoardsController < ApplicationController
   end
 
   # DELETE /boards/1 or /boards/1.json
+  # `/tenants/#{@board.tenant_id}`
   def destroy
     @board.destroy
 
     respond_to do |format|
-      format.html { redirect_to boards_url, notice: "Board was successfully destroyed." }
+      format.html { redirect_to tenant_path(@board.tenant_id), notice: "Board was successfully destroyed." }
       format.json { head :no_content }
     end
   end

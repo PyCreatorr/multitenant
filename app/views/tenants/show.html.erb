@@ -26,12 +26,10 @@
   
   </div>
 
-  
-<div class="inline-block ml-2">
-  <%= link_to "Members", tenant_members_path(@tenant) %>
-  <%#= link_to "Boards", tenant_boards_path(@tenant) %>
+ 
+  <div class="inline-block ml-2">
+    <%= link_to "Members", tenant_members_path(@tenant), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %><br>
+    <%= link_to "New Board", new_tenant_board_path(@tenant), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %> 
   </div>
-
-
 
 </div>

@@ -1,4 +1,6 @@
-<%= board %>
+<%= board.tenant_id %>
+<%= new_tenant_board_path %>
+<%= current_user.id %>
 <%#= form_for [tenant, board], class: "contents" do |form| %>
 <%#= form_with(model: board, class: "contents") do |form| %>
 <%= form_with url: tenant_boards_path do |form| %>
@@ -20,13 +22,13 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :member_id %>
-    <%= form.text_field :member_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%#= form.label :member_id %>
+    <%#= form.text_field :member_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :tenant_id %>
-    <%= form.text_field :tenant_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%#= form.label :tenant_id %>
+    <%#= form.text_field :tenant_id , class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
