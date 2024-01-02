@@ -9,8 +9,7 @@
                   <%# end %>
                   <div id="board_sidebar_information" style="<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? 'opacity: 0; transition: visibility 0ms linear 100ms, opacity 200ms; ': 'opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;'%>">
                     preference: <%= (current_user.preference && current_user.preference[:sidebar_position]) ? current_user.preference[:sidebar_position] : "no preferences" %>
-                    <%= render @board %>
-                  
+                    <%= render @board %>                  
                   </div>
               </div>
 

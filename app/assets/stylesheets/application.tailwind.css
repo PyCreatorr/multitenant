@@ -120,9 +120,21 @@
 /* SIDEBAR SLIDE*/
 
 .slide_sidebar{
-  width:2px;
+  width: 10px;
   padding:2px;
+
 }
+
+/* ICON ARROW CLOSE-OPEN */
+
+/* .arrow_overlay{ */
+  /* position:absolute; */
+  /* width: 24px;
+  height: 24px; */
+  /* top:10px;
+  left:10px;
+  z-index:60000; */
+/* } */
 
 /* TASK */
 

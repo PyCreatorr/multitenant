@@ -1,3 +1,6 @@
+
+<%= @list_positions %>
+<br>
 <%= form_with(model: task, class: "contents") do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -19,6 +22,12 @@
   <div class="my-5">
     <%= form.label :list_id %>
     <%= form.text_field :list_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :list_id %>
+    
+    <%= form.select :list_id, @list_positions.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.list_id} %>
   </div>
 
   <div class="inline">

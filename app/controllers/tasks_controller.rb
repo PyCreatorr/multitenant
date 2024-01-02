@@ -85,6 +85,21 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+  # GET BOARDS_LIST
+    list_positions = []
+    i = 0
+    @cur_list = List.find(@task.list_id)
+    @cur_board = @cur_list.board_id
+
+    List.where(board_id: @cur_board).rank(:row_order).each do |list|
+      list_positions[i]=[list.id, list.name]
+      i=i+1      
+    end
+
+    @list_positions = list_positions
+
+    # debugger
+
   end
 
   # POST /tasks or /tasks.json
@@ -112,6 +127,9 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
+
+    old_list = @task.list_id
+    new_list = params[:task][:list_id]
     respond_to do |format|
       if @task.update(task_params)
 
@@ -119,9 +137,20 @@ class TasksController < ApplicationController
 
         @update_task = dom_id(@task, :sortable)
 
-        format.turbo_stream { render "update_task", 
-          locals: { task: @task, update_task: @update_task  }
-        }
+        # debugger
+
+        if old_list == new_list.to_i
+          format.turbo_stream { render "update_task", 
+            locals: { task: @task, update_task: @update_task  }
+          }
+        else
+          @list = List.find(@task.list_id)
+          @board = Board.find(@list.board_id)
+
+          format.turbo_stream { render "lists/update_lists", 
+            locals: { board: @board, list: @list, position: 0  }
+          }
+        end
 
 
         format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
@@ -157,6 +186,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:name, :list_id)
+      params.require(:task).permit(:name, :list_id, :list_positions)
     end
 end

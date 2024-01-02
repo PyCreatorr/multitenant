@@ -1,4 +1,4 @@
-<%= @positions %>
+<%# <%= @positions %>
 <br>
 <%= form_with(model: list, class: "contents") do |form| %>
   <% if list.errors.any? %>
@@ -22,9 +22,8 @@
   </div>
 
   <div class="my-5">
-    <%#= form.label :positions %>
-    
-    <%= form.select :row_order, @positions.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => list.row_order} %>
+    <%#= form.label :positions %>    
+    <%= form.select :row_order, @positions.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @list.row_order} %>
   </div>
 
       <%# <div data-controller="language"> %>
