@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_task, only: %i[ show edit update destroy]
 
   include ActionView::RecordIdentifier # include dom_id method identifier
 
@@ -74,18 +74,67 @@ class TasksController < ApplicationController
     end
   end
 
+  def selected_list
+      # GET THE POSITIONS IN THE CURRENT LIST
+
+      @selected_list = List.find(params[:selected_list])
+      positions = []
+      i = 0      
+
+      Task.where(list_id: @selected_list.id).rank(:row_order).each do |task|
+        positions[i]=[i+1, task.row_order]
+        i=i+1      
+      end
+      @positions = positions
+      @target = params[:target]
+
+      # debugger
+
+      # if Task.find(params[:id]).present
+      #   @task = Task.find(params[:id]) 
+      # else 
+      #   @task = Task.new(name: params[:name], list_id: params[:list_id], row_order: (@positions[i][1].to_i+1).to_s)
+      # end
+
+      respond_to do |format|
+
+        format.turbo_stream 
+        # format.turbo_stream { render "update_task", 
+        #   locals: { task: @task, update_task: @update_task  }
+        # }
+        # format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
+        # format.json { head :no_content }
+      end
+  end
+
   def selected_board
     @selected_board = Board.find(params[:selected_board])
     selected_board_lists = []
     i = 0
-
     List.where(board_id: params[:selected_board]).rank(:row_order).each do |list|
       selected_board_lists[i]=[list.name, list.id]
       i=i+1      
     end
 
     @selected_board_lists = selected_board_lists
+
+    positions = []
+    i = 0      
+    if @selected_board_lists.length != 0
+    
+      Task.where(list_id: @selected_board_lists[0][1]).rank(:row_order).each do |task|
+        positions[i]=[i+1, task.row_order]
+        i=i+1      
+      end
+    else # @selected_board_lists = [["No Lists",0]]
+    end
+    @positions = positions
+
+    @positions = [["No Tasks",0]] if @positions.length == 0
+
+
     @target = params[:target]
+    @tasks_target = params[:tasks_target]
     
     respond_to do |format|
 
@@ -135,6 +184,15 @@ class TasksController < ApplicationController
 
     @list_boards = list_boards
 
+    # GET THE POSITIONS IN THE CURRENT LIST
+    positions = []
+    i = 0
+    Task.where(list_id: @task.list_id).rank(:row_order).each do |list|
+      positions[i]=[list.row_order, i+1]
+      i=i+1      
+    end
+    @positions = positions
+
   end
 
   # POST /tasks or /tasks.json
@@ -163,38 +221,203 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
 
-    old_list = @task.list_id
-    new_list = params[:task][:list_id]
-    respond_to do |format|
-      if @task.update(task_params)
+    # GET THE POSITIONS IN THE CURRENT LIST
+    positions = []
+    i = 0
+    Task.where(list_id: params[:task][:list_id].present? ? params[:task][:list_id] : @task.list_id).rank(:row_order).each do |task|
+      positions[i]=[task.row_order, i+1]
+      i=i+1      
+    end
+    @positions = positions
 
-        #board = List.find(params[:list_id]).board_id
+    pos_current = nil;
+    pos_new = 0;
+    pos_new_more = 0;
 
-        @update_task = dom_id(@task, :sortable)
+    r_order_new = nil;
+    r_order_current = nil;
+    r_order_new_more = nil;
+    
+ 
+    
+    # CASE 1: Same board, same list change the task position in the same list. 
+    # Array @positions includes the current & the new row_orders
+    # Check if it is the same boards
+    # Check if it is the same lists
+    cur_list_id = @task.list_id
+    cur_board_id = List.find(@task.list_id).board_id
+
+    new_list_id = params[:task][:list_id].to_i if params[:task][:list_id].present?
+    new_board_id = params[:task][:board_id].to_i if params[:task][:board_id].present?
+
+    if cur_board_id == new_board_id
+
+      # CASE 1: Same board, same list change the task position in the same list.
+      if cur_list_id == new_list_id
+
+        pos_current = @positions.find { |el| el[0].to_s == @task.row_order.to_s}[1] if @task 
+        r_order_current = @task.row_order 
+        
+        pos_new = @positions.find { |el| el[0].to_s == params[:task][:row_order] }[1]      
+        r_order_new = @positions.find { |el| el[0].to_s == params[:task][:row_order] }[0]
 
         # debugger
 
-        if old_list == new_list.to_i
-          format.turbo_stream { render "update_task", 
-            locals: { task: @task, update_task: @update_task  }
-          }
-        else
-          @list = List.find(@task.list_id)
-          @board = Board.find(@list.board_id)
+        # If the new position is greater then the old position, but not the last position
+        if pos_current && pos_new > pos_current && pos_new < @positions.length
+          pos_new_more = pos_new + 1 
+          
+          r_order_new_more = @positions.find { |el| el[1] == pos_new_more }[0]
 
-          format.turbo_stream { render "lists/update_lists", 
-            locals: { board: @board, list: @list, position: 0  }
-          }
+          min_l = r_order_new
+          max_l = r_order_new_more
+
+          # min_l = min_l -1 if min_l < 0
+          # max_l = max_l -1 if max_l < 0
+
+          # params[:task][:row_order] = rand(min_l..max_l).to_s
+
+          params[:task][:row_order] = max_l.to_s
+
+        # If the new position is greater then the old position and the last position
+        elsif (pos_new > pos_current) && (pos_new == @positions.length)      
+          r_order_new_more = r_order_new + 1
+          min_l = r_order_new +1
+          max_l = r_order_new_more + 1
+          params[:task][:row_order] = (rand(min_l..max_l)).to_s 
+        
+        # If we've choose smaller position than the current
+        elsif (pos_new < pos_current)
+
+          # debugger
+          params[:task][:row_order] = (r_order_new).to_s
+        end
+        params[:task][:row_order] = 0 if !pos_current && @positions.length == 0       
+      
+      # CASE 2: Same board, different lists
+      else
+        pos_2paste = @positions.find { |el| el[0].to_s == params[:task][:row_order].to_s}[1] if params[:task][:row_order].present?
+        r_order_2paste = @positions.find { |el| el[0].to_s == params[:task][:row_order]}[0] if params[:task][:row_order].present?
+
+        # if it is the first position to paste
+        params[:task][:row_order] = r_order_2paste -1 if pos_2paste == 1
+
+        #if it is the last position to paste
+      #if it is the last position to paste
+      params[:task][:row_order] = r_order_2paste +1 if params[:task][:row_order].present? && pos_2paste == @positions.length && @positions.length != 1
+        
+        # If it is the middle position. 
+        if pos_2paste.present? && pos_2paste != 1 && pos_2paste != @positions.length && @positions.length > 2
+          pos_2paste_next = pos_2paste + 1
+          r_order_next = @positions.find { |el| el[1] == pos_2paste_next }[0]
+
+          min_l = r_order_2paste
+          max_l = r_order_next          
+          params[:task][:row_order] = min_l.to_s
         end
 
-
-        format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
-        # format.json { render :show, status: :ok, location: @task }
-        format.json { render json: { status: 'ok', name: @task.name } }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        params[:task][:row_order] = 0 if !pos_2paste.present?
+      
       end
+    # CASE 3: different boards
+    else 
+
+      # debugger
+      
+      pos_2paste = @positions.find { |el| el[0].to_s == params[:task][:row_order].to_s}[1] if params[:task][:row_order].present?
+      r_order_2paste = @positions.find { |el| el[0].to_s == params[:task][:row_order]}[0] if params[:task][:row_order].present?
+      
+      # if it is the first position to paste
+      params[:task][:row_order] = r_order_2paste -1 if params[:task][:row_order].present? && pos_2paste == 1
+
+      #if it is the last position to paste
+      params[:task][:row_order] = r_order_2paste +1 if params[:task][:row_order].present? && pos_2paste == @positions.length && @positions.length != 1
+      
+      # If it is the middle position. 
+      if pos_2paste.present? && pos_2paste != 1 && pos_2paste != @positions.length && @positions.length > 2
+        pos_2paste_next = pos_2paste + 1
+        r_order_next = @positions.find { |el| el[1] == pos_2paste_next }[0]
+
+        min_l = r_order_2paste
+        max_l = r_order_next          
+        params[:task][:row_order] = min_l.to_s
+      end
+
+      params[:task][:row_order] = 0 if !pos_2paste.present?
+
+    end
+
+    
+
+
+    
+
+
+    # if params[:task][:row_order].present?
+    #   pos_current = @positions.find { |el| el[0].to_s == @task.row_order.to_s}[1] if @task 
+    #   r_order_current = @positions.find { |el| el[0].to_s == @task.row_order.to_s }[0] if @task 
+    # end
+
+    # debugger
+
+    # Get the row order selected new position
+    # if params[:task][:row_order].present? && @positions.find { |el| el[0].to_s == params[:task][:row_order] }[1]     
+    #   pos_new = @positions.find { |el| el[0].to_s == params[:task][:row_order] }[1]      
+    #   r_order_new = @positions.find { |el| el[0].to_s == params[:task][:row_order] }[0]
+    # end 
+
+    
+    # debugger
+
+    old_list = @task.list_id
+    new_list = params[:task][:list_id]
+
+    old_task_order = @task.row_order
+    new_task_order = params[:task][:row_order] if params[:task][:row_order].present?
+    
+    
+    respond_to do |format|
+     
+      @update_task = dom_id(@task, :sortable) 
+
+      # if params[:task][:row_order] 
+        if @task.update(name: params[:task][:name], list_id: params[:task][:list_id].present? ? params[:task][:list_id] : @task.list_id, row_order: params[:task][:row_order].present? ? params[:task][:row_order] : @task.row_order)
+          #board = List.find(params[:list_id]).board_id
+
+           
+
+          if (old_list == new_list.to_i) && (old_task_order == new_task_order)
+            format.turbo_stream { render "update_task", 
+              locals: { task: @task, update_task: @update_task  }
+            }
+          elsif (old_list != new_list.to_i) || (old_task_order != new_task_order)
+
+            # debugger
+
+            @list = List.find(@task.list_id)
+            @board = Board.find(@list.board_id)
+
+            format.turbo_stream { render "lists/update_lists", 
+              locals: { board: @board, list: @list, position: 0  }
+            }
+          end
+
+          format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
+          # format.json { render :show, status: :ok, location: @task }
+          format.json { render json: { status: 'ok', name: @task.name } }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+        end
+
+      # elsif @task.update(name: params[:task][:name], list_id: @task.list_id, row_order: @task.row_order)
+      #       format.turbo_stream { render "update_task", 
+      #         locals: { task: @task, update_task: @update_task  }
+      #       }      
+      # else
+      #   format.html { render :edit, status: :unprocessable_entity }
+      #   format.json { render json: @task.errors, status: :unprocessable_entity }
+      # end
     end
   end
 
@@ -221,6 +444,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:name, :list_id, :list_boards, :selected_board_lists)
+      params.require(:task).permit(:name, :list_id, :list_boards, :selected_board_lists, :row_order, :board_id)
     end
 end

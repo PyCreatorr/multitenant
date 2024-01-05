@@ -8,7 +8,7 @@ import { get, post, put, patch, destroy } from '@rails/request.js';
 
 export default class extends Controller {
 
-  static targets = ["tname", "listsSelect"];
+  static targets = ["tname", "listsSelect", "tasksSelect"];
 
   connect() {
 
@@ -164,11 +164,44 @@ export default class extends Controller {
 
     let selected_board = event.target.selectedOptions[0].value;
     let target = this.listsSelectTarget.id;
+    let tasksTarget = this.tasksSelectTarget.id;
+
+    // let targetList = this.listsSelectTarget.id;
+
     console.log("target = ", target);
+    console.log("tasksTarget = ", tasksTarget);
 
     console.log("selected_board = ", selected_board);
 
-    get( `/selected_board?selected_board=${selected_board}&target=${target}`,{
+    let selected_list = event.target.selectedOptions[0].value;
+
+    // let button_submit = document.getElementById("submit_button");
+
+    // console.log("button_submit = ", button_submit);
+
+    get( `/selected_board?selected_board=${selected_board}&target=${target}&tasks_target=${tasksTarget}`,{
+      // body: JSON.stringify({
+      //   list_id: sortableListId,
+      //   row_order_position: event.newDraggableIndex      
+      // }),
+      responseKind: "turbo-stream",
+      contentType: "application/json"
+      //responseKind: "html"
+    });
+
+
+  }
+
+  changeList(event){
+    console.log("selected list!");
+
+    let selected_list = event.target.selectedOptions[0].value;
+    let target = this.tasksSelectTarget.id;
+    console.log("target = ", target);
+
+    console.log("selected_list = ", selected_list);
+
+    get( `/selected_list?selected_list=${selected_list}&target=${target}`,{
       // body: JSON.stringify({
       //   list_id: sortableListId,
       //   row_order_position: event.newDraggableIndex      

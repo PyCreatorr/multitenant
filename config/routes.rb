@@ -77,6 +77,8 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'static_pages#dashboard'
 
   get 'selected_board', to: 'tasks#selected_board'
+
+  get 'selected_list', to: 'tasks#selected_list'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

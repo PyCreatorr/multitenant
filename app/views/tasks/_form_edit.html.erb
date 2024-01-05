@@ -1,5 +1,5 @@
 
-<%#= @list_boards %>
+<%= @positions %>
 <br>
 <%= form_with(model: task, class: "contents") do |form| %>
   <% if task.errors.any? %>
@@ -27,11 +27,19 @@
 
     <div class="my-5" >
       <%= form.label :list_id %>    
-      <%= form.select :list_id, @selected_board_lists.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.list_id}, {class:'form-select', data: { task_target: "listsSelect"} } %>
+      <%= form.select :list_id, @selected_board_lists.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.list_id}, {class:'form-select', data: { task_target: "listsSelect", action: "change->task#changeList"} } %>
     </div>
-  </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <% if @positions.length > 0 %>
+      <div class="my-5" >
+        <%= form.label :task_id %>    
+        <%= form.select :row_order, @positions.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.row_order}, {class:'form-select', data: { task_target: "tasksSelect"} } %>
+      
+      </div>
+    <% end %> 
+
+    <div class="inline" id="submit_button">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
   </div>
 <% end %>

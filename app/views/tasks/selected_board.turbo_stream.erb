@@ -1,3 +1,18 @@
 <%= turbo_stream.update @target do %>
 <%= options_for_select @selected_board_lists %>
 <% end %>
+
+<%= turbo_stream.update @tasks_target do %>
+<%= options_for_select @positions %>
+<% end %>
+
+<%= turbo_stream.update "submit_button" do %>
+<%#=  @selected_board_lists.present? %>
+    <% if @selected_board_lists.present? %>
+        <input type="submit" name="commit" value="Update Task" class="rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" data-disable-with="Update Task">
+    <% else %>
+        <input type="submit" name="commit" value="Update Task" class="mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" data-disable-with="Update Task" disabled>
+    <% end %>
+<% end %>
+
+
