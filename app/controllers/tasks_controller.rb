@@ -205,8 +205,17 @@ class TasksController < ApplicationController
 
         tasks_add_new = "tasks_add_new_#{params[:list_id]}"
 
-        format.turbo_stream { render "prepend_task", 
-          locals: { tasks_add_new: tasks_add_new, task: @task }
+        # format.turbo_stream { render "prepend_task", 
+        #   locals: { tasks_add_new: tasks_add_new, task: @task }
+        # }
+
+        @list_2_update = "sortable_list_#{ @task.list_id }"
+
+        @list = List.find(@task.list_id)
+        @board = Board.find(@list.board_id)
+
+        format.turbo_stream { render "lists/update_list", 
+          locals: { board: @board, list: @list, list_2_update: @list_2_update, position: 0  }
         }
 
         format.html { redirect_to "/boards/#{board}", notice: "Task was successfully created." }
@@ -347,28 +356,6 @@ class TasksController < ApplicationController
 
     end
 
-    
-
-
-    
-
-
-    # if params[:task][:row_order].present?
-    #   pos_current = @positions.find { |el| el[0].to_s == @task.row_order.to_s}[1] if @task 
-    #   r_order_current = @positions.find { |el| el[0].to_s == @task.row_order.to_s }[0] if @task 
-    # end
-
-    # debugger
-
-    # Get the row order selected new position
-    # if params[:task][:row_order].present? && @positions.find { |el| el[0].to_s == params[:task][:row_order] }[1]     
-    #   pos_new = @positions.find { |el| el[0].to_s == params[:task][:row_order] }[1]      
-    #   r_order_new = @positions.find { |el| el[0].to_s == params[:task][:row_order] }[0]
-    # end 
-
-    
-    # debugger
-
     old_list = @task.list_id
     new_list = params[:task][:list_id]
 
@@ -382,16 +369,13 @@ class TasksController < ApplicationController
 
       # if params[:task][:row_order] 
         if @task.update(name: params[:task][:name], list_id: params[:task][:list_id].present? ? params[:task][:list_id] : @task.list_id, row_order: params[:task][:row_order].present? ? params[:task][:row_order] : @task.row_order)
-          #board = List.find(params[:list_id]).board_id
-
-           
+          #board = List.find(params[:list_id]).board_id           
 
           if (old_list == new_list.to_i) && (old_task_order == new_task_order)
             format.turbo_stream { render "update_task", 
               locals: { task: @task, update_task: @update_task  }
             }
           elsif (old_list != new_list.to_i) || (old_task_order != new_task_order)
-
             # debugger
 
             @list = List.find(@task.list_id)

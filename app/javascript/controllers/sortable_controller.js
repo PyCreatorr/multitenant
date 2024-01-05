@@ -16,8 +16,7 @@ export default class extends Controller {
       console.log("mobile");
 
       // FOR TEST
-      console.log("not mobile");
-     
+          
 
       var sortable = new Sortable(this.element, {
         onEnd: this.onEnd.bind(this),
@@ -39,6 +38,8 @@ export default class extends Controller {
         group: this.groupValue,
         animation: 200
       });
+
+      sortable.option("disabled", false);
     }
 
 
