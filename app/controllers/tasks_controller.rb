@@ -130,7 +130,7 @@ class TasksController < ApplicationController
     end
     @positions = positions
 
-    @positions = [["No Tasks",0]] if @positions.length == 0
+     @positions = [] if @positions.length == 0
 
 
     @target = params[:target]
