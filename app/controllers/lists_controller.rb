@@ -67,10 +67,17 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
+
         
-        format.turbo_stream { render "prepend_list", 
-          locals: { list: @list }
+        @board = Board.find(@list.board_id)
+
+        format.turbo_stream { render "lists/update_lists", 
+          locals: { board: @board, list: @list, position: 0  }
         }
+        
+        # format.turbo_stream { render "prepend_list", 
+        #   locals: { list: @list }
+        # }
 
         format.html { redirect_to "/boards/#{@list.board_id}", notice: "List was successfully created." }
         format.json { render :show, status: :created, location: @list }
