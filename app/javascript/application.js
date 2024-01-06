@@ -6,3 +6,5 @@ import "@rails/request.js"
 import "@fortawesome/fontawesome-free"
 
 // import 'flowbite'
+import "trix"
+import "@rails/actiontext"

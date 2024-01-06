@@ -197,7 +197,9 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(name: params[:name], list_id: params[:list_id])
+    @task = Task.new(name: params[:name], list_id: params[:list_id], description: params[:description] )
+
+    # debugger
 
     respond_to do |format|
       if @task.save
@@ -367,8 +369,10 @@ class TasksController < ApplicationController
      
       @update_task = dom_id(@task, :sortable) 
 
+      # debugger
+
       # if params[:task][:row_order] 
-        if @task.update(name: params[:task][:name], list_id: params[:task][:list_id].present? ? params[:task][:list_id] : @task.list_id, row_order: params[:task][:row_order].present? ? params[:task][:row_order] : @task.row_order)
+        if @task.update(name: params[:task][:name], list_id: params[:task][:list_id].present? ? params[:task][:list_id] : @task.list_id, row_order: params[:task][:row_order].present? ? params[:task][:row_order] : @task.row_order, description: params[:task][:description] )
           #board = List.find(params[:list_id]).board_id           
 
           if (old_list == new_list.to_i) && (old_task_order == new_task_order)
@@ -428,6 +432,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:name, :list_id, :list_boards, :selected_board_lists, :row_order, :board_id)
+      params.require(:task).permit(:name, :list_id, :list_boards, :selected_board_lists, :row_order, :board_id, :description, :cover_image)
     end
 end
