@@ -34,6 +34,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :tasks do
+    resource :cover_image, only: [:destroy], module: :tasks
+  end
+
 # SEARCH TASKS
 # get 'search_friend', to: 'users#search'
 

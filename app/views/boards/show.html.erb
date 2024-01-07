@@ -11,18 +11,14 @@
                     preference: <%= (current_user.preference && current_user.preference[:sidebar_position]) ? current_user.preference[:sidebar_position] : "no preferences" %>
                     <%= render @board %>                  
                   </div>
-              </div>
-
-              <div></div>
+              </div>              
           </nav>
 
           <div class="w-1/6 md:w-4/6 lg:w-5/6 flex-grow">
-            <div class="sticky top-2 z-12">
-
-              <nav class="bg-gray-200 p-4 flex justify-between items-center"> 
-
-                <div class="font-bold text-2xl"><%= @board.name%></div>
-                <div class="flex space-x-1">
+            <div class="top-2">
+              <div class="bg-gray-200 p-4 flex justify-between items-center">
+                <div class="font-bold text-2xl" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: hidden;"><%= @board.name%></div>
+                <div id="sidebar_mobile_view" class="flex space-x-1">                
                   <%# <div class="md:hidden" role="button" data-action="click->navbar#toggle" >
                     &#9776;
                   </div> %>
@@ -33,8 +29,8 @@
                     <%= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
                   </div>
                 </div>
-              </nav>
-            </div>            
+              </div>
+            </div>           
 
           
             <div class="flex flex-row h-[calc(100vh-150px)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-146px)] p-2">                      
@@ -55,17 +51,8 @@
               </div>
             </div>
           </div>
-          
-                <%# if notice.present? %>
-                  <!-- <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p> -->
-                <%# end %>
-  
-                <%#= link_to "Edit this board", edit_board_path(@board), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-                <%# <div class="inline-block ml-2"> %>
-                  <%#= button_to "Destroy this board", board_path(@board), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-                <%# </div> %>
-                <%#= link_to "Back to boards", boards_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-              
+
+
 
 
 

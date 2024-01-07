@@ -20,6 +20,18 @@
   </div>
 
   <div class="my-5">
+        <%= form.label :cover_image %>
+          <% if task.cover_image.present?%>
+
+            <div id="<%= dom_id(task, :cover_image) %>">          
+              <%= image_tag task.cover_image, class:"w-1/3" %>
+            </div>
+            <%= link_to "Delete Cover Image", task_cover_image_path(task), method: :delete, data: {turbo_method: :delete, turbo_confirm: "Are You sure?"}, class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+          <%end%>
+        <%= form.file_field :cover_image, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
     <%= form.label :description %>
     <%= form.rich_text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
