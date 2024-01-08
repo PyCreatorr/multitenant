@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
+body {
+  font-size: 1rem;
+}
 .alert-danger{
   background-color: rgb(233, 0, 0)
 }
@@ -243,6 +245,27 @@
 .list_width{
   width:280px;
   min-width:280px
+}
+
+/* AVATAR ICON*/
+
+.avatar_circle {
+  width: 28px; /* Adjust the size of the circle as needed */
+  height: 28px; /* Adjust the size of the circle as needed */
+  background-color: #a66cfe;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(31 41 55); /* You can adjust the text color */
+  font-size: 18px; /* Adjust the font size of the letter "T" */
+  font-weight: 600; /* You can adjust the font weight if needed */
+  transition: background-color 0.1s ease, outline 0.1s ease;
+}
+
+.avatar_circle:hover {
+  background-color: #62d092;
+  outline: 4px solid rgb(67, 84, 109);
 }
 
 @import 'actiontext.css';

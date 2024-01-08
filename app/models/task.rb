@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   has_one_attached :cover_image
   has_rich_text :description
 
-  validates :name, presence: true
+  validates :name, presence: true  
   belongs_to :list
   # belongs_to :board
 

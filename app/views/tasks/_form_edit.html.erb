@@ -1,7 +1,7 @@
 
 <%#= @positions %>
 <br>
-<%= form_with(model: task, class: "contents") do |form| %>
+<%= form_with(model: task, class: "contents", data: {turbo_frame: "_top"}) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>

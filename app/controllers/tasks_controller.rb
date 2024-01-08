@@ -234,6 +234,8 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
 
+    
+
     # GET THE POSITIONS IN THE CURRENT LIST
     positions = []
     i = 0
@@ -251,8 +253,6 @@ class TasksController < ApplicationController
     r_order_current = nil;
     r_order_new_more = nil;
     
- 
-    
     # CASE 1: Same board, same list change the task position in the same list. 
     # Array @positions includes the current & the new row_orders
     # Check if it is the same boards
@@ -262,6 +262,8 @@ class TasksController < ApplicationController
 
     new_list_id = params[:task][:list_id].to_i if params[:task][:list_id].present?
     new_board_id = params[:task][:board_id].to_i if params[:task][:board_id].present?
+
+    # debugger
 
     if cur_board_id == new_board_id
 
@@ -274,7 +276,7 @@ class TasksController < ApplicationController
         pos_new = @positions.find { |el| el[0].to_s == params[:task][:row_order] }[1]      
         r_order_new = @positions.find { |el| el[0].to_s == params[:task][:row_order] }[0]
 
-        # debugger
+        
 
         # If the new position is greater then the old position, but not the last position
         if pos_current && pos_new > pos_current && pos_new < @positions.length
@@ -356,7 +358,7 @@ class TasksController < ApplicationController
         params[:task][:row_order] = min_l.to_s
       end
 
-      params[:task][:row_order] = 0 if !pos_2paste.present?
+      params[:task][:row_order] = @task.row_order if !pos_2paste.present?
 
     end
 
@@ -371,7 +373,7 @@ class TasksController < ApplicationController
      
       @update_task = dom_id(@task, :sortable) 
 
-      coverImage=nil
+      # coverImage=nil
 
       # debugger
           
@@ -385,36 +387,53 @@ class TasksController < ApplicationController
       # if @task.update(name: params[:task][:name], list_id: params[:task][:list_id].present? ? params[:task][:list_id] : @task.list_id, row_order: params[:task][:row_order].present? ? params[:task][:row_order] : @task.row_order, 
       #   description: params[:task][:description].present? ? params[:task][:description] : @task.description.body)
 
-        if @task.update(task_params)
+      # debugger
 
-          
-          # if params[:task][:cover_image].present?
-          # cover_image: params[:task][:cover_image].present? ? params[:task][:cover_image] : @task.cover_image
+      if @task.update(task_params)
 
-          #board = List.find(params[:list_id]).board_id           
+          @list = List.find(@task.list_id)
+          @board = Board.find(@list.board_id)         
+       
 
-          if (old_list == new_list.to_i) && (old_task_order == new_task_order)
+          if (cur_board_id == new_board_id) && (old_list == new_list.to_i) && (old_task_order == new_task_order)
             format.turbo_stream { render "update_task", 
               locals: { task: @task, update_task: @update_task  }
             }
-          elsif (old_list != new_list.to_i) || (old_task_order != new_task_order)
-            # debugger
-
-            @list = List.find(@task.list_id)
-            @board = Board.find(@list.board_id)
+          elsif (cur_board_id == new_board_id) && ((old_list != new_list.to_i) || (old_task_order != new_task_order))
+            # debugger           
 
             format.turbo_stream { render "lists/update_lists", 
               locals: { board: @board, list: @list, position: 0  }
             }
+
+          elsif (cur_board_id != new_board_id)
+
+            format.html { redirect_to board_url(new_board_id), notice: "Task was successfully updated." }
+
+            # debugger 
+            #format.turbo_stream { redirect_to board_url(new_board_id), notice: "Task was successfully updated." }
+
+            # format.turbo_stream { render "boards/update_board", 
+            #   locals: { board: @board, list: @list, position: 0  }
+            # }
+
+             #render turbo_stream: turbo_stream.redirect(board_url(new_board_id)) 
+             #format.turbo_stream {  render turbo_stream: turbo_stream.redirect(board_url(new_board_id))   }
+            
+
+            # format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
+
           end
 
           format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
           # format.json { render :show, status: :ok, location: @task }
           format.json { render json: { status: 'ok', name: @task.name } }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @task.errors, status: :unprocessable_entity }
-        end
+      else
+        debugger 
+        
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
 
       # elsif @task.update(name: params[:task][:name], list_id: @task.list_id, row_order: @task.row_order)
       #       format.turbo_stream { render "update_task", 

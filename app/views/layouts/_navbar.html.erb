@@ -6,14 +6,18 @@
       <%= content_tag(:div, data: {action: "click->menu-vertical#dropdownHide"}, class:"absolute inset-y-0 left-0 flex items-center sm:hidden") do %>
       <%# <div data-action="click->menu-vertical#dropdownHide" class="absolute inset-y-0 left-0 flex items-center sm:hidden"> %>
         <!-- Mobile menu button-->
-        <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+        <button type="button" class="relative inline-flex items-center justify-center p-2 text-gray-400 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
           <span class="absolute -inset-0.5"></span>
           <span class="sr-only">Open main menu</span>
           <!-- Icon when menu is closed. Menu open: "hidden", Menu closed: "block"
           -->
-          <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5C4 4.44772 4.44772 4 5 4H7C7.55228 4 8 4.44772 8 5V7C8 7.55228 7.55228 8 7 8H5C4.44772 8 4 7.55228 4 7V5ZM4 11C4 10.4477 4.44772 10 5 10H7C7.55228 10 8 10.4477 8 11V13C8 13.5523 7.55228 14 7 14H5C4.44772 14 4 13.5523 4 13V11ZM11 4C10.4477 4 10 4.44772 10 5V7C10 7.55228 10.4477 8 11 8H13C13.5523 8 14 7.55228 14 7V5C14 4.44772 13.5523 4 13 4H11ZM10 11C10 10.4477 10.4477 10 11 10H13C13.5523 10 14 10.4477 14 11V13C14 13.5523 13.5523 14 13 14H11C10.4477 14 10 13.5523 10 13V11ZM17 4C16.4477 4 16 4.44772 16 5V7C16 7.55228 16.4477 8 17 8H19C19.5523 8 20 7.55228 20 7V5C20 4.44772 19.5523 4 19 4H17ZM16 11C16 10.4477 16.4477 10 17 10H19C19.5523 10 20 10.4477 20 11V13C20 13.5523 19.5523 14 19 14H17C16.4477 14 16 13.5523 16 13V11ZM5 16C4.44772 16 4 16.4477 4 17V19C4 19.5523 4.44772 20 5 20H7C7.55228 20 8 19.5523 8 19V17C8 16.4477 7.55228 16 7 16H5ZM10 17C10 16.4477 10.4477 16 11 16H13C13.5523 16 14 16.4477 14 17V19C14 19.5523 13.5523 20 13 20H11C10.4477 20 10 19.5523 10 19V17ZM17 16C16.4477 16 16 16.4477 16 17V19C16 19.5523 16.4477 20 17 20H19C19.5523 20 20 19.5523 20 19V17C20 16.4477 19.5523 16 19 16H17Z" fill="currentColor">
+            </path>
           </svg>
+          <%# <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg> %>
           <!-- Icon when menu is open. Menu open: "block", Menu closed: "hidden"-->
           <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -24,104 +28,100 @@
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
         <div class="flex flex-shrink-0 items-center">        
           <%= link_to root_path, class: "btn btn-primary" do %>
-            <i class="fa-solid fa-sd-card fa-xl" style="color: #62d092;"></i>            
+            <i class="fa-brands fa-flipboard fa-xl" style="color: #62d092;"></i>           
           <% end %>
         </div>
         <%# if user_signed_in? %>
-        <%= content_tag(:div, "", data: {controller: "menu"}, class:"hidden sm:ml-6 sm:block")  do %>
-        <%# <div data-controller="menu" class="hidden sm:ml-6 sm:block"> %>
+
             <div class="flex space-x-4">
               <div class ="<%= 'rounded-md bg-gray-900' if request.path == "/scans" %>">
-                <%= link_to 'Home', root_path, class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
+                <%= link_to 'ChoppyBoard', dashboard_path, class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium',  style:"color: #62d092;" %>
               </div>
               <div class ="<%= 'rounded-md bg-gray-900' if request.path == "/scans" %>">
-                <%= link_to 'Dashboard', dashboard_path, class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
+                <%= link_to 'Workspaces', tenants_path, class: 'hidden sm:ml-6 sm:block inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
               </div>
-              <div class ="<%= 'rounded-md bg-gray-900' if request.path == "/scans" %>">
-                <%= link_to 'Workspaces', tenants_path, class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
-              </div>
-              <div class ="<%= 'rounded-md bg-gray-900' if request.path == "/scans" %>">
-                <%= link_to 'Scans', 'scans_path', class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
-              </div>
-              <div class ="<%= 'rounded-md bg-gray-900' if request.path == 'blog_posts_path' %>">
-                <%= link_to 'Posts', 'posts_path', class: 'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium' %>
-              </div>
-              <%# Dropdown menu%>
-              <div data-action="menu#toggle" class="relative inline-block text-left <%= 'rounded-md bg-gray-900' if request.path == 'edit_user_registration_path' %>">
-                  <%= content_tag(:button, data: {action: "click->menu#toggle"}, class: "inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium") do%>
-                  <%# <button data-action="menu#toggle" type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium" id="menu-button" aria-expanded="true" aria-haspopup="true"> %>
-                    Profile
-                    <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                    </svg>
-                  <% end %>
-                  <%# </button> %>
-                
-                <div data-menu-target="toggleable" class="absolute right-0 z-10000 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" 
-                role="menu" aria-orientation="vertical" aria-labelledby="menu-button" style="z-index: 90000;">
-                  <div class="py-1" role="none">
-                    <%= link_to 'edit_user_registration_path', class:"text-gray-700 block px-4 py-2 text-sm" do %>
-                    <i class="fa-solid fa-pen-to-square" style="padding: 0 5px 0 5px"></i>Edit profile
-                    <% end %>
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
-                    <form method="POST" action="#" role="none">
-                      <button type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Sign out</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <%# Dropdown menu end%>            
-                <%= link_to "Pricing", 'pricing_path', class:"text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium #{ 'rounded-md bg-gray-900' if request.path == 'edit_user_registration_path' }" %>
+         
+                <%= link_to "Pricing", 'pricing_path', class:"hidden sm:ml-6 sm:block text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium #{ 'rounded-md bg-gray-900' if request.path == edit_user_registration_path }" %>
             </div>
-        <% end %>
+
         <%# </div> %>
         <%# end %>
       </div>
 
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <%# <%= current_user.id %>
-        <% if user_signed_in? %>
-          <ul class="space-y-4 text-left text-gray-300 dark:text-gray-400 hidden md:block" style="color: #a66cfe">
-            <li class="flex items-center space-x-3 text-sm font-medium">
-              <%= link_to current_user.email, edit_user_registration_path, class: "fa-regular fa-solid fa-circle-user" %>
-            </li>
-            
-          </ul>
-          <%# if current_user.stripe_customer_id.present? %>
-              <div class="flex flex-shrink-0 items-center px-3 py-2">
-                <ul class="space-y-4 text-left text-gray-300 dark:text-gray-400 hidden md:block" style="color: #a66cfe">
-                  <li class="flex items-center space-x-3 text-sm font-medium">
-                    <%#= current_user.stripe_customer_id %>
-                  </li>
-                </ul>              
-              </div>
-              <div class="flex flex-shrink-0 items-center px-3 py-2">
-                  <%= button_to "Change plan", 'billing_portal_create_path', class: "inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium" %>
-              </div>              
-          <%# end %>
-          <%# if current_user.plan.present? %>
-            <div class="flex flex-shrink-0 items-center px-3 py-2">
-              <ul class="space-y-4 text-left text-gray-300 dark:text-gray-400 hidden md:block" style="color: #a66cfe">
-                <li class="flex items-center space-x-3 text-sm font-medium">
-                <%#= "admin" if current_user.has_role? :admin%>
-                <%#= current_user.roles.distinct.pluck(:name) %>
-                <%#= current_user.roles.all.map(&:name) %>
-                  <%#= current_user.plan %>
-                  <%#= current_user.subscription_status %>
-                </li>
-              </ul>              
-            </div>
+        <%= content_tag(:div, "", data: {controller: "menu"}, class:"sm:items-stretch sm:justify-start") do %>
 
-          <%# end %>
-          <div class="flex flex-shrink-0 items-center px-3 py-2">
-            <%= link_to destroy_user_session_path, data:{turbo_method: :delete}, class: "inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium" do %>
-              Logout           
-            <% end %>
+          <%= content_tag(:button, data: {action: "click->menu#toggle"}, class: "inline-flex w-full justify-center text-sm font-small") do %>
+          <%# <i class="fa-regular fa-solid fa-circle-user fa-lg" style="color: #a66cfe; padding:0 5px 0 5px"></i> %>
+          <div class="avatar_circle">
+            <% if user_signed_in? %>
+                <%= current_user.email.to_s[0].upcase %>
+            <% else %>
+              <svg class="-mr-0 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="rgb(31 41 55)" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            <% end %> 
           </div>
-        <% else %>
-              <%= link_to "Register", new_user_registration_path, class: "inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium" %>
-              <%= link_to "Login", new_user_session_path, class: "inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 text-sm font-medium" %>
+
         <% end %>
+        
+        <!-- Dropdown menu Account -->
+                <div data-menu-target="toggleable" class="absolute right-0 z-10000 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" 
+                role="menu" aria-orientation="vertical" aria-labelledby="menu-button" style="z-index: 90000;">
+          <div class="px-4 py-3">
+            <span class="block text-sm text-gray-900 dark:text-white"><%= current_user.email if user_signed_in? %></span>
+          </div>
+          <ul class="py-2" aria-labelledby="user-menu-button">
+            <li>
+                <%= link_to edit_user_registration_path, class:"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" do %>
+                    <i class="fa-solid fa-pen-to-square" style="padding: 0 5px 0 5px"></i>Edit profile
+                <% end %>
+             </li>
+            <li>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+            </li>
+            <li>
+            <% if user_signed_in? %>
+              <%# if current_user.stripe_customer_id.present? %>
+                  <%# <div class="flex flex-shrink-0 items-center px-3 py-2">
+                    <ul class="space-y-4 text-left text-gray-300 dark:text-gray-400 hidden md:block" style="color: #a66cfe">
+                      <li class="flex items-center space-x-3 text-sm font-medium">
+                      </li>
+                    </ul>              
+                  </div> %>
+                  <li>
+                      <%= button_to "Change plan", 'billing_portal_create_path', class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>
+                  <li>              
+              <%# end %>
+              <%# if current_user.plan.present? %>
+                <!-- <div class="flex flex-shrink-0 items-center px-3 py-2">
+                  <ul class="space-y-4 text-left text-gray-300 dark:text-gray-400 hidden md:block" style="color: #a66cfe">
+                    <li class="flex items-center space-x-3 text-sm font-medium">
+                    <%#= "admin" if current_user.has_role? :admin%>
+                    <%#= current_user.roles.distinct.pluck(:name) %>
+                    <%#= current_user.roles.all.map(&:name) %>
+                      <%#= current_user.plan %>
+                      <%#= current_user.subscription_status %>
+                    </li>
+                  </ul>              
+                </div> -->
+              <%# end %>
+
+              <%= link_to destroy_user_session_path, data:{turbo_method: :delete}, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" do %>
+                Logout           
+              <% end %>            
+            <% else %>
+                  <%= link_to "Register", new_user_registration_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>
+                  <%= link_to "Login", new_user_session_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>
+            <% end %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+
       </div>
     </div> 
   </div>
@@ -129,7 +129,8 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div data-menu-vertical-target="dropdownable" class="sm:hidden relative hidden" id="mobile-menu">
     <div class="mt-4 bg-white shadow-lg origin-top-right rounded-md ring-1 ring-black ring-opacity-5 fixed top-10 left-0 right-0" style="z-index: 90000;">
-      <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium text-gray-700" aria-current="page">Welcome</a>
+      <%= link_to 'Dashboard', root_path, class: 'text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium' %>
+      <%= link_to 'Workspaces', tenants_path, class: 'text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium' %>
       <a href="#" class="text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ">My Friends</a>
       <%# Dropdown menu%>
       <div data-controller="menu" class="static text-left mx-auto">
@@ -142,7 +143,7 @@
           </button>
         </div>
         <div data-menu-target="toggleable" class="relative rounded-md bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-          <%= link_to 'edit_user_registration_path', class:"text-gray-700 block px-4 py-2 text-sm" do %>
+          <%= link_to '/users/edit', class:"text-gray-700 block px-4 py-2 text-sm" do %>
               <i class="fa-solid fa-pen-to-square" style="padding: 0 5px 0 5px"></i>Edit profile
           <% end %>
           <div class="py-1" role="none">

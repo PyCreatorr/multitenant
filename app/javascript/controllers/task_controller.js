@@ -144,10 +144,10 @@ export default class extends Controller {
         if(status === "ok") {
           this.originalNameTarget.querySelector("a").innerText = name;
 
-          inputField.remove();
           let bluredField = document.getElementById("bluredField");
           console.log("bluredField=", bluredField);
-          bluredField.remove();
+          if (bluredField) bluredField.remove();
+          if (inputField) inputField.remove();
 
           //this.element.replaceChild(this.originalNameTarget, inputField);
         } else { // Handle error ...

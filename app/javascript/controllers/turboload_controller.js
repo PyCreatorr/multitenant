@@ -22,6 +22,9 @@ export default class extends Controller {
     console.log('DOMContentLoaded event fired!');
 
     let div2Scroll = document.getElementById('lists');
+    const icon_sidebar = document.getElementById("sidebar_buttom_slide");
+    console.log("icon_sidebar=", icon_sidebar)
+
     //let { scrollLeft } = this.element.dataset;
     //let scroll2Position = div2Scroll.dataset.scrolling;
     // dataset.list-updated
@@ -32,12 +35,33 @@ export default class extends Controller {
     console.log('l =', `sortable_list_${l}`);
 
    let el =  document.getElementById(sl);
+   console.log("screen.width=", screen.width);
 
+   
    if (el) {
-      let rect = el.getBoundingClientRect();
-      console.log('scroll2Position =', rect.left);
-      div2Scroll.scrollLeft = div2Scroll.scrollLeft + rect.left-24; 
-      console.log('div2Scroll.scrollLeft =', div2Scroll.scrollLeft);
+     
+     let rect = el.getBoundingClientRect();
+     console.log("rect.left=", rect.left);
+
+     console.log('div2Scroll.scrollLeft1 =', div2Scroll.scrollLeft);
+      
+
+      if (icon_sidebar.classList.contains('fa-angle-left')) {
+
+        if (screen.width < 1024 ) div2Scroll.scrollLeft = div2Scroll.scrollLeft + rect.left-40 - 300; 
+        if (screen.width >= 1024 ) div2Scroll.scrollLeft = rect.left -24 -300; 
+        
+      }
+
+      if (icon_sidebar.classList.contains('fa-angle-right')) {
+
+        if (screen.width < 1024 ) div2Scroll.scrollLeft = rect.left-40 ; 
+        if (screen.width >= 1024 ) div2Scroll.scrollLeft = rect.left -24 ; 
+        
+      }
+      
+      console.log('div2Scroll.scrollLeft2 =', div2Scroll.scrollLeft);
+
     }
 
   }

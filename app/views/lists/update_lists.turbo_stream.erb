@@ -3,7 +3,7 @@
 
 <!-- Update the "lists" + shift the y-scroll to the new position --> 
 <%= turbo_stream.replace "lists" do %>
-    <%= render partial: "lists/update_lists", locals: { board: board, list_updated: list, position: 380*(position.to_i)} %>
+    <%= render partial: "lists/update_lists", locals: { board: board, list_updated: list} %>
     <%#= render @list %>  
 <% end %>
 

@@ -12,21 +12,21 @@ export default class extends Controller {
   connect() {
     console.log("hello from sidebar");
     const icon_sidebar = document.getElementById("sidebar_buttom_slide");
-    console.log("icon_sidebar=", icon_sidebar);
+    //console.log("icon_sidebar=", icon_sidebar);
 
-    const sidebar_mobile_view = document.getElementById("sidebar_mobile_view");
-    console.log("sidebar_mobile_view=", sidebar_mobile_view);
+    const sidebar_mobile_name = document.getElementById("sidebar_mobile_name");
+    //console.log("sidebar_mobile_name=", sidebar_mobile_name);
 
-    sidebar_mobile_view.style = "visibility: visible;";
+    sidebar_mobile_name.style = "visibility: visible;";
 
     if (icon_sidebar.classList.contains('fa-angle-left')) {
 
-      if (screen.width <= 425 ) sidebar_mobile_view.style = "visibility: hidden;";
+      if (screen.width <= 425 ) sidebar_mobile_name.style = "visibility: hidden;";
     };
 
     if (icon_sidebar.classList.contains('fa-angle-right')) {
 
-      sidebar_mobile_view.style = "visibility: visible;";
+      sidebar_mobile_name.style = "visibility: visible;";
     }
 
 
@@ -44,8 +44,9 @@ export default class extends Controller {
     
     const icon_sidebar = document.getElementById("sidebar_buttom_slide");
     const sidebar_info = document.getElementById("board_sidebar_information");
-    const sidebar_mobile_view = document.getElementById("sidebar_mobile_view");
-    console.log("sidebar_mobile_view=", sidebar_mobile_view);
+    const sidebar_mobile_name = document.getElementById("sidebar_mobile_name");
+    const sidebar_mobile_new_list = document.getElementById("sidebar_mobile_new_list");
+    //console.log("sidebar_mobile_name=", sidebar_mobile_name);
     //icon_sidebar.classList.remove('class');
     if (icon_sidebar.classList.contains('fa-angle-right')) {
       icon_sidebar.classList.remove('fa-angle-right');
@@ -56,6 +57,8 @@ export default class extends Controller {
       //s_position = "opened";
     }
 
+    console.log("screen.width =", screen.width);
+
     if (icon_sidebar.classList.length === 3) {
       s_position = "closed";
       console.log("fa-angle-right", s_position);
@@ -64,7 +67,10 @@ export default class extends Controller {
       sidebar_info.style="opacity: 0; transition: visibility 0ms linear 100ms, opacity 100ms;";
       //sidebar_info.innerHTML="";
       //sidebar_info.classList.add('hide');
-      if (screen.width <= 425 ) sidebar_mobile_view.style = "visibility: visible;";
+      if (screen.width <= 1024 ) {
+        sidebar_mobile_name.style = "visibility: visible;";
+        sidebar_mobile_new_list.style = "visibility: visible;";
+      };
     }
 
     if (icon_sidebar.classList.length === 2) {
@@ -73,11 +79,14 @@ export default class extends Controller {
       //sidebar_info.style.visibility = "visible";
       sidebar_info.style="opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;";
 
-      if (screen.width <= 425 ) sidebar_mobile_view.style = "visibility: hidden;";
+      if (screen.width <= 1024 ) {
+        sidebar_mobile_name.style = "visibility: hidden; height:20px";
+        sidebar_mobile_new_list.style = "visibility: hidden;  height:20px";
+      }
     }
     
     //button_sidebar.sidebar.textContent='<i class="fa-solid fa-angle-left" style="color: #111d32;"></i>';
-    console.log("button_sidebar=", icon_sidebar.classList);
+    //console.log("button_sidebar=", icon_sidebar.classList);
 
     console.log(this.sidebarTarget);
     this.sidebarTarget.classList.toggle("slide_sidebar");
