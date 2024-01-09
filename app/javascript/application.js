@@ -9,3 +9,19 @@ import "@fortawesome/fontawesome-free"
 import "trix"
 import "@rails/actiontext"
 
+import {Turbo} from  "@hotwired/turbo-rails"
+
+// turbo_stream.action(:redirect, board_url(@board))
+
+Turbo.StreamActions.redirect = function(){
+    Turbo.visit(this.target);
+}
+
+
+// turbo_stream.advanced_redirect(board_url(@board))
+Turbo.StreamActions.advanced_redirect = function(){
+    let url = this.getAttribute('url');
+    console.log("url=", url);
+    Turbo.visit(url);
+}
+

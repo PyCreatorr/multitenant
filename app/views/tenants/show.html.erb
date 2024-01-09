@@ -17,7 +17,7 @@
       <br>
       <h1>BOARDS:</h1>
       <% @tenant.boards.each do |board| %>
-        <%#= board.name%><br>
+        <%#= board.name %><br>
         
         <%= render partial: "boards/board", locals: { board: board} %>
       <% end %>    

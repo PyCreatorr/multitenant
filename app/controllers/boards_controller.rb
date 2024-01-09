@@ -8,6 +8,14 @@ class BoardsController < ApplicationController
 
   # GET /boards/1 or /boards/1.json
   def show
+     # debugger
+    current_board = Board.find(params[:id])
+    current_tenant_id = current_board.tenant_id
+
+    current_member = Member.find(current_board.member_id)
+    # @all_boards = Board.where(member_id: current_member.id, tenant_id: current_tenant_id)
+    @all_boards = Board.where(tenant_id: current_tenant_id)
+
   end
 
   # GET /boards/new
@@ -28,7 +36,16 @@ class BoardsController < ApplicationController
   # POST /boards or /boards.json
   def create
     #debugger
-    @board = Board.new(name: params[:name], tenant_id: params[:tenant_id], member_id: current_user.id)
+    member = Member.find_by(user_id: current_user.id)
+    if !member.present?
+      redirect_to root_path
+      flash[:danger] = "You are not permitted to create a boards!"
+    end
+    # rescue ActiveRecord::RecordNotFound
+    #   redirect_to root_path
+    #   flash[:danger] = "You are not permitted to create a boards!"
+    
+    @board = Board.new(name: params[:name], tenant_id: params[:tenant_id], member_id: member.id)
 
     respond_to do |format|
       if @board.save
@@ -71,6 +88,9 @@ class BoardsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_board
       @board = Board.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to root_path
+        flash[:danger] = "This board does not exist!"
     end
 
     # Only allow a list of trusted parameters through.

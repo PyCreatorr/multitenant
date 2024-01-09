@@ -7,8 +7,13 @@
                     <!-- <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p> -->
                     <%# end %>
                     <div id="board_sidebar_information" style="<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? 'opacity: 0; transition: visibility 0ms linear 100ms, opacity 200ms; ': 'opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;'%>">
-                      preference: <%= (current_user.preference && current_user.preference[:sidebar_position]) ? current_user.preference[:sidebar_position] : "no preferences" %>
-                      <%= render @board %>                  
+                      <%# preference: <%= (current_user.preference && current_user.preference[:sidebar_position]) ? current_user.preference[:sidebar_position] : "no preferences" %> 
+                 
+                          <h1>BOARDS:</h1>
+                      <% @all_boards.each do |board| %>
+                        <%= link_to board.name, board_path(board) %><br>        
+                        <%#= render partial: "board", locals: { board: board} %>
+                      <% end %>   
                     </div>
                 </div>              
             </nav>

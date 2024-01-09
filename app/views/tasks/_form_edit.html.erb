@@ -1,7 +1,8 @@
 
 <%#= @positions %>
-<br>
-<%= form_with(model: task, class: "contents", data: {turbo_frame: "_top"}) do |form| %>
+<%# , data: {turbo_frame: "_top"} %>
+<%= form_with(model: task, class: "contents") do |form| %>
+<%#= form_with url: list_tasks_path do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -38,20 +39,20 @@
 
   <div data-controller="task">
     <div class="my-5" >
-      <%= form.label :board_id %>
-      <%= form.select :board_id, @list_boards.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @cur_board_id}, {class:'form-select', data: {action: "change->task#changeBoard"} } %>
+      <%= form.label :board_id %>      
+        <%= form.select :board_id, @list_boards.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @cur_board_id}, {class:'form-select', data: {action: "change->task#changeBoard"} } %>
     </div>
 
     <div class="my-5" >
-      <%= form.label :list_id %>    
-      <%= form.select :list_id, @selected_board_lists.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.list_id}, {class:'form-select', data: { task_target: "listsSelect", action: "change->task#changeList"} } %>
+      <%= form.label :list_id %>          
+        <%= form.select :list_id, @selected_board_lists.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.list_id}, {class:'form-select', data: { task_target: "listsSelect", action: "change->task#changeList"} } %>
+      
     </div>
 
     <% if @positions.length > 0 %>
       <div class="my-5" >
         <%= form.label :task_id %>    
         <%= form.select :row_order, @positions.map{|el| [el[1], el[0]] }, {prompt: "Select position", :selected => @task.row_order}, {class:'form-select', data: { task_target: "tasksSelect"} } %>
-      
       </div>
     <% end %> 
 

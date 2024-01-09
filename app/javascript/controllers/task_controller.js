@@ -12,7 +12,7 @@ export default class extends Controller {
 
   connect() {
 
-    console.log("Connected_task");
+    // console.log("Connected_task");
     this.originalNameTarget = null;
 
   }

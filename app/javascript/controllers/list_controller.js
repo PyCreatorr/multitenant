@@ -10,7 +10,7 @@ export default class extends Controller {
 
   connect() {
 
-    console.log("Connected_list");
+    // console.log("Connected_list");
     this.clickCount= 0;
     this.singleClickTimer = null;
     this.originalNameTarget = null;

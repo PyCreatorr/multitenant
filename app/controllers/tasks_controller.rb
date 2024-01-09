@@ -193,6 +193,8 @@ class TasksController < ApplicationController
     end
     @positions = positions
 
+    # debugger
+
   end
 
   # POST /tasks or /tasks.json
@@ -232,9 +234,7 @@ class TasksController < ApplicationController
   end
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
-  def update
-
-    
+  def update    
 
     # GET THE POSITIONS IN THE CURRENT LIST
     positions = []
@@ -408,7 +408,20 @@ class TasksController < ApplicationController
 
           elsif (cur_board_id != new_board_id)
 
-            format.html { redirect_to board_url(new_board_id), notice: "Task was successfully updated." }
+            # format.html { redirect_to board_url(new_board_id), notice: "Task was successfully updated." }
+
+            # format.turbo_stream { render "tasks/update_board", 
+            #   locals: { board: @board, list: @list, position: 0  }
+            # }
+
+            format.turbo_stream {
+                # render turbo_stream: helpers.autoredirect(board_url(@board))
+              # render turbo_stream: turbo_stream.action(:redirect, board_path(@board))
+              url = board_url(@board) + "&sortable_list=" + @list.id.to_s
+
+              render turbo_stream: turbo_stream.advanced_redirect(url)
+
+            }
 
             # debugger 
             #format.turbo_stream { redirect_to board_url(new_board_id), notice: "Task was successfully updated." }
@@ -429,7 +442,40 @@ class TasksController < ApplicationController
           # format.json { render :show, status: :ok, location: @task }
           format.json { render json: { status: 'ok', name: @task.name } }
       else
-        debugger 
+        # debugger 
+
+
+        selected_board_lists = []
+        list_boards = []
+        i = 0
+        @cur_list = List.find(@task.list_id)
+        @cur_board_id = @cur_list.board_id
+        @cur_tenant_id = Board.find(@cur_board_id).tenant_id
+    
+        List.where(board_id: @cur_board_id).rank(:row_order).each do |list|
+          selected_board_lists[i]=[list.id, list.name]
+          i=i+1      
+        end
+    
+        @selected_board_lists = selected_board_lists
+    
+        # Get the boards, which are belogs to the current tenant
+        i = 0    
+        Board.where(tenant_id: @cur_tenant_id).each do |board|
+          list_boards[i]=[board.id, board.name]
+          i=i+1      
+        end
+    
+        @list_boards = list_boards
+    
+        # GET THE POSITIONS IN THE CURRENT LIST
+        positions = []
+        i = 0
+        Task.where(list_id: @task.list_id).rank(:row_order).each do |list|
+          positions[i]=[list.row_order, i+1]
+          i=i+1      
+        end
+        @positions = positions
         
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }

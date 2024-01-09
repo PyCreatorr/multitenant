@@ -10,9 +10,8 @@ export default class extends Controller {
   static targets = [ "sidebar" ];
 
   connect() {
-    console.log("hello from sidebar");
+    //console.log("hello from sidebar");
     const icon_sidebar = document.getElementById("sidebar_buttom_slide");
-    //console.log("icon_sidebar=", icon_sidebar);
 
     const sidebar_mobile_name = document.getElementById("sidebar_mobile_name");
     //console.log("sidebar_mobile_name=", sidebar_mobile_name);
@@ -61,7 +60,7 @@ export default class extends Controller {
 
     if (icon_sidebar.classList.length === 3) {
       s_position = "closed";
-      console.log("fa-angle-right", s_position);
+      // console.log("fa-angle-right", s_position);
       
       //sidebar_info.style.visibility = "hidden";
       sidebar_info.style="opacity: 0; transition: visibility 0ms linear 100ms, opacity 100ms;";
@@ -88,7 +87,7 @@ export default class extends Controller {
     //button_sidebar.sidebar.textContent='<i class="fa-solid fa-angle-left" style="color: #111d32;"></i>';
     //console.log("button_sidebar=", icon_sidebar.classList);
 
-    console.log(this.sidebarTarget);
+    // console.log(this.sidebarTarget);
     this.sidebarTarget.classList.toggle("slide_sidebar");
 
    // put request to save the preference sidebar_position 

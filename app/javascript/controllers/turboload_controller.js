@@ -14,7 +14,7 @@ export default class extends Controller {
       div2Scroll.addEventListener('load', this.handleDOMContentLoaded());
     }
 
-    console.log("turboload_connected!");  
+    //console.log("turboload_connected!");  
   }
 
   handleDOMContentLoaded = () => {
@@ -23,13 +23,20 @@ export default class extends Controller {
 
     let div2Scroll = document.getElementById('lists');
     const icon_sidebar = document.getElementById("sidebar_buttom_slide");
-    console.log("icon_sidebar=", icon_sidebar)
+    //console.log("icon_sidebar=", icon_sidebar)
 
     //let { scrollLeft } = this.element.dataset;
     //let scroll2Position = div2Scroll.dataset.scrolling;
     // dataset.list-updated
     let l = div2Scroll.dataset.listUpdated;
-    if (!l) l = 0;
+    if (!l) {
+      let url = window.location.href;
+      console.log("url=",url);
+      let se = url.replace(/^.+sortable_list=/,'');
+      console.log("se = ", se);
+      if (!se.includes('http')) l = se;
+      else l = 0;      
+    }
 
     let sl = `sortable_list_${l}`;
     console.log('l =', `sortable_list_${l}`);
