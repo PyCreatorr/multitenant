@@ -20,11 +20,17 @@ export default class extends Controller {
     sidebar_mobile_name.style = "visibility: visible;";
     sidebar_mobile_new_list.style = "visibility: visible;";
 
+    //let s_m_name = sidebar_mobile_name.innerHTML;
+    //let s_m_new_list = sidebar_mobile_new_list.innerHTML;
+    // console.log(s_m_new_list);
+
     if (icon_sidebar.classList.contains('fa-angle-left')) {
 
       if (screen.width <= 1024 ) {
-        sidebar_mobile_name.style = "visibility: hidden; height:20px; width:0;";
-        sidebar_mobile_new_list.style = "visibility: hidden;  height:20px; width:0;";
+        sidebar_mobile_name.style = "visibility: hidden; height:20px; width:0; padding:0; margin:0; overflow: hidden";
+        sidebar_mobile_new_list.style = "visibility: hidden;  height:20px; width:0; padding:0; margin:0; overflow: hidden";
+        //sidebar_mobile_name.innerHTML="";
+        //sidebar_mobile_new_list.innerHTML="";
       }
     };
 
@@ -33,6 +39,9 @@ export default class extends Controller {
       if (screen.width <= 1024 ) {
         sidebar_mobile_name.style = "visibility: visible;";
         sidebar_mobile_new_list.style = "visibility: visible;";
+
+        //sidebar_mobile_new_list.innerHTML= s_m_name;
+        //sidebar_mobile_new_list.innerHTML = s_m_new_list;
       }
     }
 
@@ -48,11 +57,17 @@ export default class extends Controller {
     // Prevent default action -> refresh the page
     e.preventDefault();
     let s_position = "opened";
+
     
     const icon_sidebar = document.getElementById("sidebar_buttom_slide");
     const sidebar_info = document.getElementById("board_sidebar_information");
     const sidebar_mobile_name = document.getElementById("sidebar_mobile_name");
     const sidebar_mobile_new_list = document.getElementById("sidebar_mobile_new_list");
+
+    let s_m_name = sidebar_mobile_name.innerHTML;
+    let s_m_new_list = sidebar_mobile_new_list.innerHTML;
+
+
     //console.log("sidebar_mobile_name=", sidebar_mobile_name);
     //icon_sidebar.classList.remove('class');
     if (icon_sidebar.classList.contains('fa-angle-right')) {
@@ -77,6 +92,9 @@ export default class extends Controller {
       if (screen.width <= 1024 ) {
         sidebar_mobile_name.style = "visibility: visible;";
         sidebar_mobile_new_list.style = "visibility: visible;";
+
+        //sidebar_mobile_new_list.innerHTML= s_m_name;
+        //sidebar_mobile_new_list.innerHTML = s_m_new_list;
       };
     }
 
@@ -87,8 +105,11 @@ export default class extends Controller {
       sidebar_info.style="opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;";
 
       if (screen.width <= 1024 ) {
-        sidebar_mobile_name.style = "visibility: hidden; height:20px; width:0;";
-        sidebar_mobile_new_list.style = "visibility: hidden;  height:20px; width:0;";
+        sidebar_mobile_name.style = "visibility: hidden; height:20px; width:0; padding:0; margin:0; overflow: hidden";
+        sidebar_mobile_new_list.style = "visibility: hidden;  height:20px; width:0; padding:0; margin:0; overflow: hidden";
+
+        //sidebar_mobile_name.innerHTML="";
+        //sidebar_mobile_new_list.innerHTML="";
       }
     }
     
