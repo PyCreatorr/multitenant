@@ -20,11 +20,6 @@ export default class extends Controller {
     // sidebar_mobile_name.style = "visibility: visible;";
     //sidebar_mobile_new_list.style = "visibility: visible;";
 
-    let board_title_ = sidebar_mobile_name.textContent;
-
-    let board_title = sidebar_mobile_name.textContent;
-
-
     //let s_m_name = sidebar_mobile_name.innerHTML;
     //let s_m_new_list = sidebar_mobile_new_list.innerHTML;
      
@@ -38,6 +33,7 @@ export default class extends Controller {
         // sidebar_mobile_name.innerHTML = board_title;
         //sidebar_mobile_name.style = "visibility: hidden; height:20px; width:0; padding:0; margin:0; overflow: hidden";
         //sidebar_mobile_name.innerHTML = sidebar_mobile_name.innerHTML.substr(0,1);
+        sidebar_mobile_name.style = "overflow: hidden; white-space: nowrap; text-overflow: ellipsis;";
         sidebar_mobile_new_list.style = "visibility: hidden;  height:20px; width:0; padding:0; margin:0; overflow: hidden";
         //sidebar_mobile_name.innerHTML="";
         //sidebar_mobile_new_list.innerHTML="";
@@ -47,7 +43,7 @@ export default class extends Controller {
     if (icon_sidebar.classList.contains('fa-angle-right')) {
 
       if (screen.width <= 1024 ) {
-        //sidebar_mobile_name.style = "visibility: visible;";
+        sidebar_mobile_name.style = "visibility: visible; white-space: normal; text-overflow: ellipsis;";
         sidebar_mobile_new_list.style = "visibility: visible;";
 
         //sidebar_mobile_name.innerHTML = board_title_;
@@ -76,10 +72,6 @@ export default class extends Controller {
     const sidebar_mobile_name = document.getElementById("sidebar_mobile_name");
     const sidebar_mobile_new_list = document.getElementById("sidebar_mobile_new_list");
 
-    let s_m_name = sidebar_mobile_name.innerHTML;
-    let s_m_new_list = sidebar_mobile_new_list.innerHTML;
-
-
     //console.log("sidebar_mobile_name=", sidebar_mobile_name);
     //icon_sidebar.classList.remove('class');
     if (icon_sidebar.classList.contains('fa-angle-right')) {
@@ -103,6 +95,7 @@ export default class extends Controller {
       //sidebar_info.classList.add('hide');
       if (screen.width <= 1024 ) {
         //sidebar_mobile_name.style = "visibility: visible;";
+        sidebar_mobile_name.style = "visibility: visible; white-space: normal; ";
         sidebar_mobile_new_list.style = "visibility: visible;";
 
         //sidebar_mobile_new_list.innerHTML= s_m_name;
@@ -117,7 +110,7 @@ export default class extends Controller {
       sidebar_info.style="opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;";
 
       if (screen.width <= 1024 ) {
-        //sidebar_mobile_name.style = "visibility: hidden; height:20px; width:0; padding:0; margin:0; overflow: hidden";
+        sidebar_mobile_name.style = "overflow: hidden; white-space: nowrap; text-overflow: ellipsis;";
         sidebar_mobile_new_list.style = "visibility: hidden;  height:20px; width:0; padding:0; margin:0; overflow: hidden";
 
         //sidebar_mobile_name.innerHTML="";
