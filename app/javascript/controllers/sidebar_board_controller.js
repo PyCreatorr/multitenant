@@ -14,18 +14,26 @@ export default class extends Controller {
     const icon_sidebar = document.getElementById("sidebar_buttom_slide");
 
     const sidebar_mobile_name = document.getElementById("sidebar_mobile_name");
+    const sidebar_mobile_new_list = document.getElementById("sidebar_mobile_new_list");
     //console.log("sidebar_mobile_name=", sidebar_mobile_name);
 
     sidebar_mobile_name.style = "visibility: visible;";
+    sidebar_mobile_new_list.style = "visibility: visible;";
 
     if (icon_sidebar.classList.contains('fa-angle-left')) {
 
-      if (screen.width <= 425 ) sidebar_mobile_name.style = "visibility: hidden;";
+      if (screen.width <= 1024 ) {
+        sidebar_mobile_name.style = "visibility: hidden; height:20px; width:0;";
+        sidebar_mobile_new_list.style = "visibility: hidden;  height:20px; width:0;";
+      }
     };
 
     if (icon_sidebar.classList.contains('fa-angle-right')) {
 
-      sidebar_mobile_name.style = "visibility: visible;";
+      if (screen.width <= 1024 ) {
+        sidebar_mobile_name.style = "visibility: visible;";
+        sidebar_mobile_new_list.style = "visibility: visible;";
+      }
     }
 
 
@@ -79,8 +87,8 @@ export default class extends Controller {
       sidebar_info.style="opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;";
 
       if (screen.width <= 1024 ) {
-        sidebar_mobile_name.style = "visibility: hidden; height:20px";
-        sidebar_mobile_new_list.style = "visibility: hidden;  height:20px";
+        sidebar_mobile_name.style = "visibility: hidden; height:20px; width:0;";
+        sidebar_mobile_new_list.style = "visibility: hidden;  height:20px; width:0;";
       }
     }
     
