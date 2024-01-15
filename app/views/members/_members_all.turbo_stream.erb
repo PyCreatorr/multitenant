@@ -1,0 +1,48 @@
+            <%= turbo_stream.replace 'turbo_page_update' do %>
+
+            <div id="turbo_page_update" class="w-1/6 md:w-4/6 lg:w-5/6 flex-grow">
+              <div class="top-2" >
+                <div class="bg-gray-200 p-4 flex justify-between items-center">
+                  <div id="sidebar_mobile_new_list" class="flex">                
+                    <%# <div class="md:hidden" role="button" data-action="click->navbar#toggle" >
+                      &#9776;
+                    </div> %>
+                    <div class="hidden md:flex sm:flex">
+                      <%= render partial: "boards/form_search", locals: {} %>
+                    </div>
+                    <div>
+                      <%#= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-row h-[calc(100vh-150px)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-146px)] p-2">                      
+
+                    <div class="w-full">
+                    <% if notice.present? %>
+                        <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+                    <% end %>
+
+                    <h1>Invite Members</h1>
+                    <div class="py-2">
+                        <%= form_with url:invite_tenant_members_path do |form| %>
+                        <%= form.text_field :email, placeholder: "Email" %>
+                        <%= form.submit "Invite", class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium" %> 
+                        <% end %>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <h1 class="font-bold text-4xl">Members</h1>
+                        <%#= link_to "New member", new_tenant_member_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+                    </div>
+
+                    <div id="tenants" class="min-w-full">
+                        <%= render @members %>
+                    </div>
+                    </div>
+              </div>
+            </div>
+ 
+            <% end %>
+

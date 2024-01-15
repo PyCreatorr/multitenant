@@ -4,7 +4,36 @@ class MembersController < AuthorizedController
     def index
         #@members = Member.find(params[:tenant_id].
         @members = @current_tenant.members
+
+
+        #respond_to do |format|
+
+
+
+        # format.turbo_stream  { render partial: "members", 
+        #     locals: { members: @members  }
+        #   }
+
+        # end
     end
+
+    def select
+        #@members = Member.find(params[:tenant_id].
+        
+        @members = @current_tenant.members
+
+        # debugger 
+        respond_to do |format|
+            
+            format.turbo_stream  { render partial: "members/members_all", 
+                locals: { members: @members  }
+            }
+            # format.html { render :index }
+
+        end
+    end
+
+
 
     def invite
         email = params[:email]

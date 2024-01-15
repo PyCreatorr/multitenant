@@ -3,18 +3,26 @@ class BoardsController < ApplicationController
 
   # GET /boards or /boards.json
   def index
-    @boards = Board.all
+    
+    @boards = Board.all.where(tenant_id: params[:tenant_id])
   end
 
   # GET /boards/1 or /boards/1.json
   def show
      # debugger
     current_board = Board.find(params[:id])
-    current_tenant_id = current_board.tenant_id
+    @current_tenant_id = current_board.tenant_id
 
-    current_member = Member.find(current_board.member_id)
+    # current_member = Member.find(user_id: current_user.id )
+
     # @all_boards = Board.where(member_id: current_member.id, tenant_id: current_tenant_id)
-    @all_boards = Board.where(tenant_id: current_tenant_id)
+    @all_boards = Board.where(tenant_id: @current_tenant_id)
+
+    @current_user_member = current_user.members.where(tenant_id: @current_tenant_id).first
+
+    @current_user_boards = Board.where(member_id: @current_user_member.id, tenant_id: @current_tenant_id)
+
+    # debugger
 
   end
 
@@ -22,7 +30,7 @@ class BoardsController < ApplicationController
   def new
     @board = Board.new
     @tenant = params[:tenant_id]
-    # @member = params[:member_id]
+    # @member = Member.find_by(user_id: current_user.id)
     #@tenant = Tenant.new
 
     # debugger
@@ -35,8 +43,9 @@ class BoardsController < ApplicationController
 
   # POST /boards or /boards.json
   def create
-    #debugger
-    member = Member.find_by(user_id: current_user.id)
+    member = Member.find_by(user_id: current_user.id, tenant_id: params[:tenant_id])
+
+    # debugger
     if !member.present?
       redirect_to root_path
       flash[:danger] = "You are not permitted to create a boards!"

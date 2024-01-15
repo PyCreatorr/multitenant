@@ -136,10 +136,65 @@ body {
 /* SIDEBAR SLIDE*/
 
 .slide_sidebar{
-  width: 10px;
+  width: 20px;
   padding:2px;
+  /* overflow-y: auto; */
+  /* padding: 8px 12px 8px; */
 
 }
+
+.sidebar_scroll{
+  -webkit-overflow-scrolling: touch;    
+    scrollbar-color: var(--ds-background-neutral-hovered, #091e4224) var(--ds-background-neutral, #091e420f);
+    scrollbar-width: thin;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex: 1;
+
+    /* position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0; */
+   
+}
+
+.no_scroll{  
+    overflow-y: hidden;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    overflow-y: hidden;
+    overflow-x: auto;
+
+}
+
+.global_scroll {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.div_scroll_flex {
+  display: flex;
+  /* align-items: center; */
+  /* padding: 8px 12px 8px;
+  min-height: 40px; */
+  /* border-bottom: 1px solid var(--dynamic-text-transparent, #DFE1E6); */
+}
+
+
+.absolute-div {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 10px;
+  
+  height: 20px; /* Adjust the height as needed */
+  /*background-color: #ccc;  Background color for the first div */
+}
+
 
 /* ICON ARROW CLOSE-OPEN */
 

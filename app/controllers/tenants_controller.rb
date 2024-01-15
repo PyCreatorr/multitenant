@@ -1,5 +1,5 @@
 class TenantsController < ApplicationController
-  before_action :set_tenant, only: %i[ show edit update destroy ]
+  before_action :set_tenant, only: [:show, :edit, :update, :destroy]
   before_action :authorize_member, only: [:show, :edit, :update, :destroy]
 
   # GET /tenants or /tenants.json

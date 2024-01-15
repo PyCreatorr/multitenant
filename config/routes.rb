@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :members do
       collection do # invite_tenant_members POST /tenants/:tenant_id/members/invite(.:format) members#invite
         post :invite # Invite a member to the current tenant
+        get :select
       end
     end
   end

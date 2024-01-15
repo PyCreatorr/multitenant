@@ -32,14 +32,14 @@
     <% else %>
       <div class="h-[calc(100vh)]">
           <div class="sticky top-0 z-10">
-
               <%= render partial: "layouts/navbar" %>
 
           </div>
 
             <div class="flex">
+            <main class="w-full flex flex-row">
               
-              <div class="<%= 'py-6 sm:px-6 lg:px-8 mx-auto' if !request.path.include?("/boards/") %> <%= 'w-full flex flex-row ' if request.path.include?("/boards/") %>">
+              <div class="<%= 'py-6 sm:px-6 lg:px-8 mx-auto ' if !request.path.include?("/boards/") %> <%= 'w-full flex flex-row ' if request.path.include?("/boards/") %>">
 
               
                   <%= render "layouts/flash"%>
