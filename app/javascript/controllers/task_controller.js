@@ -21,23 +21,27 @@ export default class extends Controller {
     console.log("New task");
     event.preventDefault();
 
-    this.originalNameTarget = this.addTNameTarget;
-    //let taskName = this.originalNameTarget.querySelector("a").innerText;
+    
+    if (!document.getElementById('resizableTaskTextarea')){
+    
+      this.originalNameTarget = this.addTNameTarget;
+      //let taskName = this.originalNameTarget.querySelector("a").innerText;
+      
+      let taskName = this.originalNameTarget.querySelector("a").innerText;
+      //console.log("this.addTNameTarget = ",this.addTNameTarget );
+      
+      let inputField = this.createInputFieldNewTask("");
+      this.element.prepend(inputField, this.addTNameTarget.parentNode);
+      
+      // Attach the autoResizeTextarea function to the input event of the textarea
+      
+      let textareaClicked = document.getElementById('resizableTaskTextarea');
 
-    let taskName = this.originalNameTarget.querySelector("a").innerText;
-    //console.log("this.addTNameTarget = ",this.addTNameTarget );
-
-    let inputField = this.createInputFieldNewTask("");
-    this.element.prepend(inputField, this.addTNameTarget.parentNode);
-
-    // Attach the autoResizeTextarea function to the input event of the textarea
-    let textareaClicked = document.getElementById('resizableTaskTextarea');
-    if (textareaClicked) {
-      textareaClicked.addEventListener('input', this.autoResizeTextarea(textareaClicked));
-    }
-     inputField.focus();
-
-
+      if (textareaClicked) {
+        textareaClicked.addEventListener('input', this.autoResizeTextarea(textareaClicked));
+      }
+      inputField.focus();      
+     }
   };
 
   handleTaskClick(event){
@@ -212,7 +216,10 @@ export default class extends Controller {
     // console.log("this.element.dataset = ", this.element);
 
      console.log("event.target = ", event.target);
-    let taskName = inputField.value;   
+    let taskName = inputField.value;  
+    
+    
+    // if (inputField) inputField.remove();
 
     
     fetch(`/lists/${listId}/tasks?name=${taskName}&list_id=${listId}`, {
