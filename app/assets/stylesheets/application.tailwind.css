@@ -266,6 +266,31 @@ body {
    padding-left:7px;
    padding-top:8px;
    word-break: "break-all";
+   background-color: white;
+}
+
+.task_style_list{
+
+  /* color: #2d3748; */
+  /* padding: 0.5rem; */
+  padding-top: 8px;
+  /* margin: 10px 2px 2px 2px; */
+
+  border-width: 2px;
+ /* border-bottom-width: 1px;
+  border-top-width: 1px; */
+  border-radius: 0.5rem;
+  /* border-bottom-left-radius: 0.5rem; */
+  border-color: #f8f8f8 ;
+  background-color: #f8f8f8;
+  /* background-color: #fff; */
+  /* min-height: 44px; */
+  line-height: 24px;
+   width:240px; 
+   min-width:240px;
+   padding-left:7px;
+   padding-top:8px;
+   word-break: "break-all";
 }
 
 

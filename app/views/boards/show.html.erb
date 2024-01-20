@@ -19,10 +19,10 @@
                   
                   <div class="overflow-y-auto">
                         <div class="top-2">
-                            <%= link_to "Boards", tenant_boards_path(@current_tenant_id) %>
+                            <%= link_to "Boards", select_all_tenant_boards_path(@current_tenant_id), data:{turbo_stream: true} %>
                         </div> 
                         <div class="top-2">
-                            <%= link_to "Members", select_tenant_members_path(@current_tenant_id), data:{turbo_stream: true} %>
+                            <%= link_to "Members", select_all_tenant_members_path(@current_tenant_id), data:{turbo_stream: true} %>
                         </div> 
                         <div class="top-2">
                             <h1>YOUR BOARDS:</h1>

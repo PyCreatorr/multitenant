@@ -1,11 +1,12 @@
-<div id="<%= dom_id list %>" class="bg-white pt-0 pb-4 shadow-xl ring-2 ring-gray-900/5 mx-auto max-w-lg rounded-lg px-3 overflow-y-auto max-h-[calc(100vh-150px)]">
+<div id="<%= dom_id list %>" class="bg-white pt-0 pb-4 shadow-xl ring-2 ring-gray-900/5 mx-auto max-w-lg rounded-lg px-3 overflow-y-auto max-h-[calc(100vh-150px)]" 
+style ="background-color:#f8f8f8">
   <p class="my-5">
     <strong class="block font-medium mb-1 cursor-pointer"><%#= list.id %> 
     </strong>
-    <div data-controller="list" data-list-id="<%= list.id %>" data-action="click->list#handleClick" >
-      <p data-list-target="name">
+    <div data-controller="list" data-list-id="<%= list.id %>" data-action="click->list#handleClick">
+      <div data-list-target="name" class="p-2 rounded-lg task_style_list">
         <%= link_to list.name, '' %>
-      </p>    
+      </div>    
     </div>
     
     
@@ -16,16 +17,30 @@
 
       <div id="tasks_add_new_<%= list.id %>" data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id="<%= list.id %>" class="list-decimal px-0">
       <% list.tasks.rank(:row_order).each do |task| %>
-        <div data-sortable-update-url="<%= sort_task_path(task) %>" id="sortable_task_<%= task.id %>" >
+        <div data-sortable-update-url="<%= sort_task_path(task) %>" 
+        id="sortable_task_<%= task.id %>"
+         >
             <%= render task %>
         </div>
       <% end %>
     </div>
 
-    <%= link_to "New task", "/lists/#{list.id}/tasks/new", data: {turbo_frame: "modal"}, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+
+    
+    
+    <div data-controller="task"  data-list-id="<%= list.id %>" style="min-height:42px; margin:0px; position: relative">
+      <div data-action="click->task#handleAddNewTask" class="task_style_list">
+        <div data-task-target="addTName">
+          <%= link_to "+ Add task", '', class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>   
+        </div>
+      </div>
+    </div>
 
     <%= link_to "Edit this list", edit_list_path(list), data: {turbo_frame: "modal"}, class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Destroy", list_path(list),  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    
+    
+    <%#= link_to "+ Add task", "/lists/#{list.id}/tasks/new", data: {turbo_frame: "modal"}, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
     
     <!-- <div class="inline-block ml-2">
       <%#= button_to "Destroy", edit_list_path(list), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>

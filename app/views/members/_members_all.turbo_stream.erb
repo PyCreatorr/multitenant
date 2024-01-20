@@ -1,6 +1,7 @@
             <%= turbo_stream.replace 'turbo_page_update' do %>
 
-            <div id="turbo_page_update" class="w-1/6 md:w-4/6 lg:w-5/6 flex-grow">
+         <div id="turbo_page_update" class="w-1/6 md:w-4/6 lg:w-5/6 flex-grow overflow-y-auto max-h-[calc(100vh-80px)]" 
+         style="overflow-y: auto;">
               <div class="top-2" >
                 <div class="bg-gray-200 p-4 flex justify-between items-center">
                   <div id="sidebar_mobile_new_list" class="flex">                

@@ -3,10 +3,16 @@ Rails.application.routes.draw do
   resources :tenants do
     resources :boards, only: [:index, :new, :create]
 
+    resources :boards do
+      collection do
+        get :select_all
+      end
+    end 
+
     resources :members do
       collection do # invite_tenant_members POST /tenants/:tenant_id/members/invite(.:format) members#invite
         post :invite # Invite a member to the current tenant
-        get :select
+        get :select_all
       end
     end
   end
@@ -26,6 +32,7 @@ Rails.application.routes.draw do
   resources :lists, only: [:show, :edit, :update, :destroy] do
     member do # sort_list PUT /lists/:id/sort(.:format) lists#sort
       put :sort
+      patch :update_name
     end
   end 
 

@@ -1,5 +1,6 @@
 class BoardsController < ApplicationController
   before_action :set_board, only: %i[ show edit update destroy ]
+  before_action :set_boards_member, only: [:show]
 
   # GET /boards or /boards.json
   def index
@@ -7,20 +8,48 @@ class BoardsController < ApplicationController
     @boards = Board.all.where(tenant_id: params[:tenant_id])
   end
 
+
+  def select_all
+    #@members = Member.find(params[:tenant_id].
+
+    @boards = Board.all.where(tenant_id: params[:tenant_id])
+    
+    # @members = @current_tenant.members
+
+    # debugger 
+    respond_to do |format|
+        
+        format.turbo_stream  { render partial: "boards/boards_all", 
+            locals: { boards: @boards  }
+        }
+        # format.html { render :index }
+
+    end
+  end
+
+
   # GET /boards/1 or /boards/1.json
   def show
-     # debugger
-    current_board = Board.find(params[:id])
-    @current_tenant_id = current_board.tenant_id
 
-    # current_member = Member.find(user_id: current_user.id )
+    # debugger
 
-    # @all_boards = Board.where(member_id: current_member.id, tenant_id: current_tenant_id)
-    @all_boards = Board.where(tenant_id: @current_tenant_id)
+    @current_user_boards = Board.where(member_id: @current_user_member.id, tenant_id: @current_tenant_id) if @current_user_member.present?
 
-    @current_user_member = current_user.members.where(tenant_id: @current_tenant_id).first
+    if !@current_user_member.present?
+      redirect_to tenants_path
+      flash[:danger] = "The board does not exist! Check your boards here"
 
-    @current_user_boards = Board.where(member_id: @current_user_member.id, tenant_id: @current_tenant_id)
+    end
+ 
+    
+    #current_board = Board.find(params[:id])
+    # @current_tenant_id = @board.tenant_id
+
+    # @all_boards = Board.where(tenant_id: @current_tenant_id)
+
+    # @current_user_member = current_user.members.where(tenant_id: @current_tenant_id).first
+
+    # @current_user_boards = Board.where(member_id: @current_user_member.id, tenant_id: @current_tenant_id)
 
     # debugger
 
@@ -97,6 +126,19 @@ class BoardsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_board
       @board = Board.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to root_path
+        flash[:danger] = "This board does not exist!"
+    end
+
+    def set_boards_member
+      @board = Board.find(params[:id])
+
+      @current_tenant_id = @board.tenant_id
+
+      @all_boards = Board.where(tenant_id: @current_tenant_id)
+      @current_user_member = current_user.members.where(tenant_id: @current_tenant_id).first
+
       rescue ActiveRecord::RecordNotFound
         redirect_to root_path
         flash[:danger] = "This board does not exist!"

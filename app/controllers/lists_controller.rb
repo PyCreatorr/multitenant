@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: %i[ show edit update destroy ]
+  before_action :set_list, only: %i[ show edit update destroy update_name ]
 
   include ActionView::RecordIdentifier # include dom_id method identifier
 
@@ -66,6 +66,7 @@ class ListsController < ApplicationController
     @list = List.new(name: params[:name], board_id: params[:board_id])
 
     respond_to do |format|
+
       if @list.save
 
         
@@ -84,6 +85,45 @@ class ListsController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @list.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update_name
+    
+    # debugger
+
+    last_list = List.find(params[:id])
+    
+
+    respond_to do |format| 
+      if @list.update(list_params)
+
+
+        @update_list = dom_id(@list, :sortable)
+        # @board = Board.find(@list.board_id)
+
+        # format.turbo_stream { render "update_lists", 
+        #   locals: { board: @board, list: @list, position: pos_new }
+        # }
+
+        # format.turbo_stream { render "update_list", 
+        #   locals: { list: @list, update_list: @update_list  }
+        # }
+
+        # format.html { redirect_to "/boards/#{@list.board_id}", notice: "List was successfully updated." }
+        # format.json { render :show, status: :ok, location: @list }
+
+        format.json { render json: { status: 'ok', name: @list.name } }
+      else
+        # format.turbo_stream { render "update_list", 
+        #   locals: { list: @list, update_list: @update_list  }
+        # }
+
+        # format.html { render :edit, status: :unprocessable_entity }
+        # last_list = @list.find(params[:id])
+        # debugger
+        format.json { render json: { error: @list.errors, name: last_list.name, status: :unprocessable_entity } }
       end
     end
   end

@@ -17,7 +17,7 @@ class MembersController < AuthorizedController
         # end
     end
 
-    def select
+    def select_all
         #@members = Member.find(params[:tenant_id].
         
         @members = @current_tenant.members

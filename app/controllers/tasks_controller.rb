@@ -225,7 +225,8 @@ class TasksController < ApplicationController
         }
 
         format.html { redirect_to "/boards/#{board}", notice: "Task was successfully created." }
-        format.json { render :show, status: :created, location: @task }
+        format.json { render json: { status: 'ok', name: @task.name, task_id: @task.id } }
+        # format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
