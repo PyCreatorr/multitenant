@@ -11,6 +11,15 @@ class TenantsController < ApplicationController
   # GET /tenants/1 or /tenants/1.json
   def show
     #require_member
+    @current_user_members = current_user.members
+    
+    @current_user_tenants = current_user.tenants
+
+    # if !@current_user_member.present?
+    #   redirect_to tenants_path
+    #   flash[:danger] = "The board does not exist! Check your boards here"
+
+    # end
   end
 
   # GET /tenants/new

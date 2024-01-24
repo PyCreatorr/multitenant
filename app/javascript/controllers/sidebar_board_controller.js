@@ -125,7 +125,7 @@ export default class extends Controller {
     this.sidebarTarget.classList.toggle("slide_sidebar");
 
    // put request to save the preference sidebar_position 
-    put( `users/sidebar_position?sidebar_position=${s_position}`,{
+    put( `/boards/users/sidebar_position?sidebar_position=${s_position}`,{
       body: JSON.stringify({
         sidebar_position: s_position
         //list_id: sortableListId,
