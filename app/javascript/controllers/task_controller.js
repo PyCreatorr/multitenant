@@ -66,6 +66,12 @@ export default class extends Controller {
 
 
      //this.element.replaceChild(inputField, this.tnameTarget);
+     this.originalNameTarget.querySelector("a").style.visibility = "hidden";
+
+     this.originalNameTarget.style.borderStyle = "hidden";
+
+     this.originalNameTarget.style.backgroundColor="#f8f8f8";
+     
      this.element.append(inputField, this.tnameTarget);
 
 
@@ -322,6 +328,7 @@ export default class extends Controller {
 
     // console.log("taskId = ", taskId);
     let taskName = inputField.value;   
+    
 
     
     fetch(`/tasks/${taskId}`, {
@@ -338,6 +345,10 @@ export default class extends Controller {
       .then(({ status, name }) =>{
         if(status === "ok") {
           this.originalNameTarget.querySelector("a").innerText = name;
+
+          this.originalNameTarget.querySelector("a").style.visibility = "visible";
+          this.originalNameTarget.style.borderStyle = "solid";
+          this.originalNameTarget.style.backgroundColor="#ffffff";
 
           let bluredField = document.getElementById("bluredField");
           console.log("bluredField=", bluredField);
