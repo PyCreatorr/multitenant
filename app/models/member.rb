@@ -2,5 +2,5 @@ class Member < ApplicationRecord
   belongs_to :user
   belongs_to :tenant
 
-  has_many :boards
+  has_many :boards, dependent: :destroy
 end

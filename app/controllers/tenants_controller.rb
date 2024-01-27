@@ -2,6 +2,8 @@ class TenantsController < ApplicationController
   before_action :set_tenant, only: [:show, :edit, :update, :destroy]
   before_action :authorize_member, only: [:show, :edit, :update, :destroy]
 
+  include ActionView::RecordIdentifier # include dom_id method identifier
+
   # GET /tenants or /tenants.json
   def index
     # @tenants = Tenant.all
@@ -34,10 +36,17 @@ class TenantsController < ApplicationController
   # POST /tenants or /tenants.json
   def create
     @tenant = Tenant.new(tenant_params)
+
+    @update_tenant = dom_id(@tenant)
     
     respond_to do |format|
       if @tenant.save
         @tenant.members.create(user_id: current_user.id, roles: {admin: true})
+
+
+        format.turbo_stream { render "add_tenant", 
+          locals: { tenant: @tenant, update_tenant: @update_tenant }
+        }
 
         format.html { redirect_to tenant_url(@tenant), notice: "Tenant was successfully created." }
         format.json { render :show, status: :created, location: @tenant }
@@ -50,8 +59,15 @@ class TenantsController < ApplicationController
 
   # PATCH/PUT /tenants/1 or /tenants/1.json
   def update
+    @update_tenant = dom_id(@tenant)
+
     respond_to do |format|
       if @tenant.update(tenant_params)
+
+        format.turbo_stream { render "update_tenant", 
+          locals: { tenant: @tenant, update_tenant: @update_tenant }
+        }
+
         format.html { redirect_to tenant_url(@tenant), notice: "Tenant was successfully updated." }
         format.json { render :show, status: :ok, location: @tenant }
       else

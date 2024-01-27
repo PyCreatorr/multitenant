@@ -49,8 +49,11 @@
                     <div class="hidden md:flex sm:flex">
                       <%= render partial: "form_search", locals: {} %>
                     </div>
-                    <div>
+                    <div class="px-1">
                       <%= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
+                    </div>
+                    <div class="px-1">
+                      <%= link_to "Delete Board", "/boards/#{@board.id}", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
                     </div>
                   </div>
                 </div>

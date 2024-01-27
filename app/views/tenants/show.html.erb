@@ -1,35 +1,90 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<nav data-controller="sidebar-board" data-sidebar-board-target="sidebar" 
+  class="bg-gray-200 bg-opacity-100 w-5/6 md:w-2/6 lg:w-1/6 
+  <%= "slide_sidebar" if current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed" %>
+  overflow-y-auto max-h-[calc(100vh)] justify-between"              
+  style="overflow-y: hidden;">
+    
 
-    <%= render @tenant %>
+        <div role="button" data-action="click->sidebar-board#toggle"
+          style="overflow-y: hidden; justify-content: right; width: 100%; ">
+            <i id="sidebar_buttom_slide"  
+            class="fa-solid fa-angle-<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? "right" : "left" %>
+            " 
+            style="color: #111d32;"></i>
+        </div>
 
-    <%= link_to "Edit", edit_tenant_path(@tenant), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy", tenant_path(@tenant), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+        <div id="board_sidebar_information"
+        class="justify-between sticky h-[calc(100vh-120px)]" 
+        style="overflow-y: auto; <%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? 'opacity: 0; transition: visibility 0ms linear 100ms, opacity 200ms; ': 'opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;'%>">
+          
+          <div class="overflow-y-auto">
+                <div class="top-2">
+                    <%#= link_to "Boards", select_all_tenant_boards_path(@current_tenant_id), data:{turbo_stream: true} %>
+                </div> 
+                <div class="top-2">
+                    <%#= link_to "Members", select_all_tenant_members_path(@current_tenant_id), data:{turbo_stream: true} %>
+                </div> 
+                <div class="top-2">
+                    <h1>YOUR BOARDS:</h1>
+                    <% current_user.tenants.each do |tenant| %>
+
+                      <% tenant.boards.each do |board| %>
+
+                        <%= link_to board.name, board_path(board) %><br>   
+
+                      <% end %>
+
+                    <% end %>  
+                </div>                        
+
+          </div>
+
     </div>
-    <%= link_to "Back to Workspaces", tenants_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  
-    <div>
-      <%#= @tenant %>
-      <br>
-      <h1>BOARDS:</h1>
-      <% @tenant.boards.each do |board| %>
-        <%#= board.name %><br>
+
+</nav> 
+
+  <div id="turbo_page_update" class="w-1/6 md:w-4/6 lg:w-5/6 flex-grow overflow-y-auto max-h-[calc(100vh-80px)]" 
+  style="overflow-y: hidden;">
+      <div class="top-2">
+        <div class="bg-gray-200 p-4 flex justify-between items-center">
+        <div class="px-1">
+            <div class="avatar_circle" style="width:28px; color:white">
+              <%= @tenant.name.to_s[0].upcase %>
+            </div>
+          </div>
+          <div id="sidebar_mobile_name" class="font-bold p-0 m-0 space-x-2" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow: hidden; ">
+            <%= @tenant.name %>          
+          </div>
+          <div id="sidebar_mobile_new_list" class="flex">
+              <div class="hidden md:flex sm:flex">
+                <%= render partial: "boards/form_search", locals: {} %>
+              </div>
+              <div class="px-1">
+              <%= link_to "Edit Workspace", edit_tenant_path(@tenant), data: {turbo_frame: "modal"}, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+                  <%#= link_to "New Workspace", new_tenant_path, data: {turbo_frame: "modal"},  class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>              
+                <%#= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
+              </div>
+              <div>
+                <%= button_to "Delete Workspace", tenant_path(@tenant), method: :delete, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+              </div>
+
+            <div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-row h-[calc(100vh)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-150px)] p-2">                      
+
+        <div data-controller="turboload" data-turboload-target="turboload" id="tenant" class="flex flex flex-col md:flex-row overflow-y-hidden overflow-x-auto  w-10/12 md:w-4/6 lg:px-40" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: auto; overflow-x: auto;">
+
+          <%= render partial: "layouts/tenant_headers/tenant_content", locals: {tenant: @tenant} %>
         
-        <%= render partial: "boards/board", locals: { board: board} %>
-      <% end %>    
+        </div>
+      
+      </div>
     </div>
-  
-  
   </div>
 
- 
-  <div class="inline-block ml-2">
-    <%= link_to "Members", tenant_members_path(@tenant), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %><br>
-    <%= link_to "New Board", new_tenant_board_path(@tenant), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %> 
-  </div>
 
-</div>
+
+

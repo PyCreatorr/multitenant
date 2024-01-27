@@ -1,0 +1,6 @@
+
+<%= turbo_stream.append "tenants" do %>
+    <%= render partial: "layouts/tenant_headers/tenant_header", 
+    locals: { tenant: tenant } %>
+    <%#= render @list %>  
+<% end %>

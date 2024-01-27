@@ -1,0 +1,6 @@
+
+<%= turbo_stream.append update_tenant do %>
+    <%= render partial: "layouts/board_thumbnails/board_thumbnail", 
+    locals: { board: board, tenant: tenant } %>
+    <%#= render @list %>  
+<% end %>

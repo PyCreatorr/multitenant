@@ -84,9 +84,22 @@ class BoardsController < ApplicationController
     #   flash[:danger] = "You are not permitted to create a boards!"
     
     @board = Board.new(name: params[:name], tenant_id: params[:tenant_id], member_id: member.id)
-
+    @tenant = Tenant.find(params[:tenant_id])
+    
+    
     respond_to do |format|
       if @board.save
+
+        @update_tenant = "tenant_#{params[:tenant_id]}"
+
+        format.turbo_stream { render "add_board", 
+          locals: { board: @board, tenant: @tenant, update_tenant: @update_tenant }
+        }
+
+        # format.turbo_stream { render "lists/update_lists", 
+        #   locals: { board: @board, list: @list, position: 0  }
+        # }
+
         format.html { redirect_to board_url(@board), notice: "Board was successfully created." }
         format.json { render :show, status: :created, location: @board }
       else
