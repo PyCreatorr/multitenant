@@ -4,7 +4,7 @@ class Board < ApplicationRecord
   belongs_to :member
   belongs_to :tenant
 
-  has_many :lists
+  has_many :lists, dependent: :destroy
   # has_many :tasks
 
 end
