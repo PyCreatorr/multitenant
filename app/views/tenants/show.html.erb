@@ -74,8 +74,8 @@
       </div>
 
       <div class="flex flex-row h-[calc(100vh)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-150px)] p-2">                      
-
-        <div data-controller="turboload" data-turboload-target="turboload" id="tenant" class="flex flex flex-col md:flex-row overflow-y-hidden overflow-x-auto  w-10/12 md:w-4/6 lg:px-40" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: auto; overflow-x: auto;">
+        <%# data-controller="turboload" data-turboload-target="turboload" %>
+        <div  id="tenant" class="flex flex flex-col md:flex-row overflow-y-hidden overflow-x-auto  w-10/12 md:w-4/6 lg:px-40" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow-y: auto; overflow-x: auto;">
 
           <%= render partial: "layouts/tenant_headers/tenant_content", locals: {tenant: @tenant} %>
         

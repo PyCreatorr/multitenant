@@ -193,11 +193,15 @@ export default class extends Controller {
 
     // Add click event listener to close the field when clicking outside the textarea
     document.addEventListener("click", (event)=> {
-      // console.log("event.target=", event.target);
+       console.log("event.target=", event.target);
       if (event.target.contains(divField)) {
           if (inputField) inputField.remove();
           let bluredField = document.getElementById("bluredField");
           if (bluredField) bluredField.remove();
+
+          this.originalNameTarget.querySelector("a").style.visibility = "visible";
+          this.originalNameTarget.style.borderStyle = "solid";
+          this.originalNameTarget.style.backgroundColor="#ffffff";
         }
       });
 
