@@ -85,3 +85,7 @@ gem 'ranked-model'
 gem 'requestjs-rails'
 
 gem "aws-sdk-s3", require: false
+
+gem "prawn", "~> 2.4"
+
+gem 'prawn-markup'

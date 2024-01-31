@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy]
+  before_action :set_task, only: %i[ show edit update destroy pdf]
 
   include ActionView::RecordIdentifier # include dom_id method identifier
 
@@ -506,6 +506,64 @@ class TasksController < ApplicationController
       format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  # PDF
+
+  def pdf
+
+    # @task.description.body.to_s.each do |tag|
+    #   text "Just your regular text <#{tag}>except this portion</#{tag}> " \
+    #   "is using the #{tag} tag",
+    #   inline_format: true
+    #   move_down 10
+    #  end
+
+    pdf = Prawn::Document.new    
+
+    pdf.text @task.name, size: 25, style: :bold    
+
+    pdf.markup(@task.description.body.to_rendered_html_with_layout())
+
+    
+    # pdf.text @task.description.body.to_s, inline_format: true, kerning: true
+    if @task.cover_image.present?
+      # pdf.markup(@task.cover_image)
+      thumbnail_image = StringIO.open(@task.cover_image.download)
+      pdf.image thumbnail_image, fit: [500, 500]
+    end
+
+    send_data(pdf.render,
+              filename: "#{@task.name}.pdf",
+              type: 'application/pdf',
+              disposition: 'inline')
+  end
+
+  def pdf_download
+    pdf = Prawn::Document.new
+    pdf.text "Hello World"
+
+    send_data(pdf.render,
+    filename: "hello.pdf",
+    type: "application/pdf")
+
+  end
+
+  def pdf_preview
+    pdf = Prawn::Document.new
+    pdf.text "This is a preview"
+    pdf.text "It only shows in a preview route"
+    pdf.start_new_page
+    pdf.text "this is a new page"
+    100.times do |i|
+      pdf.text "this is line #{i}"
+    end
+
+    send_data(pdf.render,
+      filename: 'hello.pdf',
+      type: 'application/pdf',
+      disposition: 'inline')
+
   end
 
   private

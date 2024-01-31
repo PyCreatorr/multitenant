@@ -148,6 +148,7 @@ class BoardsController < ApplicationController
       @board = Board.find(params[:id])
 
       @current_tenant_id = @board.tenant_id
+      @current_tenant = Tenant.find(@current_tenant_id)
 
       @all_boards = Board.where(tenant_id: @current_tenant_id)
       @current_user_member = current_user.members.where(tenant_id: @current_tenant_id).first

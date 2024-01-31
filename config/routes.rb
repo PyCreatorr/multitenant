@@ -91,6 +91,15 @@ Rails.application.routes.draw do
   get 'selected_board', to: 'tasks#selected_board'
 
   get 'selected_list', to: 'tasks#selected_list'
+
+  # PDF
+  get 'tasks/pdf/:id', to: 'tasks#pdf', as: 'task_pdf'
+  
+  get "download_pdf", to: "tasks#pdf_download"
+  get "preview_pdf", to: "tasks#pdf_preview"
+
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
