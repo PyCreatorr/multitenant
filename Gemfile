@@ -89,3 +89,5 @@ gem "aws-sdk-s3", require: false
 gem "prawn", "~> 2.4"
 
 gem 'prawn-markup'
+
+gem "matrix", "~> 0.4.2"

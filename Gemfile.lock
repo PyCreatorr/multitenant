@@ -278,6 +278,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  matrix (~> 0.4.2)
   pg (~> 1.1)
   prawn (~> 2.4)
   prawn-markup
