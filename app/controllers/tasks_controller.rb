@@ -519,7 +519,7 @@ class TasksController < ApplicationController
     #   move_down 10
     #  end
 
-    pdf = Prawn::Document.new   
+    pdf = Prawn::Document.new
     
     # Prawn::Document.generate 'sushi.pdf' do
     #   font 'DejaVuSans.ttf'
@@ -534,27 +534,51 @@ class TasksController < ApplicationController
 
     # pdf.font 'app/assets/fonts/DejaVuSans.ttf', size: 9 do
     # @document.text text, align: :center, valign: :center, leading: 2, inline_format: true
-      
-    pdf.text @task.name.encode("UTF-8"), size: 25, style: :bold
-    # end
-    
-
-    if @task.description.present?
-      pdf.markup(@task.description.body.to_rendered_html_with_layout())
-    end
-
     
     # pdf.text @task.description.body.to_s, inline_format: true, kerning: true
     if @task.cover_image.present?
       # pdf.markup(@task.cover_image)
       thumbnail_image = StringIO.open(@task.cover_image.download)
-      pdf.image thumbnail_image, fit: [500, 500]
+      # pdf.image thumbnail_image, fit: [500, 500]
+      pdf.image thumbnail_image, height: 300
+
+      pdf.text " ", :margin => [10, 20, 30, 40]
     end
 
+
+
+    pdf.text @task.name.force_encoding('UTF-8'), size: 25, style: :bold
+
+    # end
+
+
+    # Prawn::Errors::IncompatibleStringEncoding
+    
+
+    if @task.description.present?
+      pdf.markup(@task.description.body.to_rendered_html_with_layout().force_encoding('UTF-8'))
+    end
+
+    
+
+
+    
+    
     send_data(pdf.render,
-              filename: "#{@task.name}.pdf",
-              type: 'application/pdf',
-              disposition: 'inline')
+      filename: "#{@task.name}.pdf",
+      type: 'application/pdf',
+      disposition: 'inline')
+      
+    rescue Prawn::Errors::IncompatibleStringEncoding       
+      # redirect_to tenants_path
+      # flash[:danger] = "This List with id = #{params[:id]} doesnt exsists!"
+      pdf = Prawn::Document.new
+      pdf.text "You can't use special signs or emojis in the description or/and in the name!"
+      send_data(pdf.render,
+        filename: "#{@task.name}.pdf",
+        type: 'application/pdf',
+        disposition: 'inline')
+      
   end
 
   def pdf_download
