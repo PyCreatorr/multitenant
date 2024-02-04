@@ -519,11 +519,29 @@ class TasksController < ApplicationController
     #   move_down 10
     #  end
 
-    pdf = Prawn::Document.new    
+    pdf = Prawn::Document.new   
+    
+    # Prawn::Document.generate 'sushi.pdf' do
+    #   font 'DejaVuSans.ttf'
+    #   text '🐟 / 🔪 + 🍚 / 🍾 = 🍣'
+    # end
 
-    pdf.text @task.name, size: 25, style: :bold    
+    
+    # pdf.font("app/assets/fonts/DejaVuSans.ttf") do
+      # pdf.font Rails.root.join("app/assets/fonts/DejaVuSans.ttf")
+      # pdf.text @task.name, size: 25, style: :bold
+    # end
 
-    pdf.markup(@task.description.body.to_rendered_html_with_layout())
+    # pdf.font 'app/assets/fonts/DejaVuSans.ttf', size: 9 do
+    # @document.text text, align: :center, valign: :center, leading: 2, inline_format: true
+      
+    pdf.text @task.name.encode("UTF-8"), size: 25, style: :bold
+    # end
+    
+
+    if @task.description.present?
+      pdf.markup(@task.description.body.to_rendered_html_with_layout())
+    end
 
     
     # pdf.text @task.description.body.to_s, inline_format: true, kerning: true
