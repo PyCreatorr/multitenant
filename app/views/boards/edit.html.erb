@@ -1,9 +1,26 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing board</h1>
+<%= turbo_frame_tag :modal do %>
+  <div class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full modal" data-controller="turbomodal" data-action="turbo:submit-end->turbomodal#submitEnd">
+      <div style="overflow-y: auto;">
+        <div class="mx-auto md:w-2/3 w-full">
+            <div data-controller="turbomodal" data-action="click->turbomodal#close">
+              <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                  <svg class="fill-current h-6 w-6 text-black" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+              </span>
+            </div>
 
-  <%= render "form_edit", board: @board %>
+              <h1 class="font-bold text-4xl">Editing board</h1>
 
-  <%= link_to "Show this board", board_path(@board), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= button_to "Delete", board_path(@board), method: :delete, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%#= link_to "Back to boards", tenant_boards_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+              <%= render "form_edit", board: @board %>
+
+              <%#= link_to "Show this board", board_path(@board), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+              <%= button_to "Delete", board_path(@board), method: :delete, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+              <%#= link_to "Back to boards", tenant_boards_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+            </div>
+        </div>
+    </div>
+  
+    <div class="blur-overlay"></div>
+  </div>
+
+<% end %>

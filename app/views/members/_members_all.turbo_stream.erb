@@ -1,10 +1,10 @@
-            <%= turbo_stream.replace 'turbo_page_update' do %>
+<%= turbo_stream.replace 'turbo_page_update' do %>
 
-         <div id="turbo_page_update" class="w-1/6 md:w-4/6 lg:w-5/6 flex-grow overflow-y-auto max-h-[calc(100vh-80px)]" 
-         style="overflow-y: auto;">
-              <div class="top-2" >
-                <div class="bg-gray-200 p-4 flex justify-between items-center">
-                  <div id="sidebar_mobile_new_list" class="flex">                
+  <div id="turbo_page_update" class="w-1/6 md:w-4/6 lg:w-5/6 flex-grow overflow-y-auto max-h-[calc(100vh-80px)]" 
+  style="overflow-y: auto;">
+      <div class="top-2" >
+            <div class="bg-gray-200 p-4 flex justify-between items-center">
+              <div id="sidebar_mobile_new_list" class="flex">                
                     <%# <div class="md:hidden" role="button" data-action="click->navbar#toggle" >
                       &#9776;
                     </div> %>
@@ -14,11 +14,11 @@
                     <div>
                       <%#= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
                     </div>
-                  </div>
-                </div>
               </div>
+            </div>
+        </div>
 
-              <div class="flex flex-row h-[calc(100vh-150px)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-146px)] p-2">                      
+      <div class="flex flex-row h-[calc(100vh-150px)] md:h-[calc(100vh-146px)] lg:h-[calc(100vh-146px)] p-2">                      
 
                     <div class="w-full">
                     <% if notice.present? %>
@@ -42,8 +42,8 @@
                         <%= render @members %>
                     </div>
                     </div>
-              </div>
-            </div>
+      </div>
+  </div>
  
-            <% end %>
+<% end %>
 

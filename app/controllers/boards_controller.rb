@@ -1,10 +1,11 @@
 class BoardsController < ApplicationController
   before_action :set_board, only: %i[ show edit update destroy ]
-  before_action :set_boards_member, only: [:show]
+  before_action :set_boards_member, only: [:show, :update]
+
+  include ActionView::RecordIdentifier # include dom_id method identifier
 
   # GET /boards or /boards.json
-  def index
-    
+  def index    
     @boards = Board.all.where(tenant_id: params[:tenant_id])
   end
 
@@ -83,7 +84,7 @@ class BoardsController < ApplicationController
     #   redirect_to root_path
     #   flash[:danger] = "You are not permitted to create a boards!"
     
-    @board = Board.new(name: params[:name], tenant_id: params[:tenant_id], member_id: member.id)
+    @board = Board.new(name: params[:name], tenant_id: params[:tenant_id], member_id: member.id, font_color: params[:font_color], bg_color: params[:bg_color])
     @tenant = Tenant.find(params[:tenant_id])
     
     
@@ -111,10 +112,28 @@ class BoardsController < ApplicationController
 
   # PATCH/PUT /boards/1 or /boards/1.json
   def update
+
+    @current_user_boards = Board.where(member_id: @current_user_member.id, tenant_id: @current_tenant_id) if @current_user_member.present?
+
+    if !@current_user_member.present?
+      redirect_to tenants_path
+      flash[:danger] = "The board does not exist! Check your boards here"
+
+    end
+
     # debugger
     respond_to do |format|
+
+      @update_board = dom_id(@board) 
+
       #if @board.update(name: params[:name], tenant_it: params[:tenant_id], member_id: params[:member_id])
       if @board.update(board_params)
+
+        format.turbo_stream { render "update_board", 
+          locals: { board: @board, update_board: @update_board  }
+        }
+
+
         format.html { redirect_to board_url(@board), notice: "Board was successfully updated." }
         format.json { render :show, status: :ok, location: @board }
       else
@@ -160,7 +179,7 @@ class BoardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def board_params
-      params.require(:board).permit(:name, :member_id, :tenant_id)
+      params.require(:board).permit(:name, :member_id, :tenant_id, :font_color, :bg_color)
       # params.permit(:name, :member_id, :tenant_id)
     end
 end
