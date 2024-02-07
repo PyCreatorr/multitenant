@@ -21,13 +21,13 @@
 
     <div class="my-5">
     <%= form.label :font_color %>
-    <%= form.color_field :font_color %>
+    <%= form.color_field :font_color, {value: board.bg_color.present? ? board.font_color : "#000000"} %>
   </div>
 
   
   <div class="my-5">
     <%= form.label :bg_color %>
-    <%= form.color_field :bg_color %>
+    <%= form.color_field :bg_color, {value: board.bg_color.present? ? board.bg_color : "#E5E7EB"} %>
   </div>
 
   <div class="my-5">
