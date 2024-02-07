@@ -49,9 +49,9 @@
       </div>
 
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <%= content_tag(:div, "", data: {controller: "menu"}, class:"sm:items-stretch sm:justify-start") do %>
+        <%= content_tag(:div, "", data: {controller: "menu-drop"}, class:"sm:items-stretch sm:justify-start") do %>
 
-          <%= content_tag(:button, data: {action: "click->menu#toggle"}, class: "inline-flex w-full justify-center text-sm font-small") do %>
+          <%= content_tag(:button, data: {action: "click->menu-drop#toggle"}, class: "inline-flex w-full justify-center text-sm font-small") do %>
           <%# <i class="fa-regular fa-solid fa-circle-user fa-lg" style="color: #a66cfe; padding:0 5px 0 5px"></i> %>
           <div class="avatar_circle">
             <% if user_signed_in? %>
@@ -63,10 +63,9 @@
             <% end %> 
           </div>
 
-        <% end %>
-        
+        <% end %>        
         <!-- Dropdown menu Account -->
-                <div data-menu-target="toggleable" class="absolute right-0 z-10000 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" 
+        <div id="dropdown_menu_user" data-menu-drop-target="toggleable" class="absolute right-0 z-10000 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" 
                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" style="z-index: 90000;">
           <div class="px-4 py-3">
             <span class="block text-sm text-gray-900 dark:text-white"><%= current_user.email if user_signed_in? %></span>

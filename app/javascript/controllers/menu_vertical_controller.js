@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-//import _ from "lodash"
+//import _ from "lodash !!!!"
 
 export default class extends Controller {
 
@@ -9,6 +9,21 @@ export default class extends Controller {
     // toggle function will be here 
   connect() {
     //this.element.textContent = "Hello World!!!"
+
+        // Add click event listener to close the field when clicking outside the textarea
+        // document.addEventListener("click", (event)=> {
+        //   console.log("event.target=", event.target);
+        //  if (event.target.contains(divField)) {
+        //      if (inputField) inputField.remove();
+        //      let bluredField = document.getElementById("bluredField");
+        //      if (bluredField) bluredField.remove();
+   
+        //      this.originalNameTarget.querySelector("a").style.visibility = "visible";
+        //      this.originalNameTarget.style.borderStyle = "solid";
+        //      this.originalNameTarget.style.backgroundColor="#ffffff";
+        //    }
+        //  });
+        //console.log("Hello World!!!");
   };
 
   dropdownHide() {
