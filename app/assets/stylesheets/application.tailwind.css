@@ -351,8 +351,8 @@ body {
 .tree_points {
   width: 28px; /* Adjust the size of the circle as needed */
   height: 28px; /* Adjust the size of the circle as needed */
-  background-color: #a66cfe;
-  border-radius: 5%;
+  /* background-color: #a66cfe; */
+  border-radius: 20%;
   
   display: flex;
   align-items: center;
@@ -361,11 +361,13 @@ body {
   font-size: 18px; /* Adjust the font size of the letter "T" */
   font-weight: 600; /* You can adjust the font weight if needed */
   transition: background-color 0.1s ease, outline 0.1s ease;
+  padding: 5px 0 5px 0;
 }
 
-.tree_points:hover {
-  background-color: #62d092;
-  outline: 4px solid rgb(67, 84, 109);
-}
+/* .tree_points:hover { */
+  /* background-color: #62d092; */
+  /* outline: 4px solid rgb(67, 84, 109); */
+  /* padding: 5px 0 5px 0; */
+/* } */
 
 @import 'actiontext.css';
