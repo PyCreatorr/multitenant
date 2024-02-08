@@ -53,9 +53,9 @@
          style="overflow-y: hidden;">
               <div class="top-2" >
                 <div class="bg-gray-200 p-4 flex justify-between items-center" 
-                style='overflow-y: hidden;<% if @board.bg_color != "#e5e7eb" %>background-color:<%= @board.bg_color %><% end %>;
-                <% if @board.font_color != "#000000" %> color: <%= @board.font_color %><% end %>
-                '>
+                style='overflow-y: hidden; <% if @board.bg_color != "#e5e7eb" %>background-color:<%= @board.bg_color %><% end %>;
+                <% if @board.font_color != "#000000" %> color: <%= @board.font_color  %><% end %>'
+                >
                   <div id="sidebar_mobile_name" class="font-bold p-0 m-0 space-x-2" style="display: flex; flex-direction: column; flex: 1 1 0%; overflow: hidden; "><%= @board.name %></div>
                   <div id="sidebar_mobile_new_list" class="flex">                
                     <%# <div class="md:hidden" role="button" data-action="click->navbar#toggle" >
@@ -67,12 +67,50 @@
                     <div class="px-1">
                       <%= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
                     </div>
-                    <div class="px-1">
-                      <%= link_to "Edit Board", edit_board_path(@board), data: {turbo_frame: "modal"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
-                    </div>
-                    <div class="px-1">
-                      <%= link_to "Delete Board", "/boards/#{@board.id}", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
-                    </div>
+                      <%= content_tag(:div, "", data: {controller: "menu-drop-board"}, class:"sm:items-stretch sm:justify-start") do %>
+                        <%= content_tag(:button, data: {action: "click->menu-drop-board#toggleBoard"}, class: "inline-flex w-full justify-center text-sm font-small") do %>
+                          <%# <i class="fa-regular fa-solid fa-circle-user fa-lg" style="color: #a66cfe; padding:0 5px 0 5px"></i> %>
+                          <div class="tree_points inline-flex items-center p-2 py-3 text-sm font-medium text-center rounded-sm hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600 bg-gray-200"
+                          style='<% if @board.bg_color != "#e5e7eb" %>background-color:<%= @board.bg_color %><% end %>;
+                          <% if @board.font_color != "#000000" %> color: <%= @board.font_color  %><% end %>'
+                          onmouseover="this.style.backgroundColor='#ffffff59';" onmouseout="this.style.backgroundColor='<% if @board.bg_color != '#e5e7eb' %><%= @board.bg_color %><% end %>';"
+                           >
+                              <%# <svg class="-mr-0 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="rgb(31 41 55)" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" 
+                                clip-rule="evenodd" />
+                              </svg> %>
+
+                              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+                              <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                              </svg>
+                          </div>
+
+                        <% end %>                   
+
+                        <!-- Dropdown menu -->
+                        <div id="dropdown_menu_board" data-menu-drop-board-target="dropdownboard" 
+                        class="fixed right-0 z-10 hidden bg-white divide-y divide-gray-100 rounded-sm shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                        role="menu" aria-orientation="vertical" aria-labelledby="menu-button" style="z-index: 40; top:145px"
+                        >
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                              <li>
+                                <%= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>                                
+                              </li>
+                              <li>
+                              <%= link_to "Edit Board", edit_board_path(@board), data: {turbo_frame: "modal"}, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>                                
+                              </li>
+                              <li>
+                              <%= link_to "Delete Board", "/boards/#{@board.id}", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                              </li>
+                              <%# <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                              </li> %>
+                            </ul>
+                            <!-- <div class="py-2">
+                            <%= link_to "Delete Board", "/boards/#{@board.id}", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>                              
+                            </div>-->
+                        </div>
+                    <% end %>
                   </div>
                 </div>
               </div>
@@ -92,7 +130,6 @@
                         </div>
                       <%# end %>
                     <% end %>
-
                   </div>
                 </div>
               </div>
