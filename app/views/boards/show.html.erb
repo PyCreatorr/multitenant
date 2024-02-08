@@ -61,10 +61,10 @@
                     <div class="px-1">
                       <%= link_to "New list", "/boards/#{@board.id}/lists/new", data: {turbo_frame: "modal"}, class: "space-x-2 rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium;" %>
                     </div>
-                      <%= content_tag(:div, "", data: {controller: "menu-drop-board"}, class:"sm:items-stretch sm:justify-start") do %>
+                      <%= content_tag(:div, "", data: {controller: "menu-drop-board"}, class:"sm:items-stretch sm:justify-start", style:"padding-top:2px") do %>
                         <%= content_tag(:button, data: {action: "click->menu-drop-board#toggleBoard"}, class: "inline-flex w-full justify-center text-sm font-small") do %>
                           <%# <i class="fa-regular fa-solid fa-circle-user fa-lg" style="color: #a66cfe; padding:0 5px 0 5px"></i> %>
-                          <div class="tree_points inline-flex items-center p-2 py-3 text-sm font-medium text-center rounded-sm hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600 bg-gray-200"
+                          <div class="tree_points inline-flex items-center p-2 py-3 text-sm font-medium text-center rounded-md hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600 bg-gray-200"
                           style='<% if @board.bg_color != "#e5e7eb" %>background-color:<%= @board.bg_color %><% end %>;
                           <% if @board.font_color != "#000000" %> color: <%= @board.font_color  %><% end %>'
                           onmouseover="this.style.backgroundColor='#ffffff59';" onmouseout="this.style.backgroundColor='<% if @board.bg_color != '#e5e7eb' %><%= @board.bg_color %><% end %>';"

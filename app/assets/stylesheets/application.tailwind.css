@@ -352,7 +352,7 @@ body {
   width: 40px; /* Adjust the size of the circle as needed */
   height: 40px; /* Adjust the size of the circle as needed */
   background-color: #e5e7eb;
-  border-radius: 40%;
+  border-radius: 0.5rem;
   
   display: flex;
   align-items: center;
