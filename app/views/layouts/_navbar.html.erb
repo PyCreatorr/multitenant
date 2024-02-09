@@ -65,7 +65,7 @@
         <!-- fixed right-0 z-100000 hidden bg-white divide-y divide-gray-100 rounded-sm shadow w-44 dark:bg-gray-700 dark:divide-gray-600 -->
         <div id="dropdown_menu_user" data-menu-drop-target="toggleUser" 
         class="absolute right-0 top-0 mt-8 z-1000000 mt-4 w-56 bg-white divide-y divide-gray-100 rounded-sm shadow-lg dark:bg-gray-700 dark:divide-gray-600 hidden" 
-        style="top:49px; right:-8px;"
+        style="top:32px; right:-8px;"
                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" style="z-index: 90000;">
           <div class="px-4 py-3">
             <span class="block text-sm text-gray-900 dark:text-white"><%= current_user.email if user_signed_in? %></span>
@@ -127,7 +127,7 @@
   
   <!-- Mobile menu, show/hide based on menu state. -->
   <div id="dropdown_menu_mobile" data-menu-drop-target="dropdownmobile" class="sm:hidden relative hidden">
-    <div class="mt-4 bg-white shadow-lg origin-top-right ring-1 ring-black ring-opacity-5 fixed top-10 left-0 right-0" style="z-index: 90000; top: 49px">
+    <div class="mt-4 bg-white shadow-lg origin-top-right ring-1 ring-black ring-opacity-5 fixed top-10 left-0 right-0" style="z-index: 90000; top: 48px">
       <%= link_to 'Dashboard', root_path, class: 'text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium' %>
       <%= link_to 'Workspaces', tenants_path, class: 'text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium' %>
       <a href="#" class="text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ">My Friends</a>
