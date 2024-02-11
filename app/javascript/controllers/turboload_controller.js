@@ -19,7 +19,7 @@ export default class extends Controller {
 
   handleDOMContentLoaded = () => {
     // Code to be executed when DOMContentLoaded event fires
-    console.log('DOMContentLoaded event fired!');
+    console.log('DOMContentLoaded event fired!!');
 
     let div2Scroll = document.getElementById('lists');
     const icon_sidebar = document.getElementById("sidebar_buttom_slide");

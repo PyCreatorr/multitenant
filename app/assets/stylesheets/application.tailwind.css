@@ -330,8 +330,9 @@ body {
 /* AVATAR ICON*/
 
 .avatar_circle {
-  width: 28px; /* Adjust the size of the circle as needed */
-  height: 28px; /* Adjust the size of the circle as needed */
+  /*  width: 44px;  */
+  /* height: 44px;   */
+  padding: 4px 12px 4px 12px;
   background-color: #a66cfe;
   border-radius: 50%;
   display: flex;

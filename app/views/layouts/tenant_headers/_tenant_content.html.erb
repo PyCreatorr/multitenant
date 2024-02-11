@@ -16,7 +16,7 @@
                       <div class="flex lg:w-1/2 mb-2 lg:mb-0">
                         <div class="px-1">
                         <%#= link_to "Boards", select_all_tenant_boards_path(@current_tenant_id), data:{turbo_stream: true} %>
-                        <%= link_to select_all_tenant_boards_path(tenant.id), data:{turbo_stream: true}, class: "px-2 py-1 text-xs font-medium text-center inline-flex items-center text-white bg-gray-600 rounded-sm hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-blue-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800" do %>
+                        <%= link_to tenant_path(tenant.id), data:{turbo_stream: true}, class: "px-2 py-1 text-xs font-medium text-center inline-flex items-center text-white bg-gray-600 rounded-sm hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-blue-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800" do %>
                         <i class="fa-brands fa-flipboard mr-1"></i>   
                         <%#= link_to "Boards", tenant_boards_path(tenant.id)%>                     
                         Boards
