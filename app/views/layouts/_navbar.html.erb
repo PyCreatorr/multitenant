@@ -50,7 +50,7 @@
 
           <%= content_tag(:button, data: {action: "click->menu-drop#toggleUser"}, class: "inline-flex w-full justify-center text-sm font-small") do %>
           <%# <i class="fa-regular fa-solid fa-circle-user fa-lg" style="color: #a66cfe; padding:0 5px 0 5px"></i> %>
-          <div class="avatar_circle" style="padding:5px; width:28; height:28px">
+          <div class="avatar_circle" style="padding:5px; width:28px; height:28px">
             <% if user_signed_in? %>
                 <%= current_user.email.to_s[0].upcase %>
             <% else %>
