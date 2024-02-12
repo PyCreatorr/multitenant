@@ -558,10 +558,6 @@ class TasksController < ApplicationController
     if @task.description.present?
       pdf.markup(@task.description.body.to_rendered_html_with_layout().force_encoding('UTF-8'))
     end
-
-    
-
-
     
     
     send_data(pdf.render,
@@ -578,6 +574,14 @@ class TasksController < ApplicationController
         filename: "#{@task.name}.pdf",
         type: 'application/pdf',
         disposition: 'inline')
+      rescue Prawn::Errors::UnsupportedImageType
+        pdf = Prawn::Document.new
+        pdf.text "You can't use this png format in the title! You should convert into jpg!"
+        send_data(pdf.render,
+          filename: "#{@task.name}.pdf",
+          type: 'application/pdf',
+          disposition: 'inline')
+
       
   end
 
