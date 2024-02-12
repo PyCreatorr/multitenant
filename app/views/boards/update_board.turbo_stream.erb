@@ -7,18 +7,20 @@
           <% if @board.font_color != "#000000" %> color: <%= @board.font_color %><% end %>'>
             
 
-                <div role="button" data-action="click->sidebar-new-board#toggle"
+                <!-- <div role="button" data-action="click->sidebar-new-board#toggle"
                 class="fixed"
                   style="z-index: 1000000; overflow-y: hidden; justify-content: right; width: 100%; padding-left:10px">
                     <i id="sidebar_buttom_slide"  
                     class="fa-solid fa-angle-<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? "right" : "left" %>
                     " 
                     style="color: #111d32;<% if @board.font_color != "#000000" %> color: <%= @board.font_color %><% end %>"></i>
-                </div>
+                </div> -->
+
+                <%= render partial: "layouts/sidebar/sidebar_button", locals: {font_color: @board.font_color}  %>
 
                 <div id="board_sidebar_information"
                 class="justify-between sticky h-[calc(100vh-120px)]" 
-                style="padding-top:25px; overflow-y: auto; <%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? 'opacity: 0; transition: visibility 0ms linear 100ms, opacity 200ms; ': 'opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;'%>">
+                style="padding-top:35px; overflow-y: auto; <%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? 'opacity: 0; transition: visibility 0ms linear 100ms, opacity 200ms; ': 'opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;'%>">
                   
                   <div class="overflow-y-auto">
 

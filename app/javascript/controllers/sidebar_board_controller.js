@@ -90,7 +90,7 @@ export default class extends Controller {
       // console.log("fa-angle-right", s_position);
       
       //sidebar_info.style.visibility = "hidden";
-      sidebar_info.style="padding-top:25px; overflow: hidden; opacity: 0; transition: visibility 0ms linear 100ms, opacity 100ms;";
+      sidebar_info.style="padding-top:35px; overflow: hidden; opacity: 0; transition: visibility 0ms linear 100ms, opacity 100ms;";
       //sidebar_info.innerHTML="";
       //sidebar_info.classList.add('hide');
       if (screen.width <= 1024 ) {
@@ -107,7 +107,7 @@ export default class extends Controller {
       s_position = "opened";
       console.log("fa-angle-left", s_position);
       //sidebar_info.style.visibility = "visible";
-      sidebar_info.style="padding-top:25px; overflow-y: auto; opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;";
+      sidebar_info.style="padding-top:35px; overflow-y: auto; opacity: 1; transition: visibility 100ms linear 500ms, opacity 500ms;";
 
       if (screen.width <= 1024 ) {
         sidebar_mobile_name.style = "overflow: hidden; white-space: nowrap; text-overflow: ellipsis;";

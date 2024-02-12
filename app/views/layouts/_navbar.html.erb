@@ -126,8 +126,8 @@
   </div>
   
   <!-- Mobile menu, show/hide based on menu state. -->
-  <div id="dropdown_menu_mobile" data-menu-drop-target="dropdownmobile" class="sm:hidden relative hidden">
-    <div class="mt-4 bg-white shadow-lg origin-top-right ring-1 ring-black ring-opacity-5 fixed top-10 left-0 right-0" style="z-index: 90000; top: 48px">
+  <div id="dropdown_menu_mobile" data-menu-drop-target="dropdownmobile" class="sm:hidden hidden">
+    <div class="mt-4 bg-white shadow-lg origin-top-right ring-1 ring-black ring-opacity-5 fixed top-10 left-0 right-0" style="position:absolute; z-index: 900000000; top: 48px">
       <%= link_to 'Dashboard', root_path, class: 'text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium' %>
       <%= link_to 'Workspaces', tenants_path, class: 'text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium' %>
       <a href="#" class="text-gray-700 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ">My Friends</a>

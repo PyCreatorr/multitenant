@@ -12,7 +12,7 @@ export default class extends Controller {
 
   connect() {
 
-    // console.log("Connected_task");
+    console.log("Connected_task!!");
     this.originalNameTarget = null;
 
   }
@@ -165,6 +165,7 @@ export default class extends Controller {
     //inputField.style.width="244px"; 
     // inputField.style.zIndex="100000"; 
     inputField.style.position="absolute"; 
+    inputField.style.zIndex ="500000000";
     inputField.style.height = 'auto';
     inputField.style.wordBreak= "break-all";
     inputField.style.resize="both";
@@ -193,7 +194,7 @@ export default class extends Controller {
 
     // Add click event listener to close the field when clicking outside the textarea
     document.addEventListener("click", (event)=> {
-       console.log("event.target=", event.target);
+       //console.log("event.target!!=", event.target);
       if (event.target.contains(divField)) {
           if (inputField) inputField.remove();
           let bluredField = document.getElementById("bluredField");

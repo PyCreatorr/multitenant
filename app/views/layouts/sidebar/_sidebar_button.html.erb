@@ -1,0 +1,8 @@
+<div  role="button" data-action="click->sidebar-board#toggle"                
+class="avatar_circle" 
+style="color:white; position: absolute; overflow-y: hidden; margin:4px 10px 10px 5px; padding: 5px 10px 5px 10px">
+            <i id="sidebar_buttom_slide"  
+    class="fa-solid fa-angle-<%= (current_user.preference && current_user.preference[:sidebar_position] && current_user.preference[:sidebar_position] == "closed") ? "right" : "left" %>
+    " 
+    style="cursor:pointer; color: #111d32;<% if font_color != "" %> color: <%= font_color %><% end %>"></i>
+</div>
