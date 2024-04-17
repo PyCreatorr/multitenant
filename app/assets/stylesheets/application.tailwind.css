@@ -34,7 +34,7 @@ body {
   position: fixed;
   z-index: 1000000000;
   padding: 2em;
-
+  min-height: 95%; 
   
   /* Centering */
   left: 50%;
@@ -47,6 +47,12 @@ body {
   border-radius: 5px;
   /* Add the drop shadow */
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.2), 0 5px 10px 0 rgba(0,0,0,0.19);
+}
+
+@media only screen and (max-width: 750px){
+  .modal {
+    min-height: 100%; 
+  }
 }
 
 .cancel-button {
