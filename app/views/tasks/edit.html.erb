@@ -1,6 +1,6 @@
 <%= turbo_frame_tag :modal do %>
   <div class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-2rem)] max-h-full">
-    <div class="relative p-4 w-full md:w-3/4 lg:w-1/2 max-h-full modal" data-controller="turbomodal" data-action="turbo:submit-end->turbomodal#submitEnd">
+    <div class="relative p-4 w-full md:w-3/4 lg:w-1/2 max-h-full modal modal_edit_task" data-controller="turbomodal" data-action="turbo:submit-end->turbomodal#submitEnd">
       <div class="flex flex-col" style="overflow-y: auto;">
         <div class="mx-auto w-full">
             <div data-controller="turbomodal" data-action="click->turbomodal#close">
