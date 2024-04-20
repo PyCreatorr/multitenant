@@ -220,7 +220,7 @@ class TasksController < ApplicationController
         @list = List.find(@task.list_id)
         @board = Board.find(@list.board_id)
 
-        format.turbo_stream { render "lists/update_list", 
+        format.turbo_stream { render "lists/edited_list_update", 
           locals: { board: @board, list: @list, list_2_update: @list_2_update, position: 0  }
         }
 

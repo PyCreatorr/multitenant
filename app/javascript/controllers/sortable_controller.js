@@ -55,7 +55,7 @@ export default class extends Controller {
 
   onEnd(event){
     console.log("event.to=", event.to);
-    console.log("event.to.dataset.sortableListId=", event.to.dataset.sortableListId);
+    console.log("event.to.dataset.sortableListId=", event.item.dataset.sortableListId);
     //console.log("event=", event.item);
     //console.log("this.element.textContent", this.element.textContent);
     // console.log(event.item.dataset.sortableId);
