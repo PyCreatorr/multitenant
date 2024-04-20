@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :boards, only: [:show, :edit, :update, :destroy]
+  resources :boards, only: [:show, :edit, :update, :destroy] do
+    member do # sort_board PUT /boards/:id/sort(.:format) boards#sort
+      put :sort
+    end
+  end
 
   resources :boards, only: [:show] do
     resources :lists, only: [:index, :new, :create]  

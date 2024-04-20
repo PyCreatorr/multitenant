@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_06_164715) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_20_105030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_164715) do
     t.datetime "updated_at", null: false
     t.string "font_color"
     t.string "bg_color"
+    t.integer "row_order"
     t.index ["member_id"], name: "index_boards_on_member_id"
     t.index ["tenant_id"], name: "index_boards_on_tenant_id"
   end

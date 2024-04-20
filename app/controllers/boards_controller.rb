@@ -6,14 +6,42 @@ class BoardsController < ApplicationController
 
   # GET /boards or /boards.json
   def index    
-    @boards = Board.all.where(tenant_id: params[:tenant_id])
+    # @boards = Board.all.where(tenant_id: params[:tenant_id]).rank(:row_order)
+    @boards = Board.all.where(tenant_id: params[:tenant_id]).rank(:row_order)
+  end
+
+  def sort
+    @board = Board.find(params[:id])
+    respond_to do |format|
+      if @board.update(row_order_position: params[:row_order_position])
+        # debugger
+
+        format.html {
+          headers["www-Authenticate"] = root_url
+          # head :unauthorized
+          head :no_content
+        }
+        # format.turbo_stream{ head :no_content }
+        # format.turbo_stream { render "users/new_friend", 
+        #   locals: { friend: "", allowed: false,  flash_notice: "The friend #{params[:full_name]} #{params[:email]} is already trackt!" }
+        # }
+        @update_board = dom_id(@board, :sortable)
+        # debugger
+        #format.turbo_stream { render turbo_stream: turbo_stream.update(dom_id(@list, :sortable))}
+        format.turbo_stream { render "update_board", 
+          locals: { board: @board, update_board: @update_board  }
+        }        
+        # format.turbo_stream { render turbo_stream: turbo_stream.remove(dom_id(@scan, :uploaded_image))}
+
+      end
+    end
   end
 
 
   def select_all
     #@members = Member.find(params[:tenant_id].
 
-    @boards = Board.all.where(tenant_id: params[:tenant_id])
+    @boards = Board.all.where(tenant_id: params[:tenant_id]).rank(:row_order)
     
     # @members = @current_tenant.members
 
@@ -69,6 +97,16 @@ class BoardsController < ApplicationController
 
   # GET /boards/1/edit
   def edit
+
+    positions = []
+    i = 0
+    Board.where(tenant_id: @board.tenant_id).rank(:row_order).each do |board|
+      positions[i]=[board.row_order, i+1]
+      i=i+1      
+    end
+    
+    @positions = positions
+
   end
 
   # POST /boards or /boards.json
@@ -114,12 +152,68 @@ class BoardsController < ApplicationController
   def update
 
     @current_user_boards = Board.where(member_id: @current_user_member.id, tenant_id: @current_tenant_id) if @current_user_member.present?
-
     if !@current_user_member.present?
       redirect_to tenants_path
       flash[:danger] = "The board does not exist! Check your boards here"
 
     end
+
+    # Get the actual positions array of the boards in the tenant
+    positions = []
+    i = 0
+    Board.where(tenant_id: @board.tenant_id).rank(:row_order).each do |board|
+      positions[i]=[board.row_order, i+1]
+      i=i+1      
+    end
+    
+    @positions = positions
+    
+    #### SORT LOGIC #################
+
+    pos_current = 0;
+    pos_new = 0;
+    pos_new_more = 0;
+
+    r_order_new = -1;
+    r_order_current = -1;
+    r_order_new_more = -1;
+
+    # debugger
+
+    # Get current position number & current row order
+    pos_current = @positions.find { |el| el[0].to_s == @board.row_order.to_s }[1] if @board 
+    r_order_current = @positions.find { |el| el[0].to_s == @board.row_order.to_s }[0] if @board 
+
+    # Get the row order selected new position
+    if @positions.find { |el| el[0].to_s == params[:board][:row_order] }[1]      
+      pos_new = @positions.find { |el| el[0].to_s == params[:board][:row_order] }[1]      
+      r_order_new = @positions.find { |el| el[0].to_s == params[:board][:row_order] }[0]      
+    end     
+    
+    pos_current = 0 if pos_current == nil
+    
+    # If the new position is greater then the old position, but not the last position
+    if (pos_new > pos_current) && (pos_new < @positions.length)
+      pos_new_more = pos_new + 1 
+      r_order_new_more = @positions.find { |el| el[1] == pos_new_more }[0]
+
+      min_l = r_order_new + 1
+      max_l = r_order_new_more - 1
+      params[:board][:row_order] = (rand(min_l..max_l)).to_s 
+
+    # If the new position is greater then the old position and the last position
+    elsif (pos_new > pos_current) && (pos_new == @positions.length)      
+      r_order_new_more = r_order_new + 1
+
+      min_l = r_order_new + 1
+      max_l = r_order_new_more - 1
+      params[:board][:row_order] = (rand(min_l..max_l)).to_s 
+    end
+
+    # If we've choose smaller position than the current
+    params[:board][:row_order] = (r_order_new - 1).to_s if pos_new < pos_current
+
+    ######## END #####
 
     # debugger
     respond_to do |format|
@@ -179,7 +273,7 @@ class BoardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def board_params
-      params.require(:board).permit(:name, :member_id, :tenant_id, :font_color, :bg_color)
+      params.require(:board).permit(:name, :member_id, :tenant_id, :font_color, :bg_color, :row_order, :positions)
       # params.permit(:name, :member_id, :tenant_id)
     end
 end

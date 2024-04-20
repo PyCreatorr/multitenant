@@ -40,7 +40,7 @@
 
                     
                     <div id="tenant_<%= tenant.id %>" class="flex flex-wrap px-0" >
-                    <% tenant.boards.each do |board| %>
+                    <% tenant.boards.rank(:row_order).each do |board| %>
 
                     <%#= board.name %>
                     
