@@ -108,5 +108,6 @@ Rails.application.configure do
   end
 
   # Do not dump schema after migrations.
-  # config.active_record.dump_schema_after_migration = false
+  config.active_record.dump_schema_after_migration = false
+  config.action_controller.default_url_options = { host: 'https://multitenant-359589024f01.herokuapp.com' }
 end
