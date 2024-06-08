@@ -24,7 +24,7 @@ class Task < ApplicationRecord
         # return redirect_to root_path
        errors.add(:cover_image, "One or more files are too large. Please upload files smaller than 1 MB each.")
 
-    end
+      end
   end
 
 end
