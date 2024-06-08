@@ -6,7 +6,7 @@ class Task < ApplicationRecord
 
   validates :name, presence: true  
 
-  validate :attachments_size
+  # validate :attachments_size
   
   belongs_to :list
   # belongs_to :board
