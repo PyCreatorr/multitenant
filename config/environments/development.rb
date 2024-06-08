@@ -62,7 +62,7 @@ Rails.application.configure do
   # assets.compile option enables the live compilation through Sprockets
   # https://guides.rubyonrails.org/asset_pipeline.html#live-compilation
   # config.assets.compile = true
-  config.assets.debug = true
+  # config.assets.debug = true
   # config.assets.digest = false
 
   # Raises error for missing translations.
