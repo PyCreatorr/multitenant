@@ -229,10 +229,10 @@ class TasksController < ApplicationController
         # format.json { render :show, status: :created, location: @task }
       else
         flash[:danger] = @task.errors.full_messages.join(", ")
-        redirect_back(fallback_location: root_path)
+        # redirect_back(fallback_location: root_path)
 
-        # format.html { render :new, status: :unprocessable_entity }
-        # format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
